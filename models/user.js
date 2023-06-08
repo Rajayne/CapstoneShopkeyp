@@ -2,7 +2,7 @@
 const db = require('../db');
 const bcrypt = require('bcrypt');
 const ExpressError = require('../expressError');
-const { BCRYPT_WORK_FACTOR } = require('../config.js');
+
 class User {
   constructor({
     userId,
