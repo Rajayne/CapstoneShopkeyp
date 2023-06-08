@@ -1,4 +1,6 @@
+/* eslint-disable comma-dangle */
 const db = require('../db');
+const bcrypt = require('bcrypt');
 
 class User {
   constructor({
@@ -17,15 +19,6 @@ class User {
     this.is_admin = isAdmin;
     this.active = active;
     this.date_created = dateCreated;
-  }
-
-  static async all() {
-    const results = await db.query(
-      `SELECT user_id, username, profile_image, balance, is_admin, active, date_created
-         FROM users
-         ORDER BY username`
-    );
-    return results.rows.map((u) => new User(u));
   }
 }
 
