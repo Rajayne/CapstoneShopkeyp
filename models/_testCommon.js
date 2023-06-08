@@ -1,48 +1,49 @@
 /* eslint-disable comma-dangle */
 const db = require('../db');
+const User = require('./user');
 const bcrypt = require('bcrypt');
 const { BCRYPT_WORK_FACTOR } = require('../config');
 
-let user1;
-let admin1;
+let testAdmin;
+let testUser;
 
 async function commonBeforeAll() {
   await db.query('DELETE FROM users');
 
-  const user = await db.query(
+  const admin = await db.query(
     `INSERT INTO users 
-      (username, password, isAdmin) 
+      (username, password, profile_image, is_admin) 
     VALUES 
-      ('user1', $1, false) 
+      ('user1', $1, 'userProfile.png', false) 
     RETURNING 
-      userId, 
-      username, 
-      profileImage, 
+      user_id AS "userId",
+      username,
+      profile_image AS "profileImage",
       balance,
-      isAdmin,
+      is_admin AS "isAdmin",
       active,
-      dateCreated`,
+      date_created AS "dateCreated"`,
     [await bcrypt.hash('userPass1', BCRYPT_WORK_FACTOR)]
   );
 
-  const admin = await db.query(
+  const user = await db.query(
     `INSERT INTO users 
-      (username, password, isAdmin) 
+      (username, password, profile_image, is_admin) 
     VALUES 
-      ('admin1', $1, true) 
-    RETURNING 
-      userId, 
-      username, 
-      profileImage, 
+      ('admin1', $1, 'adminProfile.png', true) 
+      RETURNING 
+      user_id AS "userId",
+      username,
+      profile_image AS "profileImage",
       balance,
-      isAdmin,
+      is_admin AS "isAdmin",
       active,
-      dateCreated`,
+      date_created AS "dateCreated"`,
     [await bcrypt.hash('adminPass1', BCRYPT_WORK_FACTOR)]
   );
 
-  user1 = user;
-  admin1 = admin;
+  testAdmin = admin.rows.map((a) => new User(a));
+  testUser = user.rows.map((u) => new User(u));
 }
 
 async function commonBeforeEach() {
@@ -62,6 +63,6 @@ module.exports = {
   commonBeforeEach,
   commonAfterEach,
   commonAfterAll,
-  user1,
-  admin1,
+  testAdmin,
+  testUser,
 };

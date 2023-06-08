@@ -3,7 +3,6 @@ const db = require('../db');
 const bcrypt = require('bcrypt');
 const ExpressError = require('../expressError');
 const { BCRYPT_WORK_FACTOR } = require('../config.js');
-
 class User {
   constructor({
     userId,
@@ -44,6 +43,21 @@ class User {
     }
 
     throw new ExpressError('Invalid username/password', 401);
+  }
+
+  static async all() {
+    const results = await db.query(
+      `SELECT user_id AS "userId", 
+         username,  
+         profile_image AS "profileImage",
+         balance,
+         is_admin AS "isAdmin",
+         active,
+         date_created AS "dateCreated"
+       FROM users
+       ORDER BY username`
+    );
+    return results.rows.map((u) => new User(u));
   }
 }
 
