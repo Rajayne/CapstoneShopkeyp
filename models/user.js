@@ -1,21 +1,32 @@
-const db = require("../db");
+const db = require('../db');
 
 class User {
   constructor({
-    user_id,
+    userId,
     username,
-    profile_image,
+    profileImage,
     balance,
-    is_admin,
+    isAdmin,
     active,
-    date_created,
+    dateCreated,
   }) {
-    this.user_id = user_id;
+    this.user_id = userId;
     this.username = username;
-    this.profile_image = profile_image;
+    this.profile_image = profileImage;
     this.balance = balance;
-    this.is_admin = is_admin;
+    this.is_admin = isAdmin;
     this.active = active;
-    this.date_created = date_created;
+    this.date_created = dateCreated;
+  }
+
+  static async all() {
+    const results = await db.query(
+      `SELECT user_id, username, profile_image, balance, is_admin, active, date_created
+         FROM users
+         ORDER BY username`
+    );
+    return results.rows.map((u) => new User(u));
   }
 }
+
+module.exports = User;

@@ -6,10 +6,4 @@ class ExpressError extends Error {
   }
 }
 
-class NotFoundError extends ExpressError {
-  constructor(message = "Not Found") {
-    super(message, 404);
-  }
-}
-
-module.exports = { ExpressError, NotFoundError };
+module.exports = { ExpressError };
