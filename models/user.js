@@ -14,13 +14,13 @@ class User {
     active,
     dateCreated,
   }) {
-    this.user_id = userId;
+    this.userId = userId;
     this.username = username;
-    this.profile_image = profileImage;
+    this.profileImage = profileImage;
     this.balance = balance;
-    this.is_admin = isAdmin;
+    this.isAdmin = isAdmin;
     this.active = active;
-    this.date_created = dateCreated;
+    this.dateCreated = dateCreated;
   }
 }
 
