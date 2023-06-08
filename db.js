@@ -1,14 +1,20 @@
 const { Client } = require('pg');
-const { user, password } = require('../dbPassword');
+const { getDatabaseUri } = require('./config');
 
-const DB_URI =
-  process.env.NODE_ENV === 'test'
-    ? `postgresql://${user}:${password}@localhost:5432/shopkeyp_test`
-    : `postgresql://${user}:${password}@localhost:5432/shopkeyp`;
+let db;
 
-const db = new Client({
-  connectionString: DB_URI,
-});
+if (process.env.NODE_ENV === 'production') {
+  db = new Client({
+    connectionString: getDatabaseUri(),
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  });
+} else {
+  db = new Client({
+    connectionString: getDatabaseUri(),
+  });
+}
 
 db.connect();
 
