@@ -22,6 +22,29 @@ class User {
     this.active = active;
     this.dateCreated = dateCreated;
   }
+
+  static async authenticate(username, password) {
+    const result = await db.query(
+      `SELECT username,
+              password,
+              is_admin AS "isAdmin"
+           FROM users
+           WHERE username = $1`,
+      [username]
+    );
+
+    const user = result.rows[0];
+
+    if (user) {
+      const isValid = await bcrypt.compare(password, user.password);
+      if (isValid === true) {
+        delete user.password;
+        return user;
+      }
+    }
+
+    throw new ExpressError('Invalid username/password', 401);
+  }
 }
 
 module.exports = User;

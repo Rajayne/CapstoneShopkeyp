@@ -1,5 +1,7 @@
 /* eslint-disable comma-dangle */
 const db = require('../db');
+const bcrypt = require('bcrypt');
+const { BCRYPT_WORK_FACTOR } = require('../config');
 
 let user1;
 let admin1;
@@ -20,7 +22,7 @@ async function commonBeforeAll() {
       isAdmin,
       active,
       dateCreated`,
-    ['userPass1']
+    [await bcrypt.hash('userPass1', BCRYPT_WORK_FACTOR)]
   );
 
   const admin = await db.query(
@@ -36,7 +38,7 @@ async function commonBeforeAll() {
       isAdmin,
       active,
       dateCreated`,
-    ['adminPass1']
+    [await bcrypt.hash('adminPass1', BCRYPT_WORK_FACTOR)]
   );
 
   user1 = user;
