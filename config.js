@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-
 const { user, password } = require('../dbPassword');
 
 require('dotenv').config();
@@ -16,9 +15,8 @@ function getDatabaseUri() {
     : `postgresql://${user}:${password}@localhost:5432/shopkeyp`;
 }
 
-// Speed up bcrypt during tests, since the algorithm safety isn't being tested
-// WJB: Evaluate in 2021 if this should be increased to 13 for non-test use
-const BCRYPT_WORK_FACTOR = process.env.NODE_ENV === 'test' ? 1 : 12;
+// Speed up bcrypt during tests with lower salt
+const BCRYPT_WORK_FACTOR = process.env.NODE_ENV === 'test' ? 1 : 13;
 
 console.log('Jobly Config:'.green);
 console.log('SECRET_KEY:'.yellow, SECRET_KEY);

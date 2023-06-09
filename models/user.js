@@ -1,6 +1,7 @@
 /* eslint-disable comma-dangle */
 const db = require('../db');
 const bcrypt = require('bcrypt');
+const { BCRYPT_WORK_FACTOR } = require('../config');
 const ExpressError = require('../expressError');
 
 class User {
@@ -43,6 +44,33 @@ class User {
     }
 
     throw new ExpressError('Invalid username/password', 401);
+  }
+
+  static async register(username, password) {
+    const duplicateCheck = await db.query(
+      `SELECT username
+         FROM users
+         WHERE username = $1`,
+      [username]
+    );
+    if (duplicateCheck.rows[0]) {
+      throw new ExpressError(`Duplicate username: ${username}`, 400);
+    }
+
+    const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
+
+    const result = await db.query(
+      `INSERT INTO users
+         (username,
+          password)
+         VALUES ($1, $2)
+         RETURNING username, is_admin AS "isAdmin"`,
+      [username, hashedPassword]
+    );
+
+    const user = result.rows[0];
+
+    return user;
   }
 
   static async all() {

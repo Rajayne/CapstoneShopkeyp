@@ -55,19 +55,31 @@ beforeEach(commonBeforeEach);
 afterEach(commonAfterEach);
 afterAll(commonAfterAll);
 
-describe('User.authenticate', () => {
-  test('works', async () => {
-    const user = await User.authenticate('user1', 'userPass1');
-    expect(user).toEqual({
-      username: 'user1',
-      isAdmin: false,
+describe('User Model Tests', () => {
+  describe('User.authenticate', () => {
+    test('works', async () => {
+      const user = await User.authenticate('user1', 'userPass1');
+      expect(user).toEqual({
+        username: 'user1',
+        isAdmin: false,
+      });
     });
   });
-});
 
-describe('User.all', () => {
-  test('gets all users', async () => {
-    const users = await User.all();
-    expect(users).toEqual([testAdmin[0], testUser[0]]);
+  describe('User.register', () => {
+    test('registers a new user', async () => {
+      const user = await User.register('user2', 'userPass2');
+      expect(user).toEqual({
+        username: 'user2',
+        isAdmin: false,
+      });
+    });
+  });
+
+  describe('User.all', () => {
+    test('gets all users', async () => {
+      const users = await User.all();
+      expect(users).toEqual([testAdmin[0], testUser[0]]);
+    });
   });
 });
