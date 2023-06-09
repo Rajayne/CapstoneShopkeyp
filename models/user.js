@@ -50,8 +50,8 @@ class User {
   static async register(username, password) {
     const duplicateCheck = await db.query(
       `SELECT username
-         FROM users
-         WHERE username = $1`,
+        FROM users
+        WHERE username = $1`,
       [username]
     );
     if (duplicateCheck.rows[0]) {
@@ -64,8 +64,8 @@ class User {
       `INSERT INTO users
          (username,
           password)
-         VALUES ($1, $2)
-         RETURNING username, is_admin AS "isAdmin"`,
+        VALUES ($1, $2)
+        RETURNING username, is_admin AS "isAdmin"`,
       [username, hashedPassword]
     );
 
@@ -140,9 +140,9 @@ class User {
   static async toggleActive(userId, active) {
     const result = await db.query(
       `UPDATE users
-      SET active = ${!active}
-      WHERE user_id = ${userId}
-      RETURNING username, active`
+       SET active = ${!active}
+       WHERE user_id = ${userId}
+       RETURNING username, active`
     );
     const user = result.rows[0];
 

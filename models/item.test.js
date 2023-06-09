@@ -14,6 +14,15 @@ let testAdmin;
 let testItem;
 let testItem2;
 
+let newItem = {
+  name: 'newItem',
+  description: 'newItem description',
+  itemImage: 'newItem.png',
+  price: 10,
+  stock: 1,
+  purchasable: false,
+};
+
 beforeAll(async () => {
   await db.query('DELETE FROM users');
   await db.query('DELETE FROM items');
@@ -88,5 +97,52 @@ describe('Item Model Tests', () => {
     expect(testAdmin instanceof User).toBeTruthy();
     expect(testItem instanceof Item).toBeTruthy();
     expect(testItem2 instanceof Item).toBeTruthy();
+  });
+
+  describe('Item.all', () => {
+    test('gets all items', async () => {
+      const items = await Item.all();
+      expect(items).toEqual([testItem, testItem2]);
+    });
+  });
+
+  describe('Item.get(id)', () => {
+    test('gets item by id', async () => {
+      const item = await Item.get(testItem.itemId);
+      expect(item).toEqual(testItem);
+    });
+
+    test('returns error if user does not exist', async () => {
+      try {
+        await Item.get(0);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+  });
+
+  describe('Item.add', () => {
+    test('adds new item', async () => {
+      newItem.createdBy = testAdmin.userId;
+      const item = await Item.add(newItem);
+      expect(item instanceof Item).toBeTruthy();
+      expect(item.name).toEqual('newItem');
+    });
+
+    test('adds new item to existing itemUuid', async () => {
+      newItem.itemUuid = testItem.itemUuid;
+      newItem.createdBy = testAdmin.userId;
+      const item = await Item.add(newItem);
+      expect(item instanceof Item).toBeTruthy();
+      expect(item.itemUuid).toEqual(testItem.itemUuid);
+    });
+
+    test('returns error if missing fields', async () => {
+      try {
+        await Item.add({ name: 'newItem2' });
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
   });
 });
