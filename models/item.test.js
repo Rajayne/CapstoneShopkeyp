@@ -145,4 +145,35 @@ describe('Item Model Tests', () => {
       }
     });
   });
+
+  describe('Item.update', () => {
+    const updateData = {
+      name: 'newItem1',
+      price: 10,
+    };
+
+    test('updates item data', async () => {
+      const res = await Item.update(testItem.itemId, updateData);
+      expect(res).toEqual("You have successfully updated newItem1's details.");
+    });
+
+    test('returns error if item does not exist', async () => {
+      try {
+        await Item.update(0, {
+          name: 'newItem',
+        });
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+
+    test('returns error if no data', async () => {
+      expect.assertions(1);
+      try {
+        await Item.update(testItem.itemId, {});
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+  });
 });

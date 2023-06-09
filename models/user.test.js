@@ -152,7 +152,7 @@ describe('User Model Tests', () => {
     test('returns error if no data', async () => {
       expect.assertions(1);
       try {
-        await User.update('user1', {});
+        await User.update(testUser.userId, {});
       } catch (err) {
         expect(err instanceof ExpressError).toBeTruthy();
       }

@@ -129,6 +129,26 @@ class Item {
 
     return new Item(item);
   }
+
+  static async update(itemId, data) {
+    const { setCols, values } = sqlForPartialUpdate(data, {
+      itemImage: 'item_image',
+    });
+
+    const itemIdIdx = `$${values.length + 1}`;
+
+    const querySql = `UPDATE items 
+                      SET ${setCols} 
+                      WHERE item_id = ${itemIdIdx}
+                      RETURNING name`;
+    const result = await db.query(querySql, [...values, itemId]);
+
+    const item = result.rows[0];
+
+    if (!item) throw new ExpressError(`Item does not exist: ${itemId}`, 404);
+
+    return `You have successfully updated ${item.name}'s details.`;
+  }
 }
 
 module.exports = Item;
