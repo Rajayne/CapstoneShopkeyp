@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 const db = require('../db');
 const User = require('./user');
 const ExpressError = require('../expressError');
@@ -109,6 +110,49 @@ describe('User Model Tests', () => {
     test('returns error if user does not exist', async () => {
       try {
         await User.get(0);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+  });
+
+  describe('User.update', () => {
+    const updateData = {
+      username: 'newUser1',
+      isAdmin: true,
+    };
+
+    test('updates user data', async () => {
+      const user = await User.update(testUser.userId, updateData);
+      expect(user).toEqual("You have successfully updated newUser1's profile.");
+    });
+
+    test('updates user password', async () => {
+      const user = await User.update(testAdmin.userId, {
+        password: 'newAdminPass1',
+      });
+      expect(user).toEqual("You have successfully updated admin1's profile.");
+      const found = await db.query(
+        "SELECT * FROM users WHERE username = 'admin1'"
+      );
+      expect(found.rows.length).toEqual(1);
+      expect(found.rows[0].password.startsWith('$2b$')).toEqual(true);
+    });
+
+    test('returns error if user does not exist', async () => {
+      try {
+        await User.update(0, {
+          username: 'user1',
+        });
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+
+    test('returns error if no data', async () => {
+      expect.assertions(1);
+      try {
+        await User.update('user1', {});
       } catch (err) {
         expect(err instanceof ExpressError).toBeTruthy();
       }

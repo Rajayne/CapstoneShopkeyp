@@ -1,6 +1,7 @@
-/* eslint-disable comma-dangle */
+/* eslint-disable comma-dangle, no-param-reassign */
 const db = require('../db');
 const ExpressError = require('../expressError');
+const { sqlForPartialUpdate } = require('../helpers/sql');
 const bcrypt = require('bcrypt');
 const { BCRYPT_WORK_FACTOR } = require('../config');
 
@@ -109,6 +110,31 @@ class User {
     }
 
     return new User(user);
+  }
+
+  static async update(userId, data) {
+    if (data.password) {
+      data.password = await bcrypt.hash(data.password, BCRYPT_WORK_FACTOR);
+    }
+
+    const { setCols, values } = sqlForPartialUpdate(data, {
+      profileImage: 'profile_image',
+      isAdmin: 'is_admin',
+    });
+
+    const userIdIdx = `$${values.length + 1}`;
+
+    const querySql = `UPDATE users 
+                      SET ${setCols} 
+                      WHERE user_id = ${userIdIdx}
+                      RETURNING username`;
+    const result = await db.query(querySql, [...values, userId]);
+
+    const user = result.rows[0];
+
+    if (!user) throw new ExpressError(`No user: ${userId}`, 404);
+
+    return `You have successfully updated ${user.username}'s profile.`;
   }
 }
 
