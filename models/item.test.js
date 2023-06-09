@@ -14,7 +14,7 @@ let testAdmin;
 let testItem;
 let testItem2;
 
-let newItem = {
+const newItem = {
   name: 'newItem',
   description: 'newItem description',
   itemImage: 'newItem.png',

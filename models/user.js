@@ -55,7 +55,7 @@ class User {
       [username]
     );
     if (duplicateCheck.rows[0]) {
-      throw new ExpressError(`Duplicate username: ${username}`, 400);
+      throw new ExpressError('Username not available', 400);
     }
 
     const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
