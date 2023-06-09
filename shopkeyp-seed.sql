@@ -15,11 +15,11 @@ INSERT INTO items (name, description, item_image, price, purchasable, created_by
   ('Mystery Bottle', 'Tag says "drink me".', 'https://media.discordapp.net/attachments/731421741578059816/851895182692974592/Drink_Me.png?width=922&height=1334', 10, false, 1),
   ('Rose Compass', 'For navigation.', 'https://cdn.discordapp.com/attachments/762153696809058336/862029060859101184/Rose_Compass.png', 15, true, 1);
 
-INSERT INTO transactions (from_user, to_user, action, item_uuid, quantity, total, admin_id)
+INSERT INTO transactions (from_user, to_user, action, item_id, quantity, total, admin_id)
   VALUES
   (1, 3, 'purchase', 1, 1, 30, null),
   (2, 3, 'transfer', 2, 1, 0, 2);;
 
-INSERT INTO user_items (user_id, item_uuid, quantity)
+INSERT INTO user_items (user_id, item_id, quantity)
   VALUES
   (3, 1, 1);

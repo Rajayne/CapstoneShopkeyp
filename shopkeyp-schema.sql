@@ -23,11 +23,11 @@ CREATE TABLE items (
 );
 
 CREATE TABLE transactions (
-    transactionId SERIAL PRIMARY KEY,
+    transaction_id SERIAL PRIMARY KEY,
     from_user INTEGER NOT NULL REFERENCES users ON DELETE CASCADE,
     to_user INTEGER NOT NULL REFERENCES users ON DELETE CASCADE,
     action TEXT NOT NULL,
-    item_uuid INTEGER REFERENCES items ON DELETE CASCADE,
+    item_id INTEGER REFERENCES items ON DELETE CASCADE,
     quantity INTEGER CHECK (quantity >= 0) DEFAULT 0,
     total INTEGER CHECK (quantity >= 0) DEFAULT 0,
     admin_id INTEGER REFERENCES users ON DELETE CASCADE DEFAULT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE transactions (
 
 CREATE TABLE user_items (
     user_id INTEGER REFERENCES users ON DELETE CASCADE,
-    item_uuid INTEGER REFERENCES items ON DELETE CASCADE,
+    item_id INTEGER REFERENCES items ON DELETE CASCADE,
     quantity INTEGER CHECK (quantity >= 0) NOT NULL,
-    PRIMARY KEY(user_id, item_uuid)
+    PRIMARY KEY(user_id, item_id)
 );

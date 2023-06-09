@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { SECRET_KEY } = require('../config');
-const { ExpressError } = require('../expressError');
+const ExpressError = require('../expressError');
 
 // Authenticate user token
 function authenticateJWT(req, res, next) {

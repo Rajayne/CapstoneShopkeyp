@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { ExpressError } = require('../expressError');
+const ExpressError = require('../expressError');
 const {
   authenticateJWT,
   ensureLoggedIn,
