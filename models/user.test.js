@@ -48,8 +48,8 @@ beforeAll(async () => {
     [await bcrypt.hash('adminPass1', BCRYPT_WORK_FACTOR)]
   );
 
-  testUser = user.rows.map((u) => new User(u));
-  testAdmin = admin.rows.map((a) => new User(a));
+  [testUser] = user.rows.map((u) => new User(u));
+  [testAdmin] = admin.rows.map((a) => new User(a));
 });
 
 beforeEach(commonBeforeEach);
@@ -96,7 +96,22 @@ describe('User Model Tests', () => {
   describe('User.all', () => {
     test('gets all users', async () => {
       const users = await User.all();
-      expect(users).toEqual([testAdmin[0], testUser[0]]);
+      expect(users).toEqual([testAdmin, testUser]);
+    });
+  });
+
+  describe('User.get(id)', () => {
+    test('gets user by id', async () => {
+      const user = await User.get(testUser.userId);
+      expect(user).toEqual(testUser);
+    });
+
+    test('returns error if user does not exist', async () => {
+      try {
+        await User.get(0);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
     });
   });
 });

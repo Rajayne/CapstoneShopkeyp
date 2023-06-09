@@ -87,6 +87,29 @@ class User {
     );
     return results.rows.map((u) => new User(u));
   }
+
+  static async get(userId) {
+    const results = await db.query(
+      `SELECT user_id AS "userId", 
+         username,  
+         profile_image AS "profileImage",
+         balance,
+         is_admin AS "isAdmin",
+         active,
+         date_created AS "dateCreated"
+       FROM users
+       WHERE user_id = $1`,
+      [userId]
+    );
+
+    const user = results.rows[0];
+
+    if (user === undefined) {
+      throw new ExpressError(`No such user: ${userId}`, 404);
+    }
+
+    return new User(user);
+  }
 }
 
 module.exports = User;
