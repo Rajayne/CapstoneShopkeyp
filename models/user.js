@@ -132,9 +132,25 @@ class User {
 
     const user = result.rows[0];
 
-    if (!user) throw new ExpressError(`No user: ${userId}`, 404);
+    if (!user) throw new ExpressError(`User does not exist: ${userId}`, 404);
 
     return `You have successfully updated ${user.username}'s profile.`;
+  }
+
+  static async toggleActive(userId, active) {
+    const result = await db.query(
+      `UPDATE users
+      SET active = ${!active}
+      WHERE user_id = ${userId}
+      RETURNING username, active`
+    );
+    const user = result.rows[0];
+
+    if (!user) throw new ExpressError(`User does not exist: ${userId}`, 404);
+
+    return `You have successfully ${
+      user.active ? 'reactivated' : 'deactivated'
+    } ${user.username}'s account.`;
   }
 }
 

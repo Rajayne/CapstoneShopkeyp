@@ -123,15 +123,15 @@ describe('User Model Tests', () => {
     };
 
     test('updates user data', async () => {
-      const user = await User.update(testUser.userId, updateData);
-      expect(user).toEqual("You have successfully updated newUser1's profile.");
+      const res = await User.update(testUser.userId, updateData);
+      expect(res).toEqual("You have successfully updated newUser1's profile.");
     });
 
     test('updates user password', async () => {
-      const user = await User.update(testAdmin.userId, {
+      const res = await User.update(testAdmin.userId, {
         password: 'newAdminPass1',
       });
-      expect(user).toEqual("You have successfully updated admin1's profile.");
+      expect(res).toEqual("You have successfully updated admin1's profile.");
       const found = await db.query(
         "SELECT * FROM users WHERE username = 'admin1'"
       );
@@ -153,6 +153,28 @@ describe('User Model Tests', () => {
       expect.assertions(1);
       try {
         await User.update('user1', {});
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+  });
+
+  describe('User.toggleActive', () => {
+    test('deactivates user account', async () => {
+      const res = await User.toggleActive(testUser.userId, testUser.active);
+      expect(res).toEqual("You have successfully deactivated user1's account.");
+    });
+
+    test('reactivates user account', async () => {
+      await User.toggleActive(testUser.userId, testUser.active);
+      const res = await User.toggleActive(testUser.userId, false);
+      expect(res).toEqual("You have successfully reactivated user1's account.");
+    });
+
+    test('returns error if user does not exist', async () => {
+      expect.assertions(1);
+      try {
+        await User.toggleActive(0);
       } catch (err) {
         expect(err instanceof ExpressError).toBeTruthy();
       }
