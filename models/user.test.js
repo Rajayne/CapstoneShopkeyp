@@ -1,5 +1,6 @@
 const db = require('../db');
 const User = require('./user');
+const ExpressError = require('../expressError');
 const bcrypt = require('bcrypt');
 const { BCRYPT_WORK_FACTOR } = require('../config');
 
@@ -64,6 +65,14 @@ describe('User Model Tests', () => {
         isAdmin: false,
       });
     });
+
+    test('returns error if wrong username/password', async () => {
+      try {
+        await User.authenticate('user1', 'userPass2');
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
   });
 
   describe('User.register', () => {
@@ -73,6 +82,14 @@ describe('User Model Tests', () => {
         username: 'user2',
         isAdmin: false,
       });
+    });
+
+    test('returns error if username already taken', async () => {
+      try {
+        await User.register('user1', 'userPass1');
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
     });
   });
 

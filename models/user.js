@@ -1,8 +1,8 @@
 /* eslint-disable comma-dangle */
 const db = require('../db');
+const ExpressError = require('../expressError');
 const bcrypt = require('bcrypt');
 const { BCRYPT_WORK_FACTOR } = require('../config');
-const ExpressError = require('../expressError');
 
 class User {
   constructor({
