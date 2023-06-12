@@ -15,6 +15,11 @@ let testUser;
 let testAdmin;
 let testItem;
 let testTransaction;
+const newTransaction = {
+  action: 'Item Transfer',
+  quantity: 1,
+  total: 50,
+};
 
 beforeAll(async () => {
   await db.query('DELETE FROM users');
@@ -136,6 +141,25 @@ describe('Transaction Model Tests', () => {
       } catch (err) {
         expect(err instanceof ExpressError).toBeTruthy();
       }
+    });
+  });
+
+  describe('Transaction.add', () => {
+    test('returns error if missing fields', async () => {
+      try {
+        await Transaction.add(newTransaction);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+
+    test('adds new transaction', async () => {
+      newTransaction.fromUser = testAdmin.userId;
+      newTransaction.toUser = testUser.userId;
+      newTransaction.itemId = testItem.itemId;
+      const transaction = await Transaction.add(newTransaction);
+      expect(transaction instanceof Transaction).toBeTruthy();
+      expect(transaction.action).toEqual('Item Transfer');
     });
   });
 });

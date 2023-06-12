@@ -20,8 +20,8 @@ class Transaction {
     this.toUser = toUser;
     this.action = action;
     this.itemId = itemId;
-    this.total = total;
     this.quantity = quantity;
+    this.total = total;
     this.adminId = adminId;
     this.transactionDate = transactionDate;
   }
@@ -34,8 +34,8 @@ class Transaction {
           to_user AS "toUser",
           action,
           item_id AS "itemId",
-          total,
           quantity,
+          total,
           admin_id AS "adminId",
           transaction_date AS "transactionDate"
         FROM transactions`
@@ -51,8 +51,8 @@ class Transaction {
         to_user AS "toUser",
         action,
         item_id AS "itemId",
-        total,
         quantity,
+        total,
         admin_id AS "adminId",
         transaction_date AS "transactionDate"
        FROM transactions
@@ -67,6 +67,48 @@ class Transaction {
     }
 
     return new Transaction(transaction);
+  }
+
+  static async add({
+    fromUser,
+    toUser,
+    action,
+    itemId,
+    quantity,
+    total,
+    adminId,
+  }) {
+    try {
+      const results = await db.query(
+        `INSERT INTO transactions
+          (from_user, 
+          to_user, 
+          action, 
+          item_id, 
+          quantity,
+          total,
+          admin_id)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        RETURNING 
+          transaction_id AS "transactionId",
+          from_user AS "fromUser",
+          to_user AS "toUser",
+          action,
+          item_id AS "itemId",
+          quantity,
+          total,
+          admin_id AS "adminId",
+          transaction_date AS "transactionDate"`,
+        [fromUser, toUser, action, itemId, quantity, total, adminId || null]
+      );
+      const transaction = results.rows[0];
+      if (transaction === undefined) {
+        throw new ExpressError('Invalid data', 400);
+      }
+      return new Transaction(transaction);
+    } catch (e) {
+      throw new ExpressError('Invalid data', 400);
+    }
   }
 }
 
