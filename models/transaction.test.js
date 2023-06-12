@@ -116,4 +116,11 @@ describe('Transaction Model Tests', () => {
     expect(testItem instanceof Item).toBeTruthy();
     expect(testTransaction instanceof Transaction).toBeTruthy();
   });
+
+  describe('Transaction.all', () => {
+    test('gets all transactions', async () => {
+      const transactions = await Transaction.all();
+      expect(transactions).toEqual([testTransaction]);
+    });
+  });
 });
