@@ -108,12 +108,43 @@ describe('Auth Route Tests', () => {
         token: expect.any(String),
       });
     });
+    test('returns error if incorrect password', async () => {
+      const res = await request(app).post('/auth/login').send({
+        username: 'user1',
+        password: 'password0',
+      });
+      expect(res.statusCode).toEqual(401);
+    });
     test('returns error if user does not exist', async () => {
       const res = await request(app).post('/auth/login').send({
         username: 'user0',
         password: 'password0',
       });
       expect(res.statusCode).toEqual(401);
+    });
+  });
+
+  describe('Auth/register', () => {
+    test('POST works', async () => {
+      const res = await request(app)
+        .post('/auth/login')
+        .send({ username: 'admin1', password: 'adminPass1' });
+      expect(res.body).toEqual({
+        token: expect.any(String),
+      });
+    });
+    test('returns error if username taken', async () => {
+      const res = await request(app).post('/auth/login').send({
+        username: 'user1',
+        password: 'password0',
+      });
+      expect(res.statusCode).toEqual(401);
+    });
+    test('returns error if missing fields', async () => {
+      const res = await request(app).post('/auth/login').send({
+        username: 'user0',
+      });
+      expect(res.statusCode).toEqual(400);
     });
   });
 });
