@@ -123,4 +123,19 @@ describe('Transaction Model Tests', () => {
       expect(transactions).toEqual([testTransaction]);
     });
   });
+
+  describe('Transaction.get(id)', () => {
+    test('gets transaction by id', async () => {
+      const transaction = await Transaction.get(testTransaction.transactionId);
+      expect(transaction).toEqual(testTransaction);
+    });
+
+    test('returns error if user does not exist', async () => {
+      try {
+        await Transaction.get(0);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+  });
 });
