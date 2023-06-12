@@ -98,9 +98,18 @@ class Transaction {
           total,
           admin_id AS "adminId",
           transaction_date AS "transactionDate"`,
-        [fromUser, toUser, action, itemId, quantity, total, adminId || null]
+        [
+          fromUser || null,
+          toUser,
+          action,
+          itemId || null,
+          quantity || 0,
+          total || 0,
+          adminId || null,
+        ]
       );
       const transaction = results.rows[0];
+
       if (transaction === undefined) {
         throw new ExpressError('Invalid data', 400);
       }

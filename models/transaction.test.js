@@ -16,9 +16,9 @@ let testAdmin;
 let testItem;
 let testTransaction;
 const newTransaction = {
-  action: 'Item Transfer',
-  quantity: 1,
-  total: 50,
+  action: 'purchase',
+  quantity: 2,
+  total: 10,
 };
 
 beforeAll(async () => {
@@ -145,21 +145,30 @@ describe('Transaction Model Tests', () => {
   });
 
   describe('Transaction.add', () => {
-    test('returns error if missing fields', async () => {
+    test('returns error if missing required fields', async () => {
       try {
+        await Transaction.add({ newTransaction });
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+
+    test('adds new transaction if missing optional fields', async () => {
+      try {
+        newTransaction.toUser = testUser.userId;
         await Transaction.add(newTransaction);
       } catch (err) {
         expect(err instanceof ExpressError).toBeTruthy();
       }
     });
 
-    test('adds new transaction', async () => {
+    test('adds new transaction with all fields', async () => {
       newTransaction.fromUser = testAdmin.userId;
       newTransaction.toUser = testUser.userId;
       newTransaction.itemId = testItem.itemId;
       const transaction = await Transaction.add(newTransaction);
       expect(transaction instanceof Transaction).toBeTruthy();
-      expect(transaction.action).toEqual('Item Transfer');
+      expect(transaction.action).toEqual('purchase');
     });
   });
 });

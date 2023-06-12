@@ -259,4 +259,35 @@ describe('User Model Tests', () => {
       }
     });
   });
+
+  describe('User.inInventory', () => {
+    test('check for items in user inventory', async () => {
+      const check = await User.inInventory(testUser.userId, testItem.itemId);
+      expect(check).toEqual(true);
+    });
+  });
+
+  describe('User.updateInventory', () => {
+    test('update quantity in user inventory', async () => {
+      const updateQuantity = await User.updateInventory(
+        testUser.userId,
+        testItem.itemId,
+        2
+      );
+      expect(updateQuantity).toEqual(4);
+    });
+  });
+
+  describe('User.purchase', () => {
+    test('purchase adds item to user inventory and creates transaction', async () => {
+      const transaction = await User.purchase({
+        toUser: testUser.userId,
+        action: 'purchase',
+        itemId: testItem.itemId,
+        quantity: 2,
+        total: 10,
+      });
+      expect(transaction instanceof Transaction).toBeTruthy();
+    });
+  });
 });

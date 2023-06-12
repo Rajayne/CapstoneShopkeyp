@@ -1,6 +1,7 @@
 /* eslint-disable comma-dangle, no-param-reassign */
 const db = require('../db');
 const ExpressError = require('../expressError');
+const Transaction = require('./transaction');
 const { sqlForPartialUpdate } = require('../helpers/sql');
 const bcrypt = require('bcrypt');
 const { BCRYPT_WORK_FACTOR } = require('../config');
@@ -176,6 +177,68 @@ class User {
     return `You have successfully ${
       user.active ? 'reactivated' : 'deactivated'
     } ${user.username}'s account.`;
+  }
+
+  static async inInventory(userId, itemId) {
+    const checkInventory = await db.query(
+      'SELECT item_id AS itemId FROM user_items WHERE user_id = $1 AND item_id = $2',
+      [userId, itemId]
+    );
+
+    if (checkInventory) {
+      return true;
+    }
+    return false;
+  }
+
+  static async updateInventory(userId, itemId, quantity) {
+    if (this.inInventory(userId, itemId)) {
+      const updateInventory = await db.query(
+        `UPDATE user_items
+        SET quantity = quantity + $1
+        WHERE user_id = $2 AND item_id = $3
+        RETURNING quantity`,
+        [quantity, userId, itemId]
+      );
+      if (!updateInventory.rows[0]) throw new ExpressError('Invalid data', 400);
+      return updateInventory.rows[0].quantity;
+    }
+    const createInventory = await db.query(
+      `INSERT INTO user_items
+        (user_id, item_id, quantity)
+        VALUES
+        ($1, $2, $3)
+        RETURNING quantity`,
+      [userId, itemId, quantity]
+    );
+
+    if (!createInventory.rows[0]) throw new ExpressError('Invalid data', 400);
+    return createInventory.rows[0].quantity;
+  }
+
+  static async purchase({
+    fromUser,
+    toUser,
+    action,
+    itemId,
+    quantity,
+    total,
+    adminId,
+  }) {
+    const update = this.updateInventory(toUser, itemId, quantity);
+    if (update) {
+      const transaction = await Transaction.add({
+        fromUser: fromUser || null,
+        toUser,
+        action,
+        itemId,
+        quantity: quantity || 0,
+        total: total || 0,
+        adminId: adminId || null,
+      });
+      return new Transaction(transaction);
+    }
+    return new ExpressError('Invalid data', 400);
   }
 }
 
