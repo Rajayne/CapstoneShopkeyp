@@ -1,7 +1,6 @@
 /* eslint-disable comma-dangle */
 const db = require('../db');
 const ExpressError = require('../expressError');
-const { sqlForPartialUpdate } = require('../helpers/sql');
 
 class Transaction {
   constructor({

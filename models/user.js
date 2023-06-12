@@ -14,6 +14,8 @@ class User {
     isAdmin,
     active,
     dateCreated,
+    transactions,
+    inventory,
   }) {
     this.userId = userId;
     this.username = username;
@@ -22,6 +24,8 @@ class User {
     this.isAdmin = isAdmin;
     this.active = active;
     this.dateCreated = dateCreated;
+    this.transactions = transactions || [];
+    this.inventory = inventory || [];
   }
 
   static async authenticate(username, password) {
@@ -109,6 +113,27 @@ class User {
       throw new ExpressError(`No such user: ${userId}`, 404);
     }
 
+    const userTransactionsRes = await db.query(
+      `SELECT t.transaction_id
+       FROM transactions AS t
+       WHERE t.to_user = $1`,
+      [userId]
+    );
+
+    if (userTransactionsRes) {
+      user.transactions = userTransactionsRes.rows.map((t) => t.transaction_id);
+    }
+
+    const userItemsRes = await db.query(
+      `SELECT ui.item_id
+       FROM user_items AS ui
+       WHERE ui.user_id = $1`,
+      [userId]
+    );
+
+    if (userItemsRes) {
+      user.inventory = userItemsRes.rows.map((ui) => ui.item_id);
+    }
     return new User(user);
   }
 

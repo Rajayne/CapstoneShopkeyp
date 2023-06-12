@@ -1,6 +1,8 @@
 /* eslint-disable comma-dangle */
 const db = require('../db');
 const User = require('./user');
+const Item = require('./item');
+const Transaction = require('./transaction');
 const ExpressError = require('../expressError');
 const bcrypt = require('bcrypt');
 const { BCRYPT_WORK_FACTOR } = require('../config');
@@ -13,9 +15,14 @@ const {
 
 let testAdmin;
 let testUser;
+let testItem;
+let testTransaction;
 
 beforeAll(async () => {
   await db.query('DELETE FROM users');
+  await db.query('DELETE FROM items');
+  await db.query('DELETE FROM transactions');
+  await db.query('DELETE FROM user_items');
 
   const user = await db.query(
     `INSERT INTO users 
@@ -51,6 +58,66 @@ beforeAll(async () => {
 
   [testUser] = user.rows.map((u) => new User(u));
   [testAdmin] = admin.rows.map((a) => new User(a));
+
+  const item = await db.query(
+    `INSERT INTO items 
+      (name, description, item_image, price, created_by) 
+    VALUES 
+      ('item1', 'description1',  'item1.png', 5, $1) 
+    RETURNING 
+      item_uuid AS "itemUuid",
+      item_id AS "itemId",
+      name,
+      description,
+      item_image AS "itemImage",
+      price,
+      stock,
+      purchasable,
+      created_by AS "createdBy",
+      date_created AS "dateCreated"`,
+    [testAdmin.userId]
+  );
+
+  [testItem] = await item.rows.map((i) => new Item(i));
+
+  const transaction = await db.query(
+    `INSERT INTO transactions 
+      (from_user, to_user, action, item_id, quantity, total, admin_id) 
+    VALUES 
+      ($1, $2, 'purchase',  $3, $4, $5, $6) 
+    RETURNING 
+      transaction_id AS "transactionId",
+      from_user AS "fromUser",
+      to_user AS "toUser",
+      action,
+      item_id AS "itemId",
+      quantity,
+      total,
+      admin_id AS "adminId",
+      transaction_date AS "transactionDate"`,
+    [
+      testAdmin.userId,
+      testUser.userId,
+      testItem.itemId,
+      2,
+      testItem.price * 2,
+      null,
+    ]
+  );
+
+  [testTransaction] = await transaction.rows.map((t) => new Transaction(t));
+
+  await db.query(
+    `INSERT INTO user_items 
+      (user_id, item_id, quantity) 
+    VALUES 
+      ($1, $2, $3) 
+    RETURNING 
+      user_id AS "userId",
+      item_id AS "itemId",
+      quantity`,
+    [testUser.userId, testItem.itemId, 2]
+  );
 });
 
 beforeEach(commonBeforeEach);
@@ -101,10 +168,22 @@ describe('User Model Tests', () => {
     });
   });
 
-  describe('User.get(id)', () => {
+  describe('User.get', () => {
     test('gets user by id', async () => {
+      testUser.transactions.push(testTransaction.transactionId);
+      testUser.inventory.push(testItem.itemId);
       const user = await User.get(testUser.userId);
       expect(user).toEqual(testUser);
+    });
+
+    test('displays user transactions on model', async () => {
+      const user = await User.get(testUser.userId);
+      expect(user.transactions[0]).toEqual(testTransaction.transactionId);
+    });
+
+    test('displays user items on model', async () => {
+      const user = await User.get(testUser.userId);
+      expect(user.inventory[0]).toEqual(testItem.itemId);
     });
 
     test('returns error if user does not exist', async () => {
