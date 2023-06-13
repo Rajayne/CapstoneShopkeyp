@@ -27,12 +27,12 @@ router.get('/', authenticateJWT, requireLogin, async (req, res, next) => {
 });
 
 router.get(
-  '/:userId',
+  '/:username',
   authenticateJWT,
   requireLogin,
   async (req, res, next) => {
     try {
-      const user = await User.getById(req.params.userId);
+      const user = await User.getByUsername(req.params.username);
       if (!user) {
         throw new ExpressError('No such user', 404);
       } else {

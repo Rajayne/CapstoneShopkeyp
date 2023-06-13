@@ -63,27 +63,22 @@ describe('Users Route Tests', () => {
       expect(res.body[0].username).toEqual('admin1');
       expect(res.body[1].username).toEqual('user1');
     });
-    test('returns error if not admin', async () => {
-      const res = await request(app)
-        .get('/users')
-        .set('authorization', `Bearer ${u1Token}`);
+    test('returns error if not logged in', async () => {
+      const res = await request(app).get('/users');
       expect(res.statusCode).toEqual(401);
     });
   });
 
-  describe('GET /users/:userId', () => {
-    test('gets user by id', async () => {
-      const id = await db.query(
-        `
-      SELECT user_id AS "userId"
-      FROM users
-      WHERE username = $1`,
-        ['user1']
-      );
+  describe('GET /users/:username', () => {
+    test('gets user by username', async () => {
       const res = await request(app)
-        .get(`/users/${id.rows[0].userId}`)
+        .get(`/users/${testUser.username}`)
         .set('authorization', `Bearer ${u1Token}`);
       expect(res.body.username).toEqual('user1');
+    });
+    test('returns error if not logged in', async () => {
+      const res = await request(app).get(`/users/${testUser.username}`);
+      expect(res.statusCode).toEqual(401);
     });
   });
 });
