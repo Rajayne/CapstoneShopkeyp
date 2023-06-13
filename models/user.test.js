@@ -223,7 +223,6 @@ describe('User Model Tests', () => {
   describe('User.update', () => {
     const updateData = {
       username: 'newUser1',
-      isAdmin: true,
     };
 
     test('updates user data', async () => {
@@ -260,6 +259,21 @@ describe('User Model Tests', () => {
       } catch (err) {
         expect(err instanceof ExpressError).toBeTruthy();
       }
+    });
+  });
+
+  describe('User.toggleIsAdmin', () => {
+    test('gives admin permissions', async () => {
+      const res = await User.toggleIsAdmin(testUser.userId, testUser.isAdmin);
+      expect(res).toEqual(
+        'You have successfully given user1 admin permissions.'
+      );
+    });
+    test('removes admin permissions', async () => {
+      const res = await User.toggleIsAdmin(testAdmin.userId, testAdmin.isAdmin);
+      expect(res).toEqual(
+        'You have successfully taken admin1 admin permissions.'
+      );
     });
   });
 

@@ -188,7 +188,6 @@ class User {
 
     const { setCols, values } = sqlForPartialUpdate(data, {
       profileImage: 'profile_image',
-      isAdmin: 'is_admin',
     });
 
     const userIdIdx = `$${values.length + 1}`;
@@ -204,6 +203,21 @@ class User {
     if (!user) throw new ExpressError(`User does not exist: ${userId}`, 404);
 
     return `You have successfully updated ${user.username}'s profile.`;
+  }
+
+  static async toggleIsAdmin(userId, isAdmin) {
+    const result = await db.query(
+      `UPDATE users
+       SET is_admin = ${!isAdmin}
+       WHERE user_id = ${userId}
+       RETURNING username, is_admin AS "isAdmin"`
+    );
+    const user = result.rows[0];
+
+    if (!user) throw new ExpressError(`User does not exist: ${userId}`, 404);
+    return `You have successfully ${user.isAdmin ? 'given' : 'taken'} ${
+      user.username
+    } admin permissions.`;
   }
 
   static async toggleActive(userId, active) {

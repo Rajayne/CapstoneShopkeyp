@@ -44,4 +44,38 @@ router.get(
   }
 );
 
+router.patch(
+  '/:username/edit',
+  requireLogin,
+  ensureCorrectUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      if (!req.curr_admin && req.curr_username !== req.params.username) {
+        throw new ExpressError(
+          'Only that user or an admin can edit a user.',
+          401
+        );
+      }
+
+      const fields = {
+        username: req.body.username,
+        password: req.body.password,
+        profileImage: req.body.profileImage,
+      };
+
+      Object.keys(fields).forEach(
+        (key) => fields[key] === undefined && delete fields[key]
+      );
+
+      if (Object.keys(fields).length === 0) {
+        throw new ExpressError('Unauthorized or blank fields.', 401);
+      }
+      const user = await User.update(req.params.username, fields);
+      return res.json(user);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
 module.exports = router;
