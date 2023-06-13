@@ -70,4 +70,20 @@ describe('Users Route Tests', () => {
       expect(res.statusCode).toEqual(401);
     });
   });
+
+  describe('GET /users/:userId', () => {
+    test('gets user by id', async () => {
+      const id = await db.query(
+        `
+      SELECT user_id AS "userId"
+      FROM users
+      WHERE username = $1`,
+        ['user1']
+      );
+      const res = await request(app)
+        .get(`/users/${id.rows[0].userId}`)
+        .set('authorization', `Bearer ${u1Token}`);
+      expect(res.body.username).toEqual('user1');
+    });
+  });
 });

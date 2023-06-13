@@ -1,8 +1,8 @@
+/* eslint-disable comma-dangle */
 const db = require('../db');
 const User = require('./user');
 const Item = require('./item');
 const Transaction = require('./transaction');
-const ExpressError = require('../expressError');
 const bcrypt = require('bcrypt');
 const { BCRYPT_WORK_FACTOR } = require('../config');
 
@@ -15,7 +15,6 @@ const {
 let testAdmin;
 let testUser;
 let testItem;
-let testTransaction;
 
 beforeAll(async () => {
   await db.query('DELETE FROM users');
@@ -141,16 +140,4 @@ describe('User Model Tests', () => {
       expect(updateQuantity).toEqual(4);
     });
   });
-
-  // describe('User.purchase', () => {
-  //   test('user can purchase shop item', async () => {
-  //     const purchase = await User.purchase(
-  //       testUser.userId,
-  //       testItem.itemId,
-  //       2,
-  //       10
-  //     );
-  //     expect(purchase).toEqual('Congratulations on your purchase!');
-  //   });
-  // });
 });

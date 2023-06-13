@@ -25,11 +25,11 @@ beforeAll(async () => {
   await db.query('DELETE FROM user_items');
 
   const user = await db.query(
-    `INSERT INTO users 
-      (username, password, profile_image, is_admin) 
-    VALUES 
-      ('user1', $1, 'userProfile.png', false) 
-    RETURNING 
+    `INSERT INTO users
+      (username, password, profile_image, is_admin)
+    VALUES
+      ('user1', $1, 'userProfile.png', false)
+    RETURNING
       user_id AS "userId",
       username,
       profile_image AS "profileImage",
@@ -41,11 +41,11 @@ beforeAll(async () => {
   );
 
   const admin = await db.query(
-    `INSERT INTO users 
-      (username, password, profile_image, is_admin) 
-    VALUES 
-      ('admin1', $1, 'adminProfile.png', true) 
-      RETURNING 
+    `INSERT INTO users
+      (username, password, profile_image, is_admin)
+    VALUES
+      ('admin1', $1, 'adminProfile.png', true)
+      RETURNING
       user_id AS "userId",
       username,
       profile_image AS "profileImage",
@@ -60,11 +60,11 @@ beforeAll(async () => {
   [testAdmin] = admin.rows.map((a) => new User(a));
 
   const item = await db.query(
-    `INSERT INTO items 
-      (name, description, item_image, price, created_by) 
-    VALUES 
-      ('item1', 'description1',  'item1.png', 5, $1) 
-    RETURNING 
+    `INSERT INTO items
+      (name, description, item_image, price, created_by)
+    VALUES
+      ('item1', 'description1',  'item1.png', 5, $1)
+    RETURNING
       item_uuid AS "itemUuid",
       item_id AS "itemId",
       name,
@@ -81,11 +81,11 @@ beforeAll(async () => {
   [testItem] = await item.rows.map((i) => new Item(i));
 
   const transaction = await db.query(
-    `INSERT INTO transactions 
-      (from_user, to_user, action, item_id, quantity, total, admin_id) 
-    VALUES 
-      ($1, $2, 'purchase',  $3, $4, $5, $6) 
-    RETURNING 
+    `INSERT INTO transactions
+      (from_user, to_user, action, item_id, quantity, total, admin_id)
+    VALUES
+      ($1, $2, 'purchase',  $3, $4, $5, $6)
+    RETURNING
       transaction_id AS "transactionId",
       from_user AS "fromUser",
       to_user AS "toUser",
@@ -108,11 +108,11 @@ beforeAll(async () => {
   [testTransaction] = await transaction.rows.map((t) => new Transaction(t));
 
   await db.query(
-    `INSERT INTO user_items 
-      (user_id, item_id, quantity) 
-    VALUES 
-      ($1, $2, $3) 
-    RETURNING 
+    `INSERT INTO user_items
+      (user_id, item_id, quantity)
+    VALUES
+      ($1, $2, $3)
+    RETURNING
       user_id AS "userId",
       item_id AS "itemId",
       quantity`,
@@ -168,27 +168,52 @@ describe('User Model Tests', () => {
     });
   });
 
-  describe('User.get', () => {
+  describe('User.getById', () => {
     test('gets user by id', async () => {
       testUser.transactions.push(testTransaction.transactionId);
       testUser.inventory.push(testItem.itemId);
-      const user = await User.get(testUser.userId);
+      const user = await User.getById(testUser.userId);
       expect(user).toEqual(testUser);
     });
 
     test('displays user transactions on model', async () => {
-      const user = await User.get(testUser.userId);
+      const user = await User.getById(testUser.userId);
       expect(user.transactions[0]).toEqual(testTransaction.transactionId);
     });
 
     test('displays user items on model', async () => {
-      const user = await User.get(testUser.userId);
+      const user = await User.getById(testUser.userId);
       expect(user.inventory[0]).toEqual(testItem.itemId);
     });
 
     test('returns error if user does not exist', async () => {
       try {
-        await User.get(0);
+        await User.getById(0);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+  });
+
+  describe('User.getByUsername', () => {
+    test('gets user by username', async () => {
+      const user = await User.getByUsername(testUser.username);
+      expect(user).toEqual(testUser);
+    });
+
+    test('displays user transactions on model', async () => {
+      const user = await User.getByUsername(testUser.username);
+      expect(user.transactions[0]).toEqual(testTransaction.transactionId);
+    });
+
+    test('displays user items on model', async () => {
+      const user = await User.getByUsername(testUser.username);
+      expect(user.inventory[0]).toEqual(testItem.itemId);
+    });
+
+    test('returns error if user does not exist', async () => {
+      try {
+        await User.getByUsername('notUser1');
       } catch (err) {
         expect(err instanceof ExpressError).toBeTruthy();
       }

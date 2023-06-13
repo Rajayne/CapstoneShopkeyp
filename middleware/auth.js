@@ -16,7 +16,7 @@ function authenticateJWT(req, res, next) {
   }
 }
 
-function ensureLoggedIn(req, res, next) {
+function requireLogin(req, res, next) {
   try {
     if (!res.locals.user) throw new ExpressError('Unauthorized', 401);
     return next();
@@ -25,7 +25,7 @@ function ensureLoggedIn(req, res, next) {
   }
 }
 
-function ensureAdmin(req, res, next) {
+function requireAdmin(req, res, next) {
   try {
     if (!res.locals.user || !res.locals.user.isAdmin) {
       throw new ExpressError('Unauthorized', 401);
@@ -50,7 +50,7 @@ function ensureCorrectUserOrAdmin(req, res, next) {
 
 module.exports = {
   authenticateJWT,
-  ensureLoggedIn,
-  ensureAdmin,
+  requireLogin,
+  requireAdmin,
   ensureCorrectUserOrAdmin,
 };

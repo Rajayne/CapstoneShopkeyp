@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken');
 const ExpressError = require('../expressError');
 const {
   authenticateJWT,
-  ensureLoggedIn,
-  ensureAdmin,
+  requireLogin,
+  requireAdmin,
   ensureCorrectUserOrAdmin,
 } = require('./auth');
 
@@ -53,7 +53,7 @@ describe('authenticateJWT', () => {
   });
 });
 
-describe('ensureLoggedIn', () => {
+describe('requireLogin', () => {
   test('works', () => {
     expect.assertions(1);
     const req = {};
@@ -61,7 +61,7 @@ describe('ensureLoggedIn', () => {
     const next = (err) => {
       expect(err).toBeFalsy();
     };
-    ensureLoggedIn(req, res, next);
+    requireLogin(req, res, next);
   });
 
   test('unauth if no login', () => {
@@ -71,11 +71,11 @@ describe('ensureLoggedIn', () => {
     const next = (err) => {
       expect(err instanceof ExpressError).toBeTruthy();
     };
-    ensureLoggedIn(req, res, next);
+    requireLogin(req, res, next);
   });
 });
 
-describe('ensureAdmin', () => {
+describe('requireAdmin', () => {
   test('works', () => {
     expect.assertions(1);
     const req = {};
@@ -83,7 +83,7 @@ describe('ensureAdmin', () => {
     const next = (err) => {
       expect(err).toBeFalsy();
     };
-    ensureAdmin(req, res, next);
+    requireAdmin(req, res, next);
   });
 
   test('unauth if not admin', () => {
@@ -93,7 +93,7 @@ describe('ensureAdmin', () => {
     const next = (err) => {
       expect(err instanceof ExpressError).toBeTruthy();
     };
-    ensureAdmin(req, res, next);
+    requireAdmin(req, res, next);
   });
 
   test('unauth if anon', () => {
@@ -103,7 +103,7 @@ describe('ensureAdmin', () => {
     const next = (err) => {
       expect(err instanceof ExpressError).toBeTruthy();
     };
-    ensureAdmin(req, res, next);
+    requireAdmin(req, res, next);
   });
 });
 

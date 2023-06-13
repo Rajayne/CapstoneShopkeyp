@@ -94,7 +94,28 @@ class User {
     return results.rows.map((u) => new User(u));
   }
 
-  static async get(userId) {
+  static async getUserTransactions(userId) {
+    const userTransactionsRes = await db.query(
+      `SELECT t.transaction_id
+       FROM transactions AS t
+       WHERE t.to_user = $1`,
+      [userId]
+    );
+    return userTransactionsRes.rows.map((t) => t.transaction_id);
+  }
+
+  static async getUserInventory(userId) {
+    const userItemsRes = await db.query(
+      `SELECT ui.item_id
+       FROM user_items AS ui
+       WHERE ui.user_id = $1`,
+      [userId]
+    );
+
+    return userItemsRes.rows.map((ui) => ui.item_id);
+  }
+
+  static async getById(userId) {
     const results = await db.query(
       `SELECT user_id AS "userId", 
          username,  
@@ -114,27 +135,49 @@ class User {
       throw new ExpressError(`No such user: ${userId}`, 404);
     }
 
-    const userTransactionsRes = await db.query(
-      `SELECT t.transaction_id
-       FROM transactions AS t
-       WHERE t.to_user = $1`,
-      [userId]
-    );
-
-    if (userTransactionsRes) {
-      user.transactions = userTransactionsRes.rows.map((t) => t.transaction_id);
+    const transactions = await this.getUserTransactions(userId);
+    if (transactions) {
+      user.transactions = transactions;
     }
 
-    const userItemsRes = await db.query(
-      `SELECT ui.item_id
-       FROM user_items AS ui
-       WHERE ui.user_id = $1`,
-      [userId]
+    const inventory = await this.getUserInventory(userId);
+    if (inventory) {
+      user.inventory = inventory;
+    }
+
+    return new User(user);
+  }
+
+  static async getByUsername(username) {
+    const results = await db.query(
+      `SELECT user_id AS "userId", 
+         username,  
+         profile_image AS "profileImage",
+         balance,
+         is_admin AS "isAdmin",
+         active,
+         date_created AS "dateCreated"
+       FROM users
+       WHERE username = $1`,
+      [username]
     );
 
-    if (userItemsRes) {
-      user.inventory = userItemsRes.rows.map((ui) => ui.item_id);
+    const user = results.rows[0];
+
+    if (user === undefined) {
+      throw new ExpressError(`No such user: ${username}`, 404);
     }
+
+    const transactions = await this.getUserTransactions(user.userId);
+    if (transactions) {
+      user.transactions = transactions;
+    }
+
+    const inventory = await this.getUserInventory(user.userId);
+    if (inventory) {
+      user.inventory = inventory;
+    }
+
     return new User(user);
   }
 
