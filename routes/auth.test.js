@@ -24,61 +24,14 @@ beforeAll(async () => {
   await db.query('DELETE FROM transactions');
   await db.query('DELETE FROM user_items');
 
-  const admin = await db.query(
-    `INSERT INTO users 
-      (username, password, profile_image, is_admin) 
-    VALUES 
-      ('admin1', $1, 'adminProfile.png', true) 
-      RETURNING 
-      user_id AS "userId",
-      username,
-      profile_image AS "profileImage",
-      balance,
-      is_admin AS "isAdmin",
-      active,
-      date_created AS "dateCreated"`,
-    [await bcrypt.hash('adminPass1', BCRYPT_WORK_FACTOR)]
-  );
-
-  const user = await db.query(
-    `INSERT INTO users 
-      (username, password, profile_image, is_admin) 
-    VALUES 
-      ('user1', $1, 'userProfile.png', false) 
-    RETURNING 
-      user_id AS "userId",
-      username,
-      profile_image AS "profileImage",
-      balance,
-      is_admin AS "isAdmin",
-      active,
-      date_created AS "dateCreated"`,
-    [await bcrypt.hash('userPass1', BCRYPT_WORK_FACTOR)]
-  );
-
-  [testUser] = user.rows.map((u) => new User(u));
-  [testAdmin] = admin.rows.map((a) => new User(a));
-
-  const item = await db.query(
-    `INSERT INTO items 
-      (name, description, item_image, price, created_by) 
-    VALUES 
-      ('item1', 'description1',  'item1.png', 5, $1) 
-    RETURNING 
-      item_uuid AS "itemUuid",
-      item_id AS "itemId",
-      name,
-      description,
-      item_image AS "itemImage",
-      price,
-      stock,
-      purchasable,
-      created_by AS "createdBy",
-      date_created AS "dateCreated"`,
-    [testAdmin.userId]
-  );
-
-  [testItem] = await item.rows.map((i) => new Item(i));
+  testAdmin = await User.register('admin1', 'adminPass1');
+  testUser = await User.register('user1', 'userPass1');
+  testItem = await Item.add({
+    name: 'item1',
+    description: 'description1',
+    price: 5,
+    createdBy: testAdmin.userId,
+  });
 });
 
 beforeEach(commonBeforeEach);

@@ -20,9 +20,9 @@ module.exports = {
   commonAfterAll,
 };
 
-const adminToken = createToken({ username: 'a1', isAdmin: true });
-const u1Token = createToken({ username: 'u1', isAdmin: false });
-const u2Token = createToken({ username: 'u2', isAdmin: false });
+const adminToken = createToken({ username: 'admin1', isAdmin: true });
+const u1Token = createToken({ username: 'user1', isAdmin: false });
+const u2Token = createToken({ username: 'user2', isAdmin: false });
 
 module.exports = {
   commonBeforeEach,
