@@ -81,4 +81,22 @@ describe('Users Route Tests', () => {
       expect(res.statusCode).toEqual(401);
     });
   });
+
+  describe('PATCH /users/:username/edit', () => {
+    test('updates user', async () => {
+      const res = await request(app)
+        .patch(`/users/${testUser.username}/edit`)
+        .set('authorization', `Bearer ${u1Token}`)
+        .send({ username: 'newUser1' });
+      expect(res.body).toEqual(
+        "You have successfully updated newUser1's profile."
+      );
+    });
+    test('returns error if not logged in', async () => {
+      const res = await request(app)
+        .patch(`/users/${testUser.username}/edit`)
+        .send({ username: 'newUser1' });
+      expect(res.statusCode).toEqual(401);
+    });
+  });
 });

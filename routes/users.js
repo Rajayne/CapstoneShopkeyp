@@ -50,13 +50,6 @@ router.patch(
   ensureCorrectUserOrAdmin,
   async (req, res, next) => {
     try {
-      if (!req.curr_admin && req.curr_username !== req.params.username) {
-        throw new ExpressError(
-          'Only that user or an admin can edit a user.',
-          401
-        );
-      }
-
       const fields = {
         username: req.body.username,
         password: req.body.password,
@@ -70,6 +63,7 @@ router.patch(
       if (Object.keys(fields).length === 0) {
         throw new ExpressError('Unauthorized or blank fields.', 401);
       }
+
       const user = await User.update(req.params.username, fields);
       return res.json(user);
     } catch (err) {

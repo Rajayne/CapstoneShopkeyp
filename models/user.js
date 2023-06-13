@@ -161,7 +161,6 @@ class User {
        WHERE username = $1`,
       [username]
     );
-
     const user = results.rows[0];
 
     if (user === undefined) {
@@ -177,11 +176,15 @@ class User {
     if (inventory) {
       user.inventory = inventory;
     }
-
     return new User(user);
   }
 
   static async update(userId, data) {
+    if (!(typeof userId === 'number')) {
+      const user = await this.getByUsername(userId);
+      userId = user.userId;
+    }
+
     if (data.password) {
       data.password = await bcrypt.hash(data.password, BCRYPT_WORK_FACTOR);
     }
