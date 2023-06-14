@@ -179,11 +179,16 @@ class User {
     return new User(user);
   }
 
-  static async update(userId, data) {
+  static async checkUsernameIdSwitch(userId) {
     if (!(typeof userId === 'number')) {
       const user = await this.getByUsername(userId);
-      userId = user.userId;
+      return user.userId;
     }
+    return userId;
+  }
+
+  static async update(userId, data) {
+    userId = await this.checkUsernameIdSwitch(userId);
 
     if (data.password) {
       data.password = await bcrypt.hash(data.password, BCRYPT_WORK_FACTOR);
@@ -204,11 +209,11 @@ class User {
     const user = result.rows[0];
 
     if (!user) throw new ExpressError(`User does not exist: ${userId}`, 404);
-
     return `You have successfully updated ${user.username}'s profile.`;
   }
 
   static async toggleIsAdmin(userId, isAdmin) {
+    userId = await this.checkUsernameIdSwitch(userId);
     const result = await db.query(
       `UPDATE users
        SET is_admin = ${!isAdmin}
@@ -224,6 +229,7 @@ class User {
   }
 
   static async toggleActive(userId, active) {
+    userId = await this.checkUsernameIdSwitch(userId);
     const result = await db.query(
       `UPDATE users
        SET active = ${!active}
@@ -240,6 +246,7 @@ class User {
   }
 
   static async inInventory(userId, itemId) {
+    userId = await this.checkUsernameIdSwitch(userId);
     const checkInventory = await db.query(
       'SELECT item_id AS itemId FROM user_items WHERE user_id = $1 AND item_id = $2',
       [userId, itemId]
@@ -252,6 +259,7 @@ class User {
   }
 
   static async updateInventory(userId, itemId, quantity) {
+    userId = await this.checkUsernameIdSwitch(userId);
     if (this.inInventory(userId, itemId)) {
       const updateInventory = await db.query(
         `UPDATE user_items
@@ -286,6 +294,7 @@ class User {
     adminId,
   }) {
     const update = this.updateInventory(toUser, itemId, quantity);
+    toUser = await this.checkUsernameIdSwitch(toUser);
     if (update) {
       const transaction = await Transaction.add({
         fromUser: fromUser || null,

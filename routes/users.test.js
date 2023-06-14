@@ -99,4 +99,35 @@ describe('Users Route Tests', () => {
       expect(res.statusCode).toEqual(401);
     });
   });
+
+  describe('PATCH /users/:username/toggleActive', () => {
+    test('deactivates user', async () => {
+      const res = await request(app)
+        .patch(`/users/${testUser.username}/deactivate`)
+        .set('authorization', `Bearer ${u1Token}`);
+      expect(res.body).toEqual(
+        "You have successfully deactivated user1's account."
+      );
+    });
+    test('reactivates user', async () => {
+      const res = await request(app)
+        .patch(`/users/${testUser.username}/reactivate`)
+        .set('authorization', `Bearer ${u1Token}`);
+      expect(res.body).toEqual(
+        "You have successfully reactivated user1's account."
+      );
+    });
+    test('returns error if incorrect user', async () => {
+      const res = await request(app)
+        .patch(`/users/${testUser.username}/deactivate`)
+        .set('authorization', `Bearer ${u2Token}`);
+      expect(res.statusCode).toEqual(401);
+    });
+    test('returns error if not logged in', async () => {
+      const res = await request(app)
+        .patch(`/users/${testUser.username}/deactivate`)
+        .send({ username: 'newUser1' });
+      expect(res.statusCode).toEqual(401);
+    });
+  });
 });

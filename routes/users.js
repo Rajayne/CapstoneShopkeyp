@@ -5,13 +5,10 @@ const express = require('express');
 const {
   authenticateJWT,
   ensureCorrectUserOrAdmin,
-  requireAdmin,
   requireLogin,
 } = require('../middleware/auth');
 const ExpressError = require('../expressError');
 const User = require('../models/user');
-const { createToken } = require('../helpers/token');
-const userNewSchema = require('../schemas/userNew.json');
 const userUpdateSchema = require('../schemas/userUpdate.json');
 
 const router = express.Router();
@@ -32,6 +29,10 @@ router.get(
   requireLogin,
   async (req, res, next) => {
     try {
+      const validator = jsonschema.validate(req.body, userUpdateSchema);
+      if (!validator.valid) {
+        throw new ExpressError('Bad Request', 400);
+      }
       const user = await User.getByUsername(req.params.username);
       if (!user) {
         throw new ExpressError('No such user', 404);
@@ -66,6 +67,34 @@ router.patch(
 
       const user = await User.update(req.params.username, fields);
       return res.json(user);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
+router.patch(
+  '/:username/deactivate',
+  requireLogin,
+  ensureCorrectUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      const users = await User.toggleActive(req.params.username, true);
+      return res.json(users);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
+router.patch(
+  '/:username/reactivate',
+  requireLogin,
+  ensureCorrectUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      const users = await User.toggleActive(req.params.username, false);
+      return res.json(users);
     } catch (err) {
       return next(err);
     }

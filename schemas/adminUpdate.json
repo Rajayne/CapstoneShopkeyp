@@ -17,6 +17,16 @@
       "type": "string",
       "format": "uri"
     },
+    "balance": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "isAdmin": {
+      "type": "boolean"
+    },
+    "active": {
+      "type": "boolean"
+    },
   "additionalProperties": false
   }
 }
