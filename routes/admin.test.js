@@ -67,4 +67,66 @@ describe('Admin Route Tests', () => {
       expect(testTransaction instanceof Transaction).toBeTruthy();
     });
   });
+
+  describe('GET /admin', () => {
+    test('get total users', async () => {
+      const res = await request(app)
+        .get('/admin')
+        .set('authorization', `Bearer ${adminToken}`);
+      expect(res.body.totalUsers).toEqual(2);
+    });
+    test('get total items', async () => {
+      const res = await request(app)
+        .get('/admin')
+        .set('authorization', `Bearer ${adminToken}`);
+      expect(res.body.totalItems).toEqual(1);
+    });
+    test('get total transactions', async () => {
+      const res = await request(app)
+        .get('/admin')
+        .set('authorization', `Bearer ${adminToken}`);
+      expect(res.body.totalTransactions).toEqual(1);
+    });
+    test('return error if not admin', async () => {
+      try {
+        await request(app)
+          .get('/admin')
+          .set('authorization', `Bearer ${u1Token}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+    test('return error if not logged in', async () => {
+      try {
+        await request(app).get('/admin');
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+  });
+  describe('GET /admin/users', () => {
+    test('get all users', async () => {
+      const res = await request(app)
+        .get('/admin/users')
+        .set('authorization', `Bearer ${adminToken}`);
+      expect(res.body instanceof Array).toBeTruthy();
+      expect(res.body[0].username).toEqual('admin1');
+    });
+  });
+  test('return error if not admin', async () => {
+    try {
+      await request(app)
+        .get('/admin/users')
+        .set('authorization', `Bearer ${u1Token}`);
+    } catch (err) {
+      expect(err instanceof ExpressError).toBeTruthy();
+    }
+  });
+  test('return error if not logged in', async () => {
+    try {
+      await request(app).get('/admin/users');
+    } catch (err) {
+      expect(err instanceof ExpressError).toBeTruthy();
+    }
+  });
 });
