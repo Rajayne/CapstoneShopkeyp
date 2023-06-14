@@ -5,13 +5,10 @@ const express = require('express');
 const {
   authenticateJWT,
   ensureCorrectUserOrAdmin,
-  requireAdmin,
   requireLogin,
 } = require('../middleware/auth');
 const ExpressError = require('../expressError');
 const User = require('../models/user');
-const { createToken } = require('../helpers/token');
-const userNewSchema = require('../schemas/userNew.json');
 const userUpdateSchema = require('../schemas/userUpdate.json');
 
 const router = express.Router();
@@ -49,6 +46,10 @@ router.patch(
   requireLogin,
   ensureCorrectUserOrAdmin,
   async (req, res, next) => {
+    const validator = jsonschema.validate(req.body, userUpdateSchema);
+    if (!validator.valid) {
+      throw new ExpressError('Bad Request', 400);
+    }
     try {
       const fields = {
         username: req.body.username,
@@ -66,6 +67,34 @@ router.patch(
 
       const user = await User.update(req.params.username, fields);
       return res.json(user);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
+router.patch(
+  '/:username/deactivate',
+  requireLogin,
+  ensureCorrectUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      const users = await User.toggleActive(req.params.username, true);
+      return res.json(users);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
+router.patch(
+  '/:username/reactivate',
+  requireLogin,
+  ensureCorrectUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      const users = await User.toggleActive(req.params.username, false);
+      return res.json(users);
     } catch (err) {
       return next(err);
     }

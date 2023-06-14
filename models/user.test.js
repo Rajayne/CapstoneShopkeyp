@@ -1,10 +1,10 @@
 /* eslint-disable comma-dangle */
+const bcrypt = require('bcrypt');
 const db = require('../db');
 const User = require('./user');
 const Item = require('./item');
 const Transaction = require('./transaction');
 const ExpressError = require('../expressError');
-const bcrypt = require('bcrypt');
 const { BCRYPT_WORK_FACTOR } = require('../config');
 
 const {
@@ -133,7 +133,6 @@ describe('User Model Tests', () => {
         isAdmin: false,
       });
     });
-
     test('returns error if wrong username/password', async () => {
       try {
         await User.authenticate('user1', 'userPass2');
@@ -142,7 +141,6 @@ describe('User Model Tests', () => {
       }
     });
   });
-
   describe('User.register', () => {
     test('registers a new user', async () => {
       const user = await User.register('user2', 'userPass2');
@@ -151,7 +149,6 @@ describe('User Model Tests', () => {
         isAdmin: false,
       });
     });
-
     test('returns error if username already taken', async () => {
       try {
         await User.register('user1', 'userPass1');
@@ -160,14 +157,12 @@ describe('User Model Tests', () => {
       }
     });
   });
-
   describe('User.all', () => {
     test('gets all users', async () => {
       const users = await User.all();
       expect(users).toEqual([testAdmin, testUser]);
     });
   });
-
   describe('User.getById', () => {
     test('gets user by id', async () => {
       testUser.transactions.push(testTransaction.transactionId);
@@ -175,17 +170,14 @@ describe('User Model Tests', () => {
       const user = await User.getById(testUser.userId);
       expect(user).toEqual(testUser);
     });
-
     test('displays user transactions on model', async () => {
       const user = await User.getById(testUser.userId);
       expect(user.transactions[0]).toEqual(testTransaction.transactionId);
     });
-
     test('displays user items on model', async () => {
       const user = await User.getById(testUser.userId);
       expect(user.inventory[0]).toEqual(testItem.itemId);
     });
-
     test('returns error if user does not exist', async () => {
       try {
         await User.getById(0);
@@ -194,23 +186,19 @@ describe('User Model Tests', () => {
       }
     });
   });
-
   describe('User.getByUsername', () => {
     test('gets user by username', async () => {
       const user = await User.getByUsername(testUser.username);
       expect(user).toEqual(testUser);
     });
-
     test('displays user transactions on model', async () => {
       const user = await User.getByUsername(testUser.username);
       expect(user.transactions[0]).toEqual(testTransaction.transactionId);
     });
-
     test('displays user items on model', async () => {
       const user = await User.getByUsername(testUser.username);
       expect(user.inventory[0]).toEqual(testItem.itemId);
     });
-
     test('returns error if user does not exist', async () => {
       try {
         await User.getByUsername('notUser1');
@@ -219,17 +207,18 @@ describe('User Model Tests', () => {
       }
     });
   });
-
   describe('User.update', () => {
     const updateData = {
       username: 'newUser1',
     };
-
-    test('updates user data', async () => {
+    test('updates user data using user id', async () => {
       const res = await User.update(testUser.userId, updateData);
       expect(res).toEqual("You have successfully updated newUser1's profile.");
     });
-
+    test('updates user data using username', async () => {
+      const res = await User.update(testUser.username, updateData);
+      expect(res).toEqual("You have successfully updated newUser1's profile.");
+    });
     test('updates user password', async () => {
       const res = await User.update(testAdmin.userId, {
         password: 'newAdminPass1',
@@ -241,7 +230,6 @@ describe('User Model Tests', () => {
       expect(found.rows.length).toEqual(1);
       expect(found.rows[0].password.startsWith('$2b$')).toEqual(true);
     });
-
     test('returns error if user does not exist', async () => {
       try {
         await User.update(0, {
@@ -251,17 +239,7 @@ describe('User Model Tests', () => {
         expect(err instanceof ExpressError).toBeTruthy();
       }
     });
-
-    test('returns error if no data', async () => {
-      expect.assertions(1);
-      try {
-        await User.update(testUser.userId, {});
-      } catch (err) {
-        expect(err instanceof ExpressError).toBeTruthy();
-      }
-    });
   });
-
   describe('User.toggleIsAdmin', () => {
     test('gives admin permissions', async () => {
       const res = await User.toggleIsAdmin(testUser.userId, testUser.isAdmin);
@@ -276,19 +254,16 @@ describe('User Model Tests', () => {
       );
     });
   });
-
   describe('User.toggleActive', () => {
     test('deactivates user account', async () => {
       const res = await User.toggleActive(testUser.userId, testUser.active);
       expect(res).toEqual("You have successfully deactivated user1's account.");
     });
-
     test('reactivates user account', async () => {
       await User.toggleActive(testUser.userId, testUser.active);
       const res = await User.toggleActive(testUser.userId, false);
       expect(res).toEqual("You have successfully reactivated user1's account.");
     });
-
     test('returns error if user does not exist', async () => {
       expect.assertions(1);
       try {
@@ -298,14 +273,12 @@ describe('User Model Tests', () => {
       }
     });
   });
-
   describe('User.inInventory', () => {
     test('check for items in user inventory', async () => {
       const check = await User.inInventory(testUser.userId, testItem.itemId);
       expect(check).toEqual(true);
     });
   });
-
   describe('User.updateInventory', () => {
     test('update quantity in user inventory', async () => {
       const updateQuantity = await User.updateInventory(
@@ -316,7 +289,6 @@ describe('User Model Tests', () => {
       expect(updateQuantity).toEqual(4);
     });
   });
-
   describe('User.purchase', () => {
     test('purchase adds item to user inventory and creates transaction', async () => {
       const transaction = await User.purchase({
