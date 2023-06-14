@@ -6,7 +6,6 @@ const {
   requireLogin,
   requireAdmin,
 } = require('../middleware/auth');
-const ExpressError = require('../expressError');
 const User = require('../models/user');
 const Item = require('../models/item');
 const Transaction = require('../models/transaction');
@@ -43,6 +42,36 @@ router.get(
     try {
       const users = await User.all();
       return res.json(users);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
+router.get(
+  '/items',
+  authenticateJWT,
+  requireLogin,
+  requireAdmin,
+  async (req, res, next) => {
+    try {
+      const items = await Item.all();
+      return res.json(items);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
+router.get(
+  '/transactions',
+  authenticateJWT,
+  requireLogin,
+  requireAdmin,
+  async (req, res, next) => {
+    try {
+      const transactions = await Transaction.all();
+      return res.json(transactions);
     } catch (err) {
       return next(err);
     }

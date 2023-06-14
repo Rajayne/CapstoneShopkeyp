@@ -112,21 +112,71 @@ describe('Admin Route Tests', () => {
       expect(res.body instanceof Array).toBeTruthy();
       expect(res.body[0].username).toEqual('admin1');
     });
+    test('return error if not admin', async () => {
+      try {
+        await request(app)
+          .get('/admin/users')
+          .set('authorization', `Bearer ${u1Token}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+    test('return error if not logged in', async () => {
+      try {
+        await request(app).get('/admin/users');
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
   });
-  test('return error if not admin', async () => {
-    try {
-      await request(app)
-        .get('/admin/users')
-        .set('authorization', `Bearer ${u1Token}`);
-    } catch (err) {
-      expect(err instanceof ExpressError).toBeTruthy();
-    }
+  describe('GET /admin/items', () => {
+    test('get all items', async () => {
+      const res = await request(app)
+        .get('/admin/items')
+        .set('authorization', `Bearer ${adminToken}`);
+      expect(res.body instanceof Array).toBeTruthy();
+      expect(res.body[0].name).toEqual('item1');
+    });
+    test('return error if not admin', async () => {
+      try {
+        await request(app)
+          .get('/admin/items')
+          .set('authorization', `Bearer ${u1Token}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+    test('return error if not logged in', async () => {
+      try {
+        await request(app).get('/admin/items');
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
   });
-  test('return error if not logged in', async () => {
-    try {
-      await request(app).get('/admin/users');
-    } catch (err) {
-      expect(err instanceof ExpressError).toBeTruthy();
-    }
+  describe('GET /admin/transactions', () => {
+    test('get all transactions', async () => {
+      const res = await request(app)
+        .get('/admin/transactions')
+        .set('authorization', `Bearer ${adminToken}`);
+      expect(res.body instanceof Array).toBeTruthy();
+      expect(res.body[0].transactionId).toEqual(testTransaction.transactionId);
+    });
+    test('return error if not admin', async () => {
+      try {
+        await request(app)
+          .get('/admin/transactions')
+          .set('authorization', `Bearer ${u1Token}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+    test('return error if not logged in', async () => {
+      try {
+        await request(app).get('/admin/transactions');
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
   });
 });
