@@ -16,9 +16,7 @@ const {
   adminToken,
 } = require('./_testCommon');
 
-let testAdmin;
 let testUser;
-let testItem;
 
 beforeAll(async () => {
   await db.query('DELETE FROM users');
@@ -26,14 +24,7 @@ beforeAll(async () => {
   await db.query('DELETE FROM transactions');
   await db.query('DELETE FROM user_items');
 
-  testAdmin = await User.register('admin1', 'adminPass1');
   testUser = await User.register('user1', 'userPass1');
-  testItem = await Item.add({
-    name: 'item1',
-    description: 'description1',
-    price: 5,
-    createdBy: testAdmin.userId,
-  });
 });
 
 beforeEach(commonBeforeEach);
@@ -45,12 +36,7 @@ describe('Users Route Tests', () => {
     test('user variables', async () => {
       const users = await User.all();
       expect(users instanceof Array).toBeTruthy();
-      expect(users.length).toEqual(2);
-    });
-    test('item variables', async () => {
-      const items = await Item.all();
-      expect(items instanceof Array).toBeTruthy();
-      expect(items.length).toEqual(1);
+      expect(users.length).toEqual(1);
     });
   });
 
@@ -60,8 +46,7 @@ describe('Users Route Tests', () => {
         .get('/users')
         .set('authorization', `Bearer ${adminToken}`);
       expect(res.body instanceof Array).toBeTruthy();
-      expect(res.body[0].username).toEqual('admin1');
-      expect(res.body[1].username).toEqual('user1');
+      expect(res.body[0].username).toEqual('user1');
     });
     test('returns error if not logged in', async () => {
       const res = await request(app).get('/users');

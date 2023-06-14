@@ -1,6 +1,5 @@
 /* eslint-disable comma-dangle */
 const jsonschema = require('jsonschema');
-
 const express = require('express');
 const {
   authenticateJWT,

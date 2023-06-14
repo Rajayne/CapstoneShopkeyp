@@ -109,7 +109,6 @@ class Transaction {
         ]
       );
       const transaction = results.rows[0];
-
       if (transaction === undefined) {
         throw new ExpressError('Invalid data', 400);
       }
