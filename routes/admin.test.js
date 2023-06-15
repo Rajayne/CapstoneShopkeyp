@@ -20,6 +20,14 @@ let testAdmin;
 let testUser;
 let testItem;
 let testPurchase;
+const newItem = {
+  name: 'newItem',
+  description: 'newItem description',
+  itemImage: 'newItem.png',
+  price: 10,
+  stock: 1,
+  purchasable: false,
+};
 
 beforeAll(async () => {
   await db.query('DELETE FROM users');
@@ -332,6 +340,42 @@ describe('Admin Route Tests', () => {
     test('return error if not logged in', async () => {
       try {
         await request(app).get(`/admin/items/${testItem.itemId}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+  });
+
+  describe('POST /admin/items/new', () => {
+    test('create new item', async () => {
+      const res = await request(app)
+        .post('/admin/items/new')
+        .send(newItem)
+        .set('authorization', `Bearer ${adminToken}`);
+      expect(res.body.name).toEqual('newItem');
+    });
+    test('return error if no data', async () => {
+      try {
+        await request(app)
+          .post('/admin/items/new')
+          .set('authorization', `Bearer ${adminToken}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+    test('return error if not admin', async () => {
+      try {
+        await request(app)
+          .post('/admin/items/new')
+          .send(newItem)
+          .set('authorization', `Bearer ${u1Token}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+    test('return error if not logged in', async () => {
+      try {
+        await request(app).post('/admin/items/new').send(newItem);
       } catch (err) {
         expect(err instanceof ExpressError).toBeTruthy();
       }

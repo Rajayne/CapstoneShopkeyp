@@ -155,6 +155,21 @@ router.get(
   }
 );
 
+router.post(
+  '/items/new',
+  authenticateJWT,
+  requireLogin,
+  requireAdmin,
+  async (req, res, next) => {
+    try {
+      const item = await Item.add(req.body);
+      return res.json(item);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
 router.patch(
   '/:itemId/edit',
   authenticateJWT,

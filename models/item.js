@@ -120,7 +120,6 @@ class Item {
         dateCreated,
       ]
     );
-
     const item = results.rows[0];
 
     if (item === undefined) {
