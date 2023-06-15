@@ -49,6 +49,81 @@ router.get(
 );
 
 router.get(
+  '/users/:username/',
+  authenticateJWT,
+  requireLogin,
+  requireAdmin,
+  async (req, res, next) => {
+    try {
+      const user = await User.getByUsername(req.params.username);
+      return res.json(user);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
+router.patch(
+  '/:username/deactivate',
+  authenticateJWT,
+  requireLogin,
+  requireAdmin,
+  async (req, res, next) => {
+    try {
+      const user = await User.toggleActive(req.params.username, true);
+      return res.json(user);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
+router.patch(
+  '/:username/reactivate',
+  authenticateJWT,
+  requireLogin,
+  requireAdmin,
+  async (req, res, next) => {
+    try {
+      const user = await User.toggleActive(req.params.username, false);
+      return res.json(user);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
+router.patch(
+  '/:username/makeAdmin',
+  authenticateJWT,
+  requireLogin,
+  requireAdmin,
+  async (req, res, next) => {
+    try {
+      const user = await User.toggleIsAdmin(req.params.username, false);
+      return res.json(user);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
+router.patch(
+  '/:username/removeAdmin',
+  authenticateJWT,
+  requireLogin,
+  requireAdmin,
+  async (req, res, next) => {
+    try {
+      const user = await User.toggleIsAdmin(req.params.username, true);
+      return res.json(user);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
+router.get(
   '/items',
   authenticateJWT,
   requireLogin,

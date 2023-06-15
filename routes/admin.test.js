@@ -13,14 +13,13 @@ const {
   commonAfterEach,
   commonAfterAll,
   u1Token,
-  u2Token,
   adminToken,
 } = require('./_testCommon');
 
 let testAdmin;
 let testUser;
 let testItem;
-let testTransaction;
+let testPurchase;
 
 beforeAll(async () => {
   await db.query('DELETE FROM users');
@@ -41,8 +40,8 @@ beforeAll(async () => {
     createdBy: testAdmin.userId,
   });
 
-  testTransaction = await Transaction.add({
-    toUser: testUser.userId,
+  testPurchase = await User.purchase({
+    toUser: testUser.username,
     action: 'purchase',
     itemId: testItem.itemId,
     quantity: 2,
@@ -55,16 +54,20 @@ afterEach(commonAfterEach);
 afterAll(commonAfterAll);
 
 describe('Admin Route Tests', () => {
+  test('first test', async () => {
+    console.log('First test runs');
+    expect(1).toEqual(1);
+  });
   describe('Creates variables', () => {
     test('user variables', async () => {
       expect(testAdmin instanceof User).toBeTruthy();
       expect(testUser instanceof User).toBeTruthy();
     });
-    test('item variables', async () => {
+    test('item variable', async () => {
       expect(testItem instanceof Item).toBeTruthy();
     });
-    test('item variables', async () => {
-      expect(testTransaction instanceof Transaction).toBeTruthy();
+    test('transaction variable', async () => {
+      expect(testPurchase instanceof Transaction).toBeTruthy();
     });
   });
 
@@ -104,6 +107,7 @@ describe('Admin Route Tests', () => {
       }
     });
   });
+
   describe('GET /admin/users', () => {
     test('get all users', async () => {
       const res = await request(app)
@@ -129,6 +133,95 @@ describe('Admin Route Tests', () => {
       }
     });
   });
+
+  describe('GET /admin/users/:username', () => {
+    test('get user by username', async () => {
+      const res = await request(app)
+        .get(`/admin/users/${testUser.username}`)
+        .set('authorization', `Bearer ${adminToken}`);
+      expect(res.body.username).toEqual('user1');
+    });
+    test('return error if not admin', async () => {
+      try {
+        await request(app)
+          .get(`/admin/users/${testUser.username}`)
+          .set('authorization', `Bearer ${u1Token}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+    test('return error if not logged in', async () => {
+      try {
+        await request(app).get(`/admin/users/${testUser.username}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+  });
+
+  describe('PATCH /admin/:username/deactivate', () => {
+    test('deactivate user account', async () => {
+      let user = await User.getByUsername(testUser.username);
+      expect(user.active).toEqual(true);
+      const res = await request(app)
+        .patch(`/admin/${testUser.username}/deactivate`)
+        .set('authorization', `Bearer ${adminToken}`);
+      user = await User.getByUsername(testUser.username);
+      expect(res.body).toEqual(
+        "You have successfully deactivated user1's account."
+      );
+      expect(user.active).toEqual(false);
+    });
+    test('return error if not admin', async () => {
+      try {
+        await request(app)
+          .patch(`/admin/${testUser.username}/deactivate`)
+          .set('authorization', `Bearer ${u1Token}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+    test('return error if not logged in', async () => {
+      try {
+        await request(app).patch(`/admin/${testUser.username}/deactivate`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+  });
+
+  describe('PATCH /admin/:username/reactivate', () => {
+    test('reactivate user account', async () => {
+      await User.toggleActive(testUser.username, true);
+      let user = await User.getByUsername(testUser.username);
+      expect(user.active).toEqual(false);
+      const res = await request(app)
+        .patch(`/admin/${testUser.username}/reactivate`)
+        .set('authorization', `Bearer ${adminToken}`);
+      user = await User.getByUsername(testUser.username);
+      expect(res.body).toEqual(
+        "You have successfully reactivated user1's account."
+      );
+      expect(user.active).toEqual(true);
+    });
+    test('return error if not admin', async () => {
+      try {
+        await request(app)
+          .patch(`/admin/${testUser.username}/reactivate`)
+          .set('authorization', `Bearer ${u1Token}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+    test('return error if not logged in', async () => {
+      try {
+        await request(app).patch(`/admin/${testUser.username}/reactivate`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+  });
+
   describe('GET /admin/items', () => {
     test('get all items', async () => {
       const res = await request(app)
@@ -154,13 +247,14 @@ describe('Admin Route Tests', () => {
       }
     });
   });
+
   describe('GET /admin/transactions', () => {
     test('get all transactions', async () => {
       const res = await request(app)
         .get('/admin/transactions')
         .set('authorization', `Bearer ${adminToken}`);
       expect(res.body instanceof Array).toBeTruthy();
-      expect(res.body[0].transactionId).toEqual(testTransaction.transactionId);
+      expect(res.body[0].transactionId).toEqual(testPurchase.transactionId);
     });
     test('return error if not admin', async () => {
       try {

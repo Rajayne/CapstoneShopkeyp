@@ -293,8 +293,8 @@ class User {
     total,
     adminId,
   }) {
-    const update = this.updateInventory(toUser, itemId, quantity);
     toUser = await this.checkUsernameIdSwitch(toUser);
+    const update = this.updateInventory(toUser, itemId, quantity);
     if (update) {
       const transaction = await Transaction.add({
         fromUser: fromUser || null,
