@@ -290,7 +290,7 @@ describe('User Model Tests', () => {
     });
   });
   describe('User.purchase', () => {
-    test('purchase adds item to user inventory and creates transaction', async () => {
+    test('purchase creates transaction', async () => {
       const transaction = await User.purchase({
         toUser: testUser.userId,
         action: 'purchase',
@@ -299,6 +299,17 @@ describe('User Model Tests', () => {
         total: 10,
       });
       expect(transaction instanceof Transaction).toBeTruthy();
+    });
+    test('purchase adds item to user inventory', async () => {
+      await User.purchase({
+        toUser: testUser.userId,
+        action: 'purchase',
+        itemId: testItem.itemId,
+        quantity: 2,
+        total: 10,
+      });
+      const inventory = await User.getUserInventory(testUser.userId);
+      expect(inventory).toEqual([testItem.itemId]);
     });
   });
 });

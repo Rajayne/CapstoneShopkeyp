@@ -62,10 +62,6 @@ afterEach(commonAfterEach);
 afterAll(commonAfterAll);
 
 describe('Admin Route Tests', () => {
-  test('first test', async () => {
-    console.log('First test runs');
-    expect(1).toEqual(1);
-  });
   describe('Creates variables', () => {
     test('user variables', async () => {
       expect(testAdmin instanceof User).toBeTruthy();
@@ -321,7 +317,7 @@ describe('Admin Route Tests', () => {
     });
   });
 
-  describe('GET /admin/items/:item_id', () => {
+  describe('GET /admin/items/:itemId', () => {
     test('get item by id', async () => {
       const res = await request(app)
         .get(`/admin/items/${testItem.itemId}`)
@@ -382,7 +378,7 @@ describe('Admin Route Tests', () => {
     });
   });
 
-  describe('PATCH /admin/:item_id/edit', () => {
+  describe('PATCH /admin/:itemId/edit', () => {
     test('update item by id', async () => {
       const res = await request(app)
         .patch(`/admin/${testItem.itemId}/edit`)
@@ -431,6 +427,33 @@ describe('Admin Route Tests', () => {
     test('return error if not logged in', async () => {
       try {
         await request(app).get('/admin/transactions');
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+  });
+
+  describe('GET /admin/transactions/:transactionId', () => {
+    test('get transaction by id', async () => {
+      const res = await request(app)
+        .get(`/admin/transactions/${testPurchase.transactionId}`)
+        .set('authorization', `Bearer ${adminToken}`);
+      expect(res.body.transactionId).toEqual(testPurchase.transactionId);
+    });
+    test('return error if not admin', async () => {
+      try {
+        await request(app)
+          .get(`/admin/transactions/${testPurchase.transactionId}`)
+          .set('authorization', `Bearer ${u1Token}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+    test('return error if not logged in', async () => {
+      try {
+        await request(app).get(
+          `/admin/transactions/${testPurchase.transactionId}`
+        );
       } catch (err) {
         expect(err instanceof ExpressError).toBeTruthy();
       }

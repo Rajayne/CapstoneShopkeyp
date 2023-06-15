@@ -111,7 +111,6 @@ class User {
        WHERE ui.user_id = $1`,
       [userId]
     );
-
     return userItemsRes.rows.map((ui) => ui.item_id);
   }
 
@@ -294,7 +293,7 @@ class User {
     adminId,
   }) {
     toUser = await this.checkUsernameIdSwitch(toUser);
-    const update = this.updateInventory(toUser, itemId, quantity);
+    const update = await this.updateInventory(toUser, itemId, quantity);
     if (update) {
       const transaction = await Transaction.add({
         fromUser: fromUser || null,

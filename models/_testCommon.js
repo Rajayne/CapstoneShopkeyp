@@ -10,7 +10,7 @@ async function commonAfterEach() {
 }
 
 async function commonAfterAll() {
-  await db.end();
+  await db.end()
 }
 
 module.exports = {

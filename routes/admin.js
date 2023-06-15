@@ -223,4 +223,19 @@ router.get(
   }
 );
 
+router.get(
+  '/transactions/:transactionId',
+  authenticateJWT,
+  requireLogin,
+  requireAdmin,
+  async (req, res, next) => {
+    try {
+      const transaction = await Transaction.get(req.params.transactionId);
+      return res.json(transaction);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
 module.exports = router;
