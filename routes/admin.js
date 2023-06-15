@@ -139,6 +139,21 @@ router.get(
 );
 
 router.get(
+  '/items/:item_id',
+  authenticateJWT,
+  requireLogin,
+  requireAdmin,
+  async (req, res, next) => {
+    try {
+      const item = await Item.get(req.params.item_id);
+      return res.json(item);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
+router.get(
   '/transactions',
   authenticateJWT,
   requireLogin,

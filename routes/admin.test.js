@@ -313,6 +313,31 @@ describe('Admin Route Tests', () => {
     });
   });
 
+  describe('GET /admin/items/:item_id', () => {
+    test('get item by id', async () => {
+      const res = await request(app)
+        .get(`/admin/items/${testItem.itemId}`)
+        .set('authorization', `Bearer ${adminToken}`);
+      expect(res.body.name).toEqual('item1');
+    });
+    test('return error if not admin', async () => {
+      try {
+        await request(app)
+          .get(`/admin/items/${testItem.itemId}`)
+          .set('authorization', `Bearer ${u1Token}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+    test('return error if not logged in', async () => {
+      try {
+        await request(app).get(`/admin/items/${testItem.itemId}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+  });
+
   describe('GET /admin/transactions', () => {
     test('get all transactions', async () => {
       const res = await request(app)
