@@ -14,4 +14,18 @@ router.get('/', authenticateJWT, requireLogin, async (req, res, next) => {
   }
 });
 
+router.get(
+  '/item/:itemId',
+  authenticateJWT,
+  requireLogin,
+  async (req, res, next) => {
+    try {
+      const item = await Item.get(req.params.itemId);
+      return res.json(item);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
 module.exports = router;

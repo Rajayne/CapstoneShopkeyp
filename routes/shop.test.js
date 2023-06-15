@@ -99,4 +99,25 @@ describe('Shop Route Tests', () => {
       }
     });
   });
+  describe('GET /shop/item/:itemId', () => {
+    test('gets shop item by id for user', async () => {
+      const res = await request(app)
+        .get(`/shop/item/${testItem.itemId}`)
+        .set('authorization', `Bearer ${u1Token}`);
+      expect(res.body).toEqual(testItem);
+    });
+    test('gets shop item by id for admin', async () => {
+      const res = await request(app)
+        .get(`/shop/item/${testItem.itemId}`)
+        .set('authorization', `Bearer ${adminToken}`);
+      expect(res.body).toEqual(testItem);
+    });
+    test('returns error if not logged in', async () => {
+      try {
+        await request(app).get(`/shop/item/${testItem.itemId}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+  });
 });

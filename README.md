@@ -50,18 +50,20 @@ C -- Auth Fail --> E{403 Error}
 E -- Retry Login --> D
 D -- Yes --> F[Admin Page]
 D -- No--> G[User Page]
-F --> J[View Items] --> K(Edit/Add Item)
 F --> H(View Transactions) --> I(Transaction Details)
+F --> J(View Items) --> K(Edit/Add Item)
 F --> L(View Users) --> M[User Page]
-M --> DD(Edit Balance)
-M --> N(View User Inventory)
-N --> BB(Add/Remove Item)
-M --> O(Edit User Status) --> P
-G --> AA(Edit Profile)
-AA --> P(Deactivate Account)
-G --> Q(User Transactions) --> R(Transaction Details)
-G --> S(View Inventory) --> T(Item Details)
-G --> X[View Shop] --> T
+M --> N(Edit User Inventory)
+N --> O(Add/Remove Item)
+M --> P(Edit User Profile) 
+P --> Q(Add/Remove Admin)
+P --> R(Edit Balance)
+P --> S
+G --> U(Edit Profile)
+U --> S(Deactivate Account)
+G --> V(User Transactions) --> W(Transaction Details)
+G --> X(View Inventory) --> Y(Item Details)
+G --> Z[View Shop] --> Y
 ```
 
 # Getting Started with Create React App

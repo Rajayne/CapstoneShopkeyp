@@ -89,7 +89,6 @@ class Item {
        WHERE item_id = $1`,
       [itemId]
     );
-
     const item = results.rows[0];
 
     if (item === undefined) {

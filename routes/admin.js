@@ -66,7 +66,7 @@ router.get(
 );
 
 router.patch(
-  '/:username/deactivate',
+  '/users/:username/deactivate',
   authenticateJWT,
   requireLogin,
   requireAdmin,
@@ -81,7 +81,7 @@ router.patch(
 );
 
 router.patch(
-  '/:username/reactivate',
+  '/users/:username/reactivate',
   authenticateJWT,
   requireLogin,
   requireAdmin,
@@ -96,7 +96,7 @@ router.patch(
 );
 
 router.patch(
-  '/:username/makeAdmin',
+  '/users/:username/makeAdmin',
   authenticateJWT,
   requireLogin,
   requireAdmin,
@@ -111,7 +111,7 @@ router.patch(
 );
 
 router.patch(
-  '/:username/removeAdmin',
+  '/users/:username/removeAdmin',
   authenticateJWT,
   requireLogin,
   requireAdmin,
@@ -171,7 +171,7 @@ router.post(
 );
 
 router.patch(
-  '/:itemId/edit',
+  '/items/:itemId/edit',
   authenticateJWT,
   requireLogin,
   requireAdmin,

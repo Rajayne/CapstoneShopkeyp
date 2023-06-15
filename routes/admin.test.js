@@ -163,12 +163,12 @@ describe('Admin Route Tests', () => {
     });
   });
 
-  describe('PATCH /admin/:username/deactivate', () => {
+  describe('PATCH /admin/users/:username/deactivate', () => {
     test('deactivate user account', async () => {
       let user = await User.getByUsername(testUser.username);
       expect(user.active).toEqual(true);
       const res = await request(app)
-        .patch(`/admin/${testUser.username}/deactivate`)
+        .patch(`/admin/users/${testUser.username}/deactivate`)
         .set('authorization', `Bearer ${adminToken}`);
       user = await User.getByUsername(testUser.username);
       expect(res.body).toEqual(
@@ -179,7 +179,7 @@ describe('Admin Route Tests', () => {
     test('return error if not admin', async () => {
       try {
         await request(app)
-          .patch(`/admin/${testUser.username}/deactivate`)
+          .patch(`/admin/users/${testUser.username}/deactivate`)
           .set('authorization', `Bearer ${u1Token}`);
       } catch (err) {
         expect(err instanceof ExpressError).toBeTruthy();
@@ -187,20 +187,22 @@ describe('Admin Route Tests', () => {
     });
     test('return error if not logged in', async () => {
       try {
-        await request(app).patch(`/admin/${testUser.username}/deactivate`);
+        await request(app).patch(
+          `/admin/users/${testUser.username}/deactivate`
+        );
       } catch (err) {
         expect(err instanceof ExpressError).toBeTruthy();
       }
     });
   });
 
-  describe('PATCH /admin/:username/reactivate', () => {
+  describe('PATCH /admin/users/:username/reactivate', () => {
     test('reactivate user account', async () => {
       await User.toggleActive(testUser.username, true);
       let user = await User.getByUsername(testUser.username);
       expect(user.active).toEqual(false);
       const res = await request(app)
-        .patch(`/admin/${testUser.username}/reactivate`)
+        .patch(`/admin/users/${testUser.username}/reactivate`)
         .set('authorization', `Bearer ${adminToken}`);
       user = await User.getByUsername(testUser.username);
       expect(res.body).toEqual(
@@ -211,7 +213,7 @@ describe('Admin Route Tests', () => {
     test('return error if not admin', async () => {
       try {
         await request(app)
-          .patch(`/admin/${testUser.username}/reactivate`)
+          .patch(`/admin/users/${testUser.username}/reactivate`)
           .set('authorization', `Bearer ${u1Token}`);
       } catch (err) {
         expect(err instanceof ExpressError).toBeTruthy();
@@ -219,19 +221,21 @@ describe('Admin Route Tests', () => {
     });
     test('return error if not logged in', async () => {
       try {
-        await request(app).patch(`/admin/${testUser.username}/reactivate`);
+        await request(app).patch(
+          `/admin/users/${testUser.username}/reactivate`
+        );
       } catch (err) {
         expect(err instanceof ExpressError).toBeTruthy();
       }
     });
   });
 
-  describe('PATCH /admin/:username/makeAdmin', () => {
+  describe('PATCH /admin/users/:username/makeAdmin', () => {
     test('make user account admin', async () => {
       let user = await User.getByUsername(testUser.username);
       expect(user.isAdmin).toEqual(false);
       const res = await request(app)
-        .patch(`/admin/${testUser.username}/makeAdmin`)
+        .patch(`/admin/users/${testUser.username}/makeAdmin`)
         .set('authorization', `Bearer ${adminToken}`);
       user = await User.getByUsername(testUser.username);
       expect(res.body).toEqual(
@@ -242,7 +246,7 @@ describe('Admin Route Tests', () => {
     test('return error if not admin', async () => {
       try {
         await request(app)
-          .patch(`/admin/${testUser.username}/makeAdmin`)
+          .patch(`/admin/users/${testUser.username}/makeAdmin`)
           .set('authorization', `Bearer ${u1Token}`);
       } catch (err) {
         expect(err instanceof ExpressError).toBeTruthy();
@@ -250,22 +254,22 @@ describe('Admin Route Tests', () => {
     });
     test('return error if not logged in', async () => {
       try {
-        await request(app).patch(`/admin/${testUser.username}/makeAdmin`);
+        await request(app).patch(`/admin/users/${testUser.username}/makeAdmin`);
       } catch (err) {
         expect(err instanceof ExpressError).toBeTruthy();
       }
     });
   });
 
-  describe('PATCH /admin/:username/removeAdmin', () => {
+  describe('PATCH /admin/users/:username/removeAdmin', () => {
     test('make admin account user', async () => {
       await request(app)
-        .patch(`/admin/${testAdmin.username}/makeAdmin`)
+        .patch(`/admin/users/${testAdmin.username}/makeAdmin`)
         .set('authorization', `Bearer ${adminToken}`);
       let admin = await User.getByUsername(testAdmin.username);
       expect(admin.isAdmin).toEqual(true);
       const res = await request(app)
-        .patch(`/admin/${testAdmin.username}/removeAdmin`)
+        .patch(`/admin/users/${testAdmin.username}/removeAdmin`)
         .set('authorization', `Bearer ${adminToken}`);
       admin = await User.getByUsername(testAdmin.username);
       expect(res.body).toEqual(
@@ -276,7 +280,7 @@ describe('Admin Route Tests', () => {
     test('return error if not admin', async () => {
       try {
         await request(app)
-          .patch(`/admin/${testUser.username}/removeAdmin`)
+          .patch(`/admin/users/${testUser.username}/removeAdmin`)
           .set('authorization', `Bearer ${u1Token}`);
       } catch (err) {
         expect(err instanceof ExpressError).toBeTruthy();
@@ -284,7 +288,9 @@ describe('Admin Route Tests', () => {
     });
     test('return error if not logged in', async () => {
       try {
-        await request(app).patch(`/admin/${testUser.username}/removeAdmin`);
+        await request(app).patch(
+          `/admin/users/${testUser.username}/removeAdmin`
+        );
       } catch (err) {
         expect(err instanceof ExpressError).toBeTruthy();
       }
@@ -378,10 +384,10 @@ describe('Admin Route Tests', () => {
     });
   });
 
-  describe('PATCH /admin/:itemId/edit', () => {
+  describe('PATCH /admin/items/:itemId/edit', () => {
     test('update item by id', async () => {
       const res = await request(app)
-        .patch(`/admin/${testItem.itemId}/edit`)
+        .patch(`/admin/items/${testItem.itemId}/edit`)
         .send({ name: 'newItem1' })
         .set('authorization', `Bearer ${adminToken}`);
       expect(res.body).toEqual(
@@ -391,7 +397,7 @@ describe('Admin Route Tests', () => {
     test('return error if not admin', async () => {
       try {
         await request(app)
-          .patch(`/admin/${testItem.itemId}/edit`)
+          .patch(`/admin/items/${testItem.itemId}/edit`)
           .send({ name: 'newItem1' })
           .set('authorization', `Bearer ${u1Token}`);
       } catch (err) {
@@ -400,7 +406,7 @@ describe('Admin Route Tests', () => {
     });
     test('return error if not logged in', async () => {
       try {
-        await request(app).patch(`/admin/${testItem.itemId}/edit`);
+        await request(app).patch(`/admin/items/${testItem.itemId}/edit`);
       } catch (err) {
         expect(err instanceof ExpressError).toBeTruthy();
       }
