@@ -47,6 +47,31 @@ class Item {
     return results.rows.map((i) => new Item(i));
   }
 
+  static async purchasable() {
+    const results = await db.query(
+      `SELECT
+        item_uuid AS "itemUuid",
+        item_id AS "itemId",
+        name,
+        description,
+        item_image AS "itemImage",
+        price,
+        stock,
+        purchasable,
+        created_by AS "createdBy",
+        date_created AS "dateCreated"
+      FROM items
+      WHERE purchasable = true
+      ORDER BY name`
+    );
+    const items = results.rows;
+    if (!items) {
+      return 'No purchasable shop items.';
+    }
+
+    return results.rows.map((i) => new Item(i));
+  }
+
   static async get(itemId) {
     const results = await db.query(
       `SELECT 
@@ -115,7 +140,7 @@ class Item {
         itemImage,
         price,
         stock,
-        purchasable,
+        purchasable || 0,
         createdBy,
         dateCreated,
       ]

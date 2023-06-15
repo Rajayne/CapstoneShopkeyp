@@ -17,7 +17,7 @@ CREATE TABLE items (
     item_image TEXT CHECK (position('.' IN item_image) > 1) DEFAULT 'https://media.istockphoto.com/id/1193046540/vector/photo-coming-soon-image-icon-vector-illustration-isolated-on-white-background-no-website.jpg?s=612x612&w=0&k=20&c=4wx1UzigP0g9vJv9D_DmOxdAT_DtX5peZdoS4hi2Fqg=',
     price INTEGER CHECK (price >= 0) DEFAULT 0,
     stock INTEGER CHECK (stock >= 0) DEFAULT 0,
-    purchasable BOOLEAN DEFAULT true,
+    purchasable BOOLEAN NOT NULL DEFAULT true,
     created_by INTEGER REFERENCES users ON DELETE CASCADE,
     date_created TIMESTAMP DEFAULT current_timestamp
 );

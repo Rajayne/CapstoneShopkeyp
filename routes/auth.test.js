@@ -3,8 +3,6 @@ const request = require('supertest');
 const db = require('../db');
 const User = require('../models/user');
 const Item = require('../models/item');
-const bcrypt = require('bcrypt');
-const { BCRYPT_WORK_FACTOR } = require('../config');
 
 const app = require('../app');
 
@@ -16,8 +14,6 @@ const {
 } = require('./_testCommon');
 
 let testAdmin;
-let testUser;
-let testItem;
 
 beforeAll(async () => {
   await db.query('DELETE FROM users');
@@ -26,8 +22,8 @@ beforeAll(async () => {
   await db.query('DELETE FROM user_items');
 
   testAdmin = await User.register('admin1', 'adminPass1');
-  testUser = await User.register('user1', 'userPass1');
-  testItem = await Item.add({
+  await User.register('user1', 'userPass1');
+  await Item.add({
     name: 'item1',
     description: 'description1',
     price: 5,

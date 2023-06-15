@@ -1,9 +1,9 @@
 /* eslint-disable comma-dangle, no-param-reassign */
+const bcrypt = require('bcrypt');
 const db = require('../db');
 const ExpressError = require('../expressError');
 const Transaction = require('./transaction');
 const { sqlForPartialUpdate } = require('../helpers/sql');
-const bcrypt = require('bcrypt');
 const { BCRYPT_WORK_FACTOR } = require('../config');
 
 class User {
