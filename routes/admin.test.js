@@ -222,6 +222,71 @@ describe('Admin Route Tests', () => {
     });
   });
 
+  describe('PATCH /admin/:username/makeAdmin', () => {
+    test('make user account admin', async () => {
+      let user = await User.getByUsername(testUser.username);
+      expect(user.isAdmin).toEqual(false);
+      const res = await request(app)
+        .patch(`/admin/${testUser.username}/makeAdmin`)
+        .set('authorization', `Bearer ${adminToken}`);
+      user = await User.getByUsername(testUser.username);
+      expect(res.body).toEqual(
+        'You have successfully given user1 admin permissions.'
+      );
+      expect(user.isAdmin).toEqual(true);
+    });
+    test('return error if not admin', async () => {
+      try {
+        await request(app)
+          .patch(`/admin/${testUser.username}/makeAdmin`)
+          .set('authorization', `Bearer ${u1Token}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+    test('return error if not logged in', async () => {
+      try {
+        await request(app).patch(`/admin/${testUser.username}/makeAdmin`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+  });
+
+  describe('PATCH /admin/:username/removeAdmin', () => {
+    test('make admin account user', async () => {
+      await request(app)
+        .patch(`/admin/${testAdmin.username}/makeAdmin`)
+        .set('authorization', `Bearer ${adminToken}`);
+      let admin = await User.getByUsername(testAdmin.username);
+      expect(admin.isAdmin).toEqual(true);
+      const res = await request(app)
+        .patch(`/admin/${testAdmin.username}/removeAdmin`)
+        .set('authorization', `Bearer ${adminToken}`);
+      admin = await User.getByUsername(testAdmin.username);
+      expect(res.body).toEqual(
+        'You have successfully taken admin1 admin permissions.'
+      );
+      expect(admin.isAdmin).toEqual(false);
+    });
+    test('return error if not admin', async () => {
+      try {
+        await request(app)
+          .patch(`/admin/${testUser.username}/removeAdmin`)
+          .set('authorization', `Bearer ${u1Token}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+    test('return error if not logged in', async () => {
+      try {
+        await request(app).patch(`/admin/${testUser.username}/removeAdmin`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+  });
+
   describe('GET /admin/items', () => {
     test('get all items', async () => {
       const res = await request(app)
