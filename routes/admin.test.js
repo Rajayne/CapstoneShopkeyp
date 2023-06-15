@@ -338,6 +338,35 @@ describe('Admin Route Tests', () => {
     });
   });
 
+  describe('PATCH /admin/:item_id/edit', () => {
+    test('update item by id', async () => {
+      const res = await request(app)
+        .patch(`/admin/${testItem.itemId}/edit`)
+        .send({ name: 'newItem1' })
+        .set('authorization', `Bearer ${adminToken}`);
+      expect(res.body).toEqual(
+        "You have successfully updated newItem1's details."
+      );
+    });
+    test('return error if not admin', async () => {
+      try {
+        await request(app)
+          .patch(`/admin/${testItem.itemId}/edit`)
+          .send({ name: 'newItem1' })
+          .set('authorization', `Bearer ${u1Token}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+    test('return error if not logged in', async () => {
+      try {
+        await request(app).patch(`/admin/${testItem.itemId}/edit`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+  });
+
   describe('GET /admin/transactions', () => {
     test('get all transactions', async () => {
       const res = await request(app)

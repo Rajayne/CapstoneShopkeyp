@@ -9,6 +9,8 @@ const {
 const User = require('../models/user');
 const Item = require('../models/item');
 const Transaction = require('../models/transaction');
+const ExpressError = require('../expressError');
+const itemUpdateSchema = require('../schemas/itemUpdate.json');
 
 const router = express.Router();
 
@@ -139,13 +141,51 @@ router.get(
 );
 
 router.get(
-  '/items/:item_id',
+  '/items/:itemId',
   authenticateJWT,
   requireLogin,
   requireAdmin,
   async (req, res, next) => {
     try {
-      const item = await Item.get(req.params.item_id);
+      const item = await Item.get(req.params.itemId);
+      return res.json(item);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
+router.patch(
+  '/:itemId/edit',
+  authenticateJWT,
+  requireLogin,
+  requireAdmin,
+  async (req, res, next) => {
+    const validator = jsonschema.validate(req.body, itemUpdateSchema);
+    if (!validator.valid) {
+      throw new ExpressError('Bad Request', 400);
+    }
+    try {
+      const fields = {
+        itemUuid: req.body.itemUuid,
+        name: req.body.name,
+        description: req.body.description,
+        itemImage: req.body.itemImage,
+        price: req.body.price,
+        stock: req.body.stock,
+        purchasable: req.body.stock,
+      };
+
+      Object.keys(fields).forEach(
+        (key) => fields[key] === undefined && delete fields[key]
+      );
+
+      if (Object.keys(fields).length === 0) {
+        throw new ExpressError('Unauthorized or blank fields.', 401);
+      }
+
+      const item = await Item.update(req.params.itemId, fields);
+
       return res.json(item);
     } catch (err) {
       return next(err);

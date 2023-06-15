@@ -252,7 +252,7 @@ class User {
       [userId, itemId]
     );
 
-    if (checkInventory) {
+    if (checkInventory.rows[0]) {
       return true;
     }
     return false;
@@ -260,7 +260,7 @@ class User {
 
   static async updateInventory(userId, itemId, quantity) {
     userId = await this.checkUsernameIdSwitch(userId);
-    if (this.inInventory(userId, itemId)) {
+    if (await this.inInventory(userId, itemId)) {
       const updateInventory = await db.query(
         `UPDATE user_items
         SET quantity = quantity + $1
@@ -273,10 +273,10 @@ class User {
     }
     const createInventory = await db.query(
       `INSERT INTO user_items
-        (user_id, item_id, quantity)
-        VALUES
-        ($1, $2, $3)
-        RETURNING quantity`,
+          (user_id, item_id, quantity)
+          VALUES
+          ($1, $2, $3)
+          RETURNING quantity`,
       [userId, itemId, quantity]
     );
 
