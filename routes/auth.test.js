@@ -12,6 +12,7 @@ const {
   commonBeforeEach,
   commonAfterEach,
   commonAfterAll,
+  adminToken,
 } = require('./_testCommon');
 
 let testAdmin;
@@ -49,6 +50,19 @@ describe('Auth Route Tests', () => {
       const items = await Item.all();
       expect(items instanceof Array).toBeTruthy();
       expect(items.length).toEqual(1);
+    });
+  });
+
+  describe('Auth/logout', () => {
+    test('POST works', async () => {
+      const res = await request(app)
+        .post('/auth/logout')
+        .set('authorization', `Bearer ${adminToken}`);
+      expect(res.body).toEqual('You have successfully logged out.');
+    });
+    test('returns error if not logged in', async () => {
+      const res = await request(app).post('/auth/logout');
+      expect(res.statusCode).toEqual(401);
     });
   });
 

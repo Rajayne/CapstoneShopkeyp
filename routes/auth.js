@@ -7,6 +7,19 @@ const { createToken } = require('../helpers/token');
 const userAuthSchema = require('../schemas/userAuth.json');
 const userRegisterSchema = require('../schemas/userRegister.json');
 const ExpressError = require('../expressError');
+const { requireLogin } = require('../middleware/auth');
+
+router.post('/logout', requireLogin, async (req, res, next) => {
+  try {
+    res.cookie('token', '', {
+      httpOnly: true,
+      expires: new Date(Date.now() + 1000),
+    });
+    return res.status(200).json('You have successfully logged out.');
+  } catch (e) {
+    return next(e);
+  }
+});
 
 /** POST /auth/token:  { username, password } => { token }
  * User recieves auth token after logging in */
