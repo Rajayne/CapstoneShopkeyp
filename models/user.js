@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable comma-dangle, no-param-reassign */
 const bcrypt = require('bcrypt');
 const db = require('../db');
@@ -106,12 +107,12 @@ class User {
 
   static async getUserInventory(userId) {
     const userItemsRes = await db.query(
-      `SELECT ui.item_id
+      `SELECT ui.item_id AS "itemId", quantity
        FROM user_items AS ui
        WHERE ui.user_id = $1`,
       [userId]
     );
-    return userItemsRes.rows.map((ui) => ui.item_id);
+    return userItemsRes.rows;
   }
 
   static async getById(userId) {
@@ -283,26 +284,16 @@ class User {
     return createInventory.rows[0].quantity;
   }
 
-  static async purchase({
-    fromUser,
-    toUser,
-    action,
-    itemId,
-    quantity,
-    total,
-    adminId,
-  }) {
+  static async purchase({ toUser, itemId, quantity, total }) {
     toUser = await this.checkUsernameIdSwitch(toUser);
     const update = await this.updateInventory(toUser, itemId, quantity);
     if (update) {
       const transaction = await Transaction.add({
-        fromUser: fromUser || null,
         toUser,
-        action,
-        itemId,
+        action: 'purchase',
+        itemId: itemId || null,
         quantity: quantity || 0,
         total: total || 0,
-        adminId: adminId || null,
       });
       return new Transaction(transaction);
     }

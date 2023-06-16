@@ -39,7 +39,15 @@ function requireAdmin(req, res, next) {
 function ensureCorrectUserOrAdmin(req, res, next) {
   try {
     const { user } = res.locals;
-    if (!(user && (user.isAdmin || user.username === req.params.username))) {
+    console.log(user.username === req.body.toUser);
+    if (
+      !(
+        user &&
+        (user.isAdmin ||
+          user.username === req.params.username ||
+          user.username === req.body.toUser)
+      )
+    ) {
       throw new ExpressError('Unauthorized', 401);
     }
     return next();

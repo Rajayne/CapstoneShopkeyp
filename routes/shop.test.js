@@ -13,6 +13,7 @@ const {
   commonAfterEach,
   commonAfterAll,
   u1Token,
+  u2Token,
   adminToken,
 } = require('./_testCommon');
 
@@ -115,6 +116,52 @@ describe('Shop Route Tests', () => {
     test('returns error if not logged in', async () => {
       try {
         await request(app).get(`/shop/item/${testItem.itemId}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+  });
+  describe('POST /shop/item/:itemId/purchase', () => {
+    test('user can purchase item from shop', async () => {
+      const res = await request(app)
+        .get(`/shop/item/${testItem.itemId}/purchase`)
+        .send({
+          toUser: testUser.username,
+          itemId: testItem.itemId,
+          quantity: 2,
+          total: 10,
+        })
+        .set('authorization', `Bearer ${u1Token}`);
+      expect(res.body.toUser).toEqual(testUser.userId);
+      expect(res.body.action).toEqual('purchase');
+      const user = await User.getByUsername(testUser.username);
+      expect(user.inventory.length).toEqual(1);
+      console.log(user.inventory[0]);
+      expect(user.inventory[0].itemId).toEqual(testItem.itemId);
+    });
+    test('returns error if wrong user', async () => {
+      try {
+        await request(app)
+          .get(`/shop/item/${testItem.itemId}/purchase`)
+          .send({
+            toUser: testUser.username,
+            itemId: testItem.itemId,
+            quantity: 2,
+            total: 10,
+          })
+          .set('authorization', `Bearer ${u2Token}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
+    });
+    test('returns error if not logged in', async () => {
+      try {
+        await request(app).get(`/shop/item/${testItem.itemId}/purchase`).send({
+          toUser: testUser.username,
+          itemId: testItem.itemId,
+          quantity: 2,
+          total: 10,
+        });
       } catch (err) {
         expect(err instanceof ExpressError).toBeTruthy();
       }

@@ -7,6 +7,7 @@ const authRoute = require('./routes/auth');
 const usersRoute = require('./routes/users');
 const adminRoute = require('./routes/admin');
 const shopRoute = require('./routes/shop');
+const ExpressError = require('./expressError');
 
 const app = express();
 
@@ -19,7 +20,10 @@ app.use('/users', usersRoute);
 app.use('/admin', adminRoute);
 app.use('/shop', shopRoute);
 
-/** General error handler */
+/** Handle 404 errors -- this matches everything */
+app.use((req, res, next) => next(new ExpressError('Not Found', 404)));
+
+/** Generic error handler; anything unhandled goes here. */
 app.use((err, req, res) => {
   res.status(err.status || 500);
 
