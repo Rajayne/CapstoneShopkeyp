@@ -1,10 +1,12 @@
+import { CardContent } from '@mui/material';
 import React from "react";
 
 const Home = () => {
   return (
-    <div>
+    <CardContent>
       <h1>Home Page</h1>
-    </div>
+      <p>About Us</p>
+    </CardContent>
   );
 };
 

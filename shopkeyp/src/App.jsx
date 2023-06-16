@@ -1,18 +1,16 @@
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
-import Home from "./Home";
-import NavBar from "./NavBar";
+import {Card, CardContent, Toolbar} from '@mui/material'
+import NavBar from "./components/NavBar";
+import Router from "./components/Router"
 
 function App() {
   return (
     <div className='App'>
-      <div className='App-wrapper'>
-        <header>Shopkeyp</header>
-          <NavBar />
-          <Routes>
-            <Route exact path="/" element={<Home/>} />
-          </Routes>
-      </div>
+      <Card className='App-wrapper'>
+        <NavBar />
+        <Toolbar />
+        <Router />
+      </Card>
     </div>
   );
 }

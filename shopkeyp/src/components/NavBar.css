@@ -1,0 +1,15 @@
+.NavBar {
+  margin: auto;
+  padding: 1rem;
+  color: white;
+}
+
+.NavBar a.active {
+  color: white;
+}
+
+.NavBar-link {
+  margin: 1rem;
+  text-decoration: none;
+  color: lightsteelblue;
+}
