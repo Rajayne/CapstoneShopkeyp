@@ -21,15 +21,17 @@ app.use('/admin', adminRoute);
 app.use('/shop', shopRoute);
 
 /** Handle 404 errors -- this matches everything */
-app.use((req, res, next) => next(new ExpressError('Not Found', 404)));
-
+app.use((req, res, next) => {
+  const e = new ExpressError('Not Found', 404);
+  next(e);
+});
 /** Generic error handler; anything unhandled goes here. */
 app.use((err, req, res) => {
-  res.status(err.status || 500);
+  const status = err.status || 500;
+  const message = err.message || 'Server Error';
 
-  return res.json({
-    error: err,
-    message: err.message,
+  return res.status(status).json({
+    error: { message, status },
   });
 });
 

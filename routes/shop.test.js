@@ -136,7 +136,6 @@ describe('Shop Route Tests', () => {
       expect(res.body.action).toEqual('purchase');
       const user = await User.getByUsername(testUser.username);
       expect(user.inventory.length).toEqual(1);
-      console.log(user.inventory[0]);
       expect(user.inventory[0].itemId).toEqual(testItem.itemId);
     });
     test('returns error if wrong user', async () => {
