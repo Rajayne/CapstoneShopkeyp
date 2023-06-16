@@ -4,7 +4,7 @@ import Home from "./Home";
 import Admin from "./Admin";
 import Shop from "./Shop";
 import Profile from "./Profile";
-import Login from "./Login";
+import Login from "./Login/Login";
 import Error404 from "./Error404";
 import Register from './Register/Register';
 

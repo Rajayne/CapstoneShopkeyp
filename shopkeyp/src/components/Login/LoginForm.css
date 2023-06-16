@@ -1,19 +1,19 @@
-.RegisterForm {
+.LoginForm {
   padding: .5rem;
 }
 
-.RegisterForm-label {
+.LoginForm-label {
   font-size: 1rem;
   text-align: center;
 }
 
-.RegisterForm-input {
+.LoginForm-input {
   font-size: 1rem;
   padding: .25rem;
   text-align: left;
   color: #778899;
 }
 
-.RegisterForm-button {
+.LoginForm-button {
   margin: 1rem 0;
 }
