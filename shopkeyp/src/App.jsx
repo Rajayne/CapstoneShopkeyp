@@ -9,7 +9,9 @@ function App() {
       <Card className='App-wrapper'>
         <NavBar />
         <Toolbar />
-        <Router />
+        <CardContent>
+          <Router />
+        </CardContent>
       </Card>
     </div>
   );

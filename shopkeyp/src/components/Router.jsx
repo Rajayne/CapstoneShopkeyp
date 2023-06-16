@@ -6,7 +6,7 @@ import Shop from "./Shop";
 import Profile from "./Profile";
 import Login from "./Login";
 import Error404 from "./Error404";
-import Register from './Register';
+import Register from './Register/Register';
 
 const Router = () => {
   return (

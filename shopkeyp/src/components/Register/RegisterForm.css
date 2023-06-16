@@ -1,0 +1,15 @@
+.RegisterForm-label {
+  font-size: calc(6.25px + 1.25vmin);
+  text-align: center;
+}
+
+.RegisterForm-input {
+  font-size: calc(6.25px + 1.25vmin);
+  padding: .25rem;
+  text-align: left;
+  color: #778899;
+}
+
+.RegisterForm-button {
+  margin: 1rem;
+}
