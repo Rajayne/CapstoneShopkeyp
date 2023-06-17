@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const { user, password } = require('../dbPassword');
+// const { user, password } = require('../dbPassword');
 
 require('dotenv').config();
 require('colors');
@@ -11,8 +11,8 @@ const PORT = +process.env.PORT || 5000;
 // Use dev database, testing database, or via env var, production database
 function getDatabaseUri() {
   return process.env.NODE_ENV === 'test'
-    ? `postgresql://${user}:${password}@localhost:5432/shopkeyp_test`
-    : `postgresql://${user}:${password}@localhost:5432/shopkeyp`;
+    ? `postgresql://${process.env.USERNAME}:${process.env.PASSWORD}@localhost:5432/shopkeyp_test`
+    : `postgresql://${process.env.USERNAME}:${process.env.PASSWORD}@localhost:5432/${process.env.DATABASE}`;
 }
 
 // Speed up bcrypt during tests with lower salt
