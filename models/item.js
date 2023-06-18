@@ -1,9 +1,10 @@
+/* eslint-disable import/extensions */
 /* eslint-disable comma-dangle */
-const db = require('../db');
-const ExpressError = require('../expressError');
-const { sqlForPartialUpdate } = require('../helpers/sql');
+import db from '../db.js';
+import ExpressError from '../expressError.js';
+import sqlForPartialUpdate from '../helpers/sql.js';
 
-class Item {
+export default class Item {
   constructor({
     itemUuid,
     itemId,
@@ -173,5 +174,3 @@ class Item {
     return `You have successfully updated ${item.name}'s details.`;
   }
 }
-
-module.exports = Item;

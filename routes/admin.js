@@ -1,16 +1,14 @@
+/* eslint-disable import/extensions */
 /* eslint-disable comma-dangle */
-const jsonschema = require('jsonschema');
-const express = require('express');
-const {
-  authenticateJWT,
-  requireLogin,
-  requireAdmin,
-} = require('../middleware/auth');
-const User = require('../models/user');
-const Item = require('../models/item');
-const Transaction = require('../models/transaction');
-const ExpressError = require('../expressError');
-const itemUpdateSchema = require('../schemas/itemUpdate.json');
+import express from 'express';
+import jsonschema from 'jsonschema';
+import { authenticateJWT, requireLogin, requireAdmin } from '../middleware/auth.js';
+import User from '../models/user.js';
+import Item from '../models/item.js';
+import Transaction from '../models/transaction.js';
+import ExpressError from '../expressError.js';
+
+import itemUpdateSchema from '../schemas/itemUpdate.json' assert { type: "json" };
 
 const router = express.Router();
 
@@ -238,4 +236,4 @@ router.get(
   }
 );
 
-module.exports = router;
+export default router;

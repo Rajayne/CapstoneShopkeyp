@@ -1,7 +1,8 @@
-const request = require('supertest');
+/* eslint-disable import/extensions */
+import request from 'supertest';
 
-const app = require('./app');
-const db = require('./db');
+import app from './app.js';
+import db from './db.js';
 
 test('not found for site 404', async () => {
   const resp = await request(app).get('/no-such-path');

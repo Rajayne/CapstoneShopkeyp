@@ -1,20 +1,15 @@
 /* eslint-disable comma-dangle */
-const db = require('../db');
+// eslint-disable-next-line import/extensions
+import db from '../db.js';
 
-async function commonBeforeEach() {
+export async function commonBeforeEach() {
   await db.query('BEGIN');
 }
 
-async function commonAfterEach() {
+export async function commonAfterEach() {
   await db.query('ROLLBACK');
 }
 
-async function commonAfterAll() {
+export async function commonAfterAll() {
   await db.end();
 }
-
-module.exports = {
-  commonBeforeEach,
-  commonAfterEach,
-  commonAfterAll,
-};

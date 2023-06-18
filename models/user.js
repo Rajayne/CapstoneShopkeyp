@@ -1,13 +1,15 @@
+/* eslint-disable import/extensions */
 /* eslint-disable object-curly-newline */
 /* eslint-disable comma-dangle, no-param-reassign */
-const bcrypt = require('bcrypt');
-const db = require('../db');
-const ExpressError = require('../expressError');
-const Transaction = require('./transaction');
-const { sqlForPartialUpdate } = require('../helpers/sql');
-const { BCRYPT_WORK_FACTOR } = require('../config');
+import bcrypt from 'bcrypt';
 
-class User {
+import db from '../db.js';
+import ExpressError from '../expressError.js';
+import Transaction from './transaction.js';
+import sqlForPartialUpdate from '../helpers/sql.js';
+import { BCRYPT_WORK_FACTOR } from '../config.js';
+
+export default class User {
   constructor({
     userId,
     username,
@@ -300,5 +302,3 @@ class User {
     return new ExpressError('Invalid data', 400);
   }
 }
-
-module.exports = User;

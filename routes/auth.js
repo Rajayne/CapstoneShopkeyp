@@ -1,13 +1,16 @@
-const jsonschema = require('jsonschema');
-const express = require('express');
-const User = require('../models/user');
+/* eslint-disable import/extensions */
+import jsonschema from 'jsonschema';
+import express from 'express';
+
+import User from '../models/user.js';
+import createToken from '../helpers/token.js';
+import ExpressError from '../expressError.js';
+import { requireLogin } from '../middleware/auth.js';
+
+import userAuthSchema from '../schemas/userAuth.json' assert { type: "json" };
+import userRegisterSchema from '../schemas/userRegister.json' assert { type: "json" };
 
 const router = new express.Router();
-const { createToken } = require('../helpers/token');
-const userAuthSchema = require('../schemas/userAuth.json');
-const userRegisterSchema = require('../schemas/userRegister.json');
-const ExpressError = require('../expressError');
-const { requireLogin } = require('../middleware/auth');
 
 router.post('/logout', requireLogin, async (req, res, next) => {
   try {
@@ -55,4 +58,4 @@ router.post('/register', async (req, res, next) => {
   }
 });
 
-module.exports = router;
+export default router;

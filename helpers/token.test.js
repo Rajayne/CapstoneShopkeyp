@@ -1,6 +1,8 @@
-const jwt = require('jsonwebtoken');
-const { createToken } = require('./token');
-const { SECRET_KEY } = require('../config');
+/* eslint-disable import/extensions */
+import jwt from 'jsonwebtoken';
+
+import createToken from './token.js';
+import { SECRET_KEY } from '../config.js';
 
 describe('createToken', () => {
   test('works: not admin', () => {

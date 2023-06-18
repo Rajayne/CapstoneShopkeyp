@@ -1,13 +1,14 @@
+/* eslint-disable import/extensions */
 /* eslint-disable import/no-extraneous-dependencies */
-const express = require('express');
-const cors = require('cors');
+import express from 'express';
+import cors from 'cors';
+import ExpressError from './expressError.js';
+import { authenticateJWT } from './middleware/auth.js';
 
-const { authenticateJWT } = require('./middleware/auth');
-const authRoute = require('./routes/auth');
-const usersRoute = require('./routes/users');
-const adminRoute = require('./routes/admin');
-const shopRoute = require('./routes/shop');
-const ExpressError = require('./expressError');
+import authRoute from './routes/auth.js';
+import usersRoute from './routes/users.js';
+import adminRoute from './routes/admin.js';
+import shopRoute from './routes/shop.js';
 
 const app = express();
 
@@ -35,4 +36,4 @@ app.use((err, req, res) => {
   });
 });
 
-module.exports = app;
+export default app;

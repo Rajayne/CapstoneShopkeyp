@@ -1,12 +1,9 @@
+/* eslint-disable import/extensions */
 /* eslint-disable comma-dangle */
-const express = require('express');
-const {
-  authenticateJWT,
-  requireLogin,
-  ensureCorrectUserOrAdmin,
-} = require('../middleware/auth');
-const Item = require('../models/item');
-const User = require('../models/user');
+import express from 'express';
+import { authenticateJWT, requireLogin, ensureCorrectUserOrAdmin } from '../middleware/auth.js';
+import Item from '../models/item.js';
+import User from '../models/user.js';
 
 const router = express.Router();
 
@@ -48,4 +45,4 @@ router.get(
   }
 );
 
-module.exports = router;
+export default router;

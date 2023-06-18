@@ -1,11 +1,9 @@
+/* eslint-disable import/extensions */
 /* eslint-disable comma-dangle */
-const request = require('supertest');
-const db = require('../db');
-const User = require('../models/user');
-const Item = require('../models/item');
-const ExpressError = require('../expressError');
-
-const app = require('../app');
+import request from 'supertest';
+import db from '../db.js';
+import User from '../models/user.js';
+import app from '../app.js';
 
 const {
   commonBeforeEach,

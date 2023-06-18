@@ -1,5 +1,6 @@
+/* eslint-disable import/extensions */
 /* eslint-disable no-console */
-const app = require('./app');
+import app from './app.js';
 
 app.listen(5000, () => {
   console.log('Listening on Port 5000');

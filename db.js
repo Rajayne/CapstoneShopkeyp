@@ -1,6 +1,8 @@
-const { Client } = require('pg');
-const { getDatabaseUri } = require('./config');
+/* eslint-disable import/extensions */
+import pg from 'pg';
+import { getDatabaseUri } from './config.js';
 
+const { Client } = pg;
 let db;
 
 if (process.env.NODE_ENV === 'production') {
@@ -18,4 +20,4 @@ if (process.env.NODE_ENV === 'production') {
 
 db.connect();
 
-module.exports = db;
+export default db;

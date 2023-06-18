@@ -1,8 +1,9 @@
+/* eslint-disable import/extensions */
 /* eslint-disable comma-dangle */
-const db = require('../db');
-const ExpressError = require('../expressError');
+import db from '../db.js';
+import ExpressError from '../expressError.js';
 
-class Transaction {
+export default class Transaction {
   constructor({
     transactionId,
     fromUser,
@@ -118,5 +119,3 @@ class Transaction {
     }
   }
 }
-
-module.exports = Transaction;

@@ -1,8 +1,9 @@
+/* eslint-disable import/extensions */
 /* eslint-disable comma-dangle */
-const db = require('../db');
-const User = require('./user');
-const Item = require('./item');
-const ExpressError = require('../expressError');
+import Item from './item.js';
+import db from '../db.js';
+import ExpressError from '../expressError.js';
+import User from './user.js';
 
 const {
   commonBeforeEach,

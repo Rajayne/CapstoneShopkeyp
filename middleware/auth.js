@@ -1,9 +1,10 @@
-const jwt = require('jsonwebtoken');
-const { SECRET_KEY } = require('../config');
-const ExpressError = require('../expressError');
+/* eslint-disable import/extensions */
+import jwt from 'jsonwebtoken';
+import { SECRET_KEY } from '../config.js';
+import ExpressError from '../expressError.js';
 
 // Authenticate user token
-function authenticateJWT(req, res, next) {
+export function authenticateJWT(req, res, next) {
   try {
     const authHeader = req.headers && req.headers.authorization;
     if (authHeader) {
@@ -16,7 +17,7 @@ function authenticateJWT(req, res, next) {
   }
 }
 
-function requireLogin(req, res, next) {
+export function requireLogin(req, res, next) {
   try {
     if (!res.locals.user) throw new ExpressError('Unauthorized', 401);
     return next();
@@ -25,7 +26,7 @@ function requireLogin(req, res, next) {
   }
 }
 
-function requireAdmin(req, res, next) {
+export function requireAdmin(req, res, next) {
   try {
     if (!res.locals.user || !res.locals.user.isAdmin) {
       throw new ExpressError('Unauthorized', 401);
@@ -36,16 +37,16 @@ function requireAdmin(req, res, next) {
   }
 }
 
-function ensureCorrectUserOrAdmin(req, res, next) {
+export function ensureCorrectUserOrAdmin(req, res, next) {
   try {
     const { user } = res.locals;
     console.log(user.username === req.body.toUser);
     if (
       !(
-        user &&
-        (user.isAdmin ||
-          user.username === req.params.username ||
-          user.username === req.body.toUser)
+        user
+        && (user.isAdmin
+          || user.username === req.params.username
+          || user.username === req.body.toUser)
       )
     ) {
       throw new ExpressError('Unauthorized', 401);
@@ -55,10 +56,3 @@ function ensureCorrectUserOrAdmin(req, res, next) {
     return next(err);
   }
 }
-
-module.exports = {
-  authenticateJWT,
-  requireLogin,
-  requireAdmin,
-  ensureCorrectUserOrAdmin,
-};

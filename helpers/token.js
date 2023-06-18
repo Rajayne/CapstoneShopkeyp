@@ -1,8 +1,10 @@
-const jwt = require('jsonwebtoken');
-const { SECRET_KEY } = require('../config');
+/* eslint-disable import/extensions */
+import jwt from 'jsonwebtoken';
+
+import { SECRET_KEY } from '../config.js';
 
 /** return signed JWT from user data. */
-function createToken(user) {
+export default function createToken(user) {
   const payload = {
     username: user.username,
     isAdmin: user.isAdmin || false,
@@ -10,5 +12,3 @@ function createToken(user) {
 
   return jwt.sign(payload, SECRET_KEY);
 }
-
-module.exports = { createToken };

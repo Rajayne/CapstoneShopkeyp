@@ -1,5 +1,6 @@
+/* eslint-disable import/extensions */
 /* eslint-disable comma-dangle */
-const { sqlForPartialUpdate } = require('./sql');
+import sqlForPartialUpdate from './sql.js';
 
 describe('sqlForPartialUpdate', () => {
   test('works: 1 item', () => {

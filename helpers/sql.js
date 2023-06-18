@@ -1,7 +1,8 @@
+/* eslint-disable import/extensions */
 /* eslint-disable comma-dangle */
-const ExpressError = require('../expressError');
+import ExpressError from '../expressError.js';
 
-function sqlForPartialUpdate(dataToUpdate, jsToSql) {
+export default function sqlForPartialUpdate(dataToUpdate, jsToSql) {
   const keys = Object.keys(dataToUpdate);
   if (keys.length === 0) throw new ExpressError('No data', 400);
 
@@ -15,5 +16,3 @@ function sqlForPartialUpdate(dataToUpdate, jsToSql) {
     values: Object.values(dataToUpdate),
   };
 }
-
-module.exports = { sqlForPartialUpdate };

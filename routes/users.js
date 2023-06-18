@@ -1,14 +1,13 @@
+/* eslint-disable import/extensions */
 /* eslint-disable comma-dangle */
-const jsonschema = require('jsonschema');
-const express = require('express');
-const {
-  authenticateJWT,
-  ensureCorrectUserOrAdmin,
-  requireLogin,
-} = require('../middleware/auth');
-const ExpressError = require('../expressError');
-const User = require('../models/user');
-const userUpdateSchema = require('../schemas/userUpdate.json');
+import jsonschema from 'jsonschema';
+import express from 'express';
+
+import { authenticateJWT, ensureCorrectUserOrAdmin, requireLogin, } from '../middleware/auth.js';
+import ExpressError from '../expressError.js';
+import User from '../models/user.js';
+
+import userUpdateSchema from '../schemas/userUpdate.json' assert { type: "json" };
 
 const router = express.Router();
 
@@ -100,4 +99,4 @@ router.patch(
   }
 );
 
-module.exports = router;
+export default router;

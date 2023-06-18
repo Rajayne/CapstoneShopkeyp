@@ -1,13 +1,16 @@
-const jwt = require('jsonwebtoken');
-const ExpressError = require('../expressError');
-const {
+/* eslint-disable import/extensions */
+import jwt from 'jsonwebtoken';
+
+import ExpressError from '../expressError.js';
+
+import {
   authenticateJWT,
   requireLogin,
   requireAdmin,
   ensureCorrectUserOrAdmin,
-} = require('./auth');
+} from './auth.js';
 
-const { SECRET_KEY } = require('../config');
+import { SECRET_KEY } from '../config.js';
 
 const testJwt = jwt.sign({ username: 'test', isAdmin: false }, SECRET_KEY);
 const badJwt = jwt.sign({ username: 'test', isAdmin: false }, 'wrong');

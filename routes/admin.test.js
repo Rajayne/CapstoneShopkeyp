@@ -1,20 +1,17 @@
+/* eslint-disable import/extensions */
 /* eslint-disable comma-dangle */
+import db from '../db.js';
+import User from '../models/user.js';
+import Item from '../models/item.js';
+import Transaction from '../models/transaction.js';
+import ExpressError from '../expressError.js';
+
+import app from '../app.js';
+import {
+  commonBeforeEach, commonAfterEach, commonAfterAll, u1Token, adminToken,
+} from './_testCommon.js';
+
 const request = require('supertest');
-const db = require('../db');
-const User = require('../models/user');
-const Item = require('../models/item');
-const Transaction = require('../models/transaction');
-const ExpressError = require('../expressError');
-
-const app = require('../app');
-
-const {
-  commonBeforeEach,
-  commonAfterEach,
-  commonAfterAll,
-  u1Token,
-  adminToken,
-} = require('./_testCommon');
 
 let testAdmin;
 let testUser;
