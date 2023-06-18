@@ -1,14 +1,15 @@
 /* eslint-disable import/extensions */
 /* eslint-disable comma-dangle */
 import express from 'express';
-import jsonschema from 'jsonschema';
-import { authenticateJWT, requireLogin, requireAdmin } from '../middleware/auth.js';
-import User from '../models/user.js';
-import Item from '../models/item.js';
-import Transaction from '../models/transaction.js';
-import ExpressError from '../expressError.js';
 
-import itemUpdateSchema from '../schemas/itemUpdate.json' assert { type: "json" };
+import { authenticateJWT, requireLogin, requireAdmin } from '../middleware/auth.js';
+
+import { updateUserActiveStatus, updateUserStatus } from '../controllers/users.controller.js';
+import {
+  createItem, getAllItems, getAllTransactions, getAllUsers,
+  getData, getItemById, getTransactionById, getUserByUsername,
+  makeUserAdmin, removeUserRights, updateItem
+} from '../controllers/admin.controller.js';
 
 const router = express.Router();
 
@@ -17,20 +18,7 @@ router.get(
   authenticateJWT,
   requireLogin,
   requireAdmin,
-  async (req, res, next) => {
-    try {
-      const users = await User.all();
-      const items = await Item.all();
-      const transactions = await Transaction.all();
-      return res.json({
-        totalUsers: users.length || 0,
-        totalItems: items.length || 0,
-        totalTransactions: transactions.length || 0,
-      });
-    } catch (err) {
-      return next(err);
-    }
-  }
+  getData
 );
 
 router.get(
@@ -38,14 +26,7 @@ router.get(
   authenticateJWT,
   requireLogin,
   requireAdmin,
-  async (req, res, next) => {
-    try {
-      const users = await User.all();
-      return res.json(users);
-    } catch (err) {
-      return next(err);
-    }
-  }
+  getAllUsers
 );
 
 router.get(
@@ -53,14 +34,7 @@ router.get(
   authenticateJWT,
   requireLogin,
   requireAdmin,
-  async (req, res, next) => {
-    try {
-      const user = await User.getByUsername(req.params.username);
-      return res.json(user);
-    } catch (err) {
-      return next(err);
-    }
-  }
+  getUserByUsername
 );
 
 router.patch(
@@ -68,14 +42,7 @@ router.patch(
   authenticateJWT,
   requireLogin,
   requireAdmin,
-  async (req, res, next) => {
-    try {
-      const user = await User.toggleActive(req.params.username, true);
-      return res.json(user);
-    } catch (err) {
-      return next(err);
-    }
-  }
+  updateUserActiveStatus
 );
 
 router.patch(
@@ -83,14 +50,7 @@ router.patch(
   authenticateJWT,
   requireLogin,
   requireAdmin,
-  async (req, res, next) => {
-    try {
-      const user = await User.toggleActive(req.params.username, false);
-      return res.json(user);
-    } catch (err) {
-      return next(err);
-    }
-  }
+  updateUserStatus
 );
 
 router.patch(
@@ -98,14 +58,7 @@ router.patch(
   authenticateJWT,
   requireLogin,
   requireAdmin,
-  async (req, res, next) => {
-    try {
-      const user = await User.toggleIsAdmin(req.params.username, false);
-      return res.json(user);
-    } catch (err) {
-      return next(err);
-    }
-  }
+  makeUserAdmin
 );
 
 router.patch(
@@ -113,14 +66,7 @@ router.patch(
   authenticateJWT,
   requireLogin,
   requireAdmin,
-  async (req, res, next) => {
-    try {
-      const user = await User.toggleIsAdmin(req.params.username, true);
-      return res.json(user);
-    } catch (err) {
-      return next(err);
-    }
-  }
+  removeUserRights
 );
 
 router.get(
@@ -128,14 +74,7 @@ router.get(
   authenticateJWT,
   requireLogin,
   requireAdmin,
-  async (req, res, next) => {
-    try {
-      const items = await Item.all();
-      return res.json(items);
-    } catch (err) {
-      return next(err);
-    }
-  }
+  getAllItems
 );
 
 router.get(
@@ -143,14 +82,7 @@ router.get(
   authenticateJWT,
   requireLogin,
   requireAdmin,
-  async (req, res, next) => {
-    try {
-      const item = await Item.get(req.params.itemId);
-      return res.json(item);
-    } catch (err) {
-      return next(err);
-    }
-  }
+  getItemById
 );
 
 router.post(
@@ -158,14 +90,7 @@ router.post(
   authenticateJWT,
   requireLogin,
   requireAdmin,
-  async (req, res, next) => {
-    try {
-      const item = await Item.add(req.body);
-      return res.json(item);
-    } catch (err) {
-      return next(err);
-    }
-  }
+  createItem
 );
 
 router.patch(
@@ -173,37 +98,7 @@ router.patch(
   authenticateJWT,
   requireLogin,
   requireAdmin,
-  async (req, res, next) => {
-    const validator = jsonschema.validate(req.body, itemUpdateSchema);
-    if (!validator.valid) {
-      throw new ExpressError('Bad Request', 400);
-    }
-    try {
-      const fields = {
-        itemUuid: req.body.itemUuid,
-        name: req.body.name,
-        description: req.body.description,
-        itemImage: req.body.itemImage,
-        price: req.body.price,
-        stock: req.body.stock,
-        purchasable: req.body.stock,
-      };
-
-      Object.keys(fields).forEach(
-        (key) => fields[key] === undefined && delete fields[key]
-      );
-
-      if (Object.keys(fields).length === 0) {
-        throw new ExpressError('Unauthorized or blank fields.', 401);
-      }
-
-      const item = await Item.update(req.params.itemId, fields);
-
-      return res.json(item);
-    } catch (err) {
-      return next(err);
-    }
-  }
+  updateItem
 );
 
 router.get(
@@ -211,14 +106,7 @@ router.get(
   authenticateJWT,
   requireLogin,
   requireAdmin,
-  async (req, res, next) => {
-    try {
-      const transactions = await Transaction.all();
-      return res.json(transactions);
-    } catch (err) {
-      return next(err);
-    }
-  }
+  getAllTransactions
 );
 
 router.get(
@@ -226,14 +114,7 @@ router.get(
   authenticateJWT,
   requireLogin,
   requireAdmin,
-  async (req, res, next) => {
-    try {
-      const transaction = await Transaction.get(req.params.transactionId);
-      return res.json(transaction);
-    } catch (err) {
-      return next(err);
-    }
-  }
+  getTransactionById
 );
 
 export default router;
