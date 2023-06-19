@@ -259,6 +259,7 @@ class User {
 
   static async updateBalance(userId, amount) {
     userId = await this.checkUsernameIdSwitch(userId);
+    console.log(userId, amount);
     try {
       const res = await db.query(
         'UPDATE users SET balance = balance + $1 WHERE user_id = $2 RETURNING balance',
@@ -313,7 +314,7 @@ class User {
     toUser = await this.checkUsernameIdSwitch(toUser);
     const checkBalance = await this.checkBalance(toUser, total);
     if (checkBalance) {
-      await this.updateBalance(toUser, total);
+      await this.updateBalance(toUser, -total);
       const update = await this.updateInventory(toUser, itemId, quantity);
       if (update) {
         const transaction = await Transaction.add({

@@ -125,6 +125,24 @@ router.patch(
   }
 );
 
+router.patch(
+  '/users/:username/updateBalance',
+  authenticateJWT,
+  requireLogin,
+  requireAdmin,
+  async (req, res, next) => {
+    try {
+      const user = await User.updateBalance(
+        req.params.username,
+        req.body.amount
+      );
+      return res.json(user);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
 router.get(
   '/items',
   authenticateJWT,

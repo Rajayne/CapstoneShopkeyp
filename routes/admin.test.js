@@ -298,7 +298,64 @@ describe('Admin Route Tests', () => {
       }
     });
   });
-
+  describe('PATCH /admin/users/:username/updateBalance', () => {
+    test('admin can add to user balance', async () => {
+      let user = await User.getByUsername(testUser.username);
+      expect(user.balance).toEqual(0);
+      await request(app)
+        .patch(`/admin/users/${testUser.username}/updateBalance`)
+        .set('authorization', `Bearer ${adminToken}`)
+        .send({ amount: 10 });
+      user = await User.getByUsername(testUser.username);
+      expect(user.balance).toEqual(10);
+    });
+    test('admin can subtract from user balance', async () => {
+      await User.updateBalance(testUser.username, 10);
+      let user = await User.getByUsername(testUser.username);
+      expect(user.balance).toEqual(10);
+      await request(app)
+        .patch(`/admin/users/${testUser.username}/updateBalance`)
+        .set('authorization', `Bearer ${adminToken}`)
+        .send({ amount: -10 });
+      user = await User.getByUsername(testUser.username);
+      expect(user.balance).toEqual(0);
+    });
+    test('balance cannot be below zero', async () => {
+      const user = await User.getByUsername(testUser.username);
+      expect(user.balance).toEqual(0);
+      try {
+        await request(app)
+          .patch(`/admin/users/${testUser.username}/updateBalance`)
+          .set('authorization', `Bearer ${adminToken}`)
+          .send({ amount: 10 });
+      } catch (e) {
+        expect(e instanceof ExpressError).toBeTruthy();
+      }
+    });
+    test('returns error if not admin', async () => {
+      const user = await User.getByUsername(testUser.username);
+      expect(user.balance).toEqual(0);
+      try {
+        await request(app)
+          .patch(`/admin/users/${testUser.username}/updateBalance`)
+          .set('authorization', `Bearer ${u1Token}`)
+          .send({ amount: 10 });
+      } catch (e) {
+        expect(e instanceof ExpressError).toBeTruthy();
+      }
+    });
+    test('returns error if not logged in', async () => {
+      const user = await User.getByUsername(testUser.username);
+      expect(user.balance).toEqual(0);
+      try {
+        await request(app)
+          .patch(`/admin/users/${testUser.username}/updateBalance`)
+          .send({ amount: 10 });
+      } catch (e) {
+        expect(e instanceof ExpressError).toBeTruthy();
+      }
+    });
+  });
   describe('GET /admin/items', () => {
     test('get all items', async () => {
       const res = await request(app)
