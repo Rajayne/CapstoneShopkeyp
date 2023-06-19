@@ -4,6 +4,7 @@ const {
   authenticateJWT,
   requireLogin,
   ensureCorrectUserOrAdmin,
+  authorizePurchase,
 } = require('../middleware/auth');
 const Item = require('../models/item');
 const User = require('../models/user');
@@ -33,16 +34,18 @@ router.get(
   }
 );
 
-router.get(
+router.post(
   '/item/:itemId/purchase',
   authenticateJWT,
   requireLogin,
-  ensureCorrectUserOrAdmin,
+  authorizePurchase,
   async (req, res, next) => {
     try {
+      console.log(res.locals, req.body.username);
       const transaction = await User.purchase(req.body);
       return res.json(transaction);
     } catch (err) {
+      console.log(err);
       return next(err);
     }
   }

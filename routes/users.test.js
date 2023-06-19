@@ -109,6 +109,7 @@ describe('Users Route Tests', () => {
       expect(res.statusCode).toEqual(200);
     });
     test('returns error if incorrect user', async () => {
+      console.log('testUser', testUser.username);
       const res = await request(app)
         .patch(`/users/${testUser.username}/deactivate`)
         .set('authorization', `Bearer ${u2Token}`);

@@ -124,7 +124,7 @@ describe('Shop Route Tests', () => {
   describe('POST /shop/item/:itemId/purchase', () => {
     test('user can purchase item from shop', async () => {
       const res = await request(app)
-        .get(`/shop/item/${testItem.itemId}/purchase`)
+        .post(`/shop/item/${testItem.itemId}/purchase`)
         .send({
           toUser: testUser.username,
           itemId: testItem.itemId,
@@ -141,9 +141,8 @@ describe('Shop Route Tests', () => {
     test('returns error if wrong user', async () => {
       try {
         await request(app)
-          .get(`/shop/item/${testItem.itemId}/purchase`)
+          .post(`/shop/item/${testItem.itemId}/purchase`)
           .send({
-            toUser: testUser.username,
             itemId: testItem.itemId,
             quantity: 2,
             total: 10,
@@ -155,8 +154,7 @@ describe('Shop Route Tests', () => {
     });
     test('returns error if not logged in', async () => {
       try {
-        await request(app).get(`/shop/item/${testItem.itemId}/purchase`).send({
-          toUser: testUser.username,
+        await request(app).post(`/shop/item/${testItem.itemId}/purchase`).send({
           itemId: testItem.itemId,
           quantity: 2,
           total: 10,

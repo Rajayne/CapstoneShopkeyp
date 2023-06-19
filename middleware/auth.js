@@ -39,15 +39,19 @@ function requireAdmin(req, res, next) {
 function ensureCorrectUserOrAdmin(req, res, next) {
   try {
     const { user } = res.locals;
-    console.log(user.username === req.body.toUser);
-    if (
-      !(
-        user &&
-        (user.isAdmin ||
-          user.username === req.params.username ||
-          user.username === req.body.toUser)
-      )
-    ) {
+    if (!(user && (user.isAdmin || user.username === req.params.username))) {
+      throw new ExpressError('Unauthorized', 401);
+    }
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+}
+
+function authorizePurchase(req, res, next) {
+  try {
+    const { user } = res.locals;
+    if (!user.username === req.body.username) {
       throw new ExpressError('Unauthorized', 401);
     }
     return next();
@@ -61,4 +65,5 @@ module.exports = {
   requireLogin,
   requireAdmin,
   ensureCorrectUserOrAdmin,
+  authorizePurchase,
 };

@@ -165,8 +165,8 @@ describe('User Model Tests', () => {
   });
   describe('User.getById', () => {
     test('gets user by id', async () => {
-      testUser.transactions.push(testTransaction.transactionId);
-      testUser.inventory.push(testItem.itemId);
+      testUser.inventory = await User.getUserInventory(testUser.userId);
+      testUser.transactions = await User.getUserTransactions(testUser.userId);
       const user = await User.getById(testUser.userId);
       expect(user).toEqual(testUser);
     });
@@ -176,7 +176,7 @@ describe('User Model Tests', () => {
     });
     test('displays user items on model', async () => {
       const user = await User.getById(testUser.userId);
-      expect(user.inventory[0]).toEqual(testItem.itemId);
+      expect(user.inventory[0].itemId).toEqual(testItem.itemId);
     });
     test('returns error if user does not exist', async () => {
       try {
@@ -197,7 +197,7 @@ describe('User Model Tests', () => {
     });
     test('displays user items on model', async () => {
       const user = await User.getByUsername(testUser.username);
-      expect(user.inventory[0]).toEqual(testItem.itemId);
+      expect(user.inventory[0].itemId).toEqual(testItem.itemId);
     });
     test('returns error if user does not exist', async () => {
       try {
@@ -309,7 +309,7 @@ describe('User Model Tests', () => {
         total: 10,
       });
       const inventory = await User.getUserInventory(testUser.userId);
-      expect(inventory).toEqual([testItem.itemId]);
+      expect(inventory[0].itemId).toEqual(testItem.itemId);
     });
   });
 });
