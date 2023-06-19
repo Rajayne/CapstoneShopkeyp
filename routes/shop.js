@@ -3,7 +3,6 @@ const express = require('express');
 const {
   authenticateJWT,
   requireLogin,
-  ensureCorrectUserOrAdmin,
   authorizePurchase,
 } = require('../middleware/auth');
 const Item = require('../models/item');
@@ -41,11 +40,9 @@ router.post(
   authorizePurchase,
   async (req, res, next) => {
     try {
-      console.log(res.locals, req.body.username);
       const transaction = await User.purchase(req.body);
       return res.json(transaction);
     } catch (err) {
-      console.log(err);
       return next(err);
     }
   }

@@ -273,6 +273,37 @@ describe('User Model Tests', () => {
       }
     });
   });
+  describe('User.updateBalance', () => {
+    test('adds to user balance', async () => {
+      const balance = await User.updateBalance(testUser.userId, 10);
+      expect(balance).toEqual(10);
+    });
+    test('subtracts from user balance', async () => {
+      await User.updateBalance(testUser.userId, 10);
+      const balance = await User.updateBalance(testUser.userId, -10);
+      expect(balance).toEqual(0);
+    });
+    test('returns error if user balance attempts to fall below zero', async () => {
+      try {
+        await User.updateBalance(testUser.userId, -10);
+      } catch (e) {
+        expect(e instanceof ExpressError).toBeTruthy();
+      }
+    });
+  });
+
+  describe('User.checkBalance', () => {
+    test('returns true if sufficient user balance', async () => {
+      await User.updateBalance(testUser.userId, 10);
+      const check = await User.checkBalance(testUser.userId, 10);
+      expect(check).toEqual(true);
+    });
+    test('returns false if insufficient user balance', async () => {
+      const check = await User.checkBalance(testUser.userId, 10);
+      expect(check).toEqual(false);
+    });
+  });
+
   describe('User.inInventory', () => {
     test('check for items in user inventory', async () => {
       const check = await User.inInventory(testUser.userId, testItem.itemId);
@@ -291,6 +322,7 @@ describe('User Model Tests', () => {
   });
   describe('User.purchase', () => {
     test('purchase creates transaction', async () => {
+      await User.updateBalance(testUser.userId, 10);
       const transaction = await User.purchase({
         toUser: testUser.userId,
         action: 'purchase',
@@ -301,6 +333,7 @@ describe('User Model Tests', () => {
       expect(transaction instanceof Transaction).toBeTruthy();
     });
     test('purchase adds item to user inventory', async () => {
+      await User.updateBalance(testUser.userId, 10);
       await User.purchase({
         toUser: testUser.userId,
         action: 'purchase',
@@ -310,6 +343,19 @@ describe('User Model Tests', () => {
       });
       const inventory = await User.getUserInventory(testUser.userId);
       expect(inventory[0].itemId).toEqual(testItem.itemId);
+    });
+    test('returns error if insufficient user balance', async () => {
+      try {
+        await User.purchase({
+          toUser: testUser.userId,
+          action: 'purchase',
+          itemId: testItem.itemId,
+          quantity: 2,
+          total: 10,
+        });
+      } catch (e) {
+        expect(e instanceof ExpressError).toBeTruthy();
+      }
     });
   });
 });

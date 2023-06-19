@@ -34,6 +34,8 @@ beforeAll(async () => {
   testAdmin = await User.getByUsername('admin1');
   testUser = await User.getByUsername('user1');
 
+  await User.updateBalance(testUser.userId, 10);
+
   testItem = await Item.add({
     name: 'item1',
     description: 'description1',

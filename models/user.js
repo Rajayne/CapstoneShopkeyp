@@ -245,6 +245,31 @@ class User {
     } ${user.username}'s account.`;
   }
 
+  static async checkBalance(userId, amount) {
+    userId = await this.checkUsernameIdSwitch(userId);
+    const res = await db.query('SELECT balance FROM users WHERE user_id = $1', [
+      userId,
+    ]);
+    const bank = res.rows[0].balance;
+    if (bank >= amount) {
+      return true;
+    }
+    return false;
+  }
+
+  static async updateBalance(userId, amount) {
+    userId = await this.checkUsernameIdSwitch(userId);
+    try {
+      const res = await db.query(
+        'UPDATE users SET balance = balance + $1 WHERE user_id = $2 RETURNING balance',
+        [amount, userId]
+      );
+      return res.rows[0].balance;
+    } catch (e) {
+      return new ExpressError('Insufficient Balance', 400);
+    }
+  }
+
   static async inInventory(userId, itemId) {
     userId = await this.checkUsernameIdSwitch(userId);
     const checkInventory = await db.query(
@@ -286,16 +311,20 @@ class User {
 
   static async purchase({ toUser, itemId, quantity, total }) {
     toUser = await this.checkUsernameIdSwitch(toUser);
-    const update = await this.updateInventory(toUser, itemId, quantity);
-    if (update) {
-      const transaction = await Transaction.add({
-        toUser,
-        action: 'purchase',
-        itemId: itemId || null,
-        quantity: quantity || 0,
-        total: total || 0,
-      });
-      return new Transaction(transaction);
+    const checkBalance = await this.checkBalance(toUser, total);
+    if (checkBalance) {
+      await this.updateBalance(toUser, total);
+      const update = await this.updateInventory(toUser, itemId, quantity);
+      if (update) {
+        const transaction = await Transaction.add({
+          toUser,
+          action: 'purchase',
+          itemId: itemId || null,
+          quantity: quantity || 0,
+          total: total || 0,
+        });
+        return new Transaction(transaction);
+      }
     }
     return new ExpressError('Invalid data', 400);
   }
