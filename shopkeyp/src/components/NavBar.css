@@ -1,6 +1,6 @@
 .NavBar {
-  margin: auto;
-  padding: 1rem;
+  justify-content: space-evenly;
+  padding: 1rem 0;
   color: white;
 }
 
@@ -9,7 +9,6 @@
 }
 
 .NavBar-link {
-  margin: 1rem;
   text-decoration: none;
   color: lightsteelblue;
 }
