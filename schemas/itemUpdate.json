@@ -18,7 +18,10 @@
     },
     "itemImage": {
       "type": "string",
-      "format": "uri"
+      "media": {
+        "binaryEncoding": "base64",
+        "type": "image/png"
+      }
     },
     "price": {
       "type": "integer"

@@ -109,6 +109,9 @@ class Item {
     createdBy,
     dateCreated,
   }) {
+    if (!name || !description) {
+      throw new ExpressError('Invalid data', 400);
+    }
     const results = await db.query(
       `INSERT INTO items
          (item_uuid,
@@ -145,7 +148,6 @@ class Item {
       ]
     );
     const item = results.rows[0];
-
     if (item === undefined) {
       throw new ExpressError('Invalid data', 400);
     }

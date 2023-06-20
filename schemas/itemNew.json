@@ -3,37 +3,43 @@
   "$id": "http://example.com/example.json",
   "type": "object",
   "properties": {
-    "username": {
+    "itemUuid": {
+      "type": "integer"
+    },
+    "name": {
       "type": "string",
       "minLength": 1,
       "maxLength": 25
     },
-    "password": {
+    "description": {
       "type": "string",
-      "minLength": 5,
+      "minLength": 1,
       "maxLength": 50
     },
-    "profileImage": {
+    "itemImage": {
       "type": "string",
       "media": {
         "binaryEncoding": "base64",
         "type": "image/png"
       }
     },
-    "balance": {
-      "type": "integer",
-      "minimum": 0
+    "price": {
+      "type": "integer"
+    },    
+    "stock": {
+      "type": "integer"
     },
-    "isAdmin": {
+    "purchasable": {
       "type": "boolean"
     },
-    "active": {
-      "type": "boolean"
+    "createdBy": {
+      "type": "integer"
     }
   },
   "additionalProperties": false,
   "required": [
-    "username",
-    "password"
+    "name",
+    "description",
+    "createdBy"
   ]
 }

@@ -259,7 +259,6 @@ class User {
 
   static async updateBalance(userId, amount) {
     userId = await this.checkUsernameIdSwitch(userId);
-    console.log(userId, amount);
     try {
       const res = await db.query(
         'UPDATE users SET balance = balance + $1 WHERE user_id = $2 RETURNING balance',
@@ -313,19 +312,20 @@ class User {
   static async purchase({ toUser, itemId, quantity, total }) {
     toUser = await this.checkUsernameIdSwitch(toUser);
     const checkBalance = await this.checkBalance(toUser, total);
-    if (checkBalance) {
-      await this.updateBalance(toUser, -total);
-      const update = await this.updateInventory(toUser, itemId, quantity);
-      if (update) {
-        const transaction = await Transaction.add({
-          toUser,
-          action: 'purchase',
-          itemId: itemId || null,
-          quantity: quantity || 0,
-          total: total || 0,
-        });
-        return new Transaction(transaction);
-      }
+    if (!checkBalance) {
+      return new ExpressError('Insufficient balance', 400);
+    }
+    await this.updateBalance(toUser, -total);
+    const update = await this.updateInventory(toUser, itemId, quantity);
+    if (update) {
+      const transaction = await Transaction.add({
+        toUser,
+        action: 'purchase',
+        itemId: itemId || null,
+        quantity: quantity || 0,
+        total: total || 0,
+      });
+      return new Transaction(transaction);
     }
     return new ExpressError('Invalid data', 400);
   }

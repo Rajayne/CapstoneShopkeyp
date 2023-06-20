@@ -15,7 +15,13 @@
     },
     "profileImage": {
       "type": "string",
-      "format": "uri"
+      "media": {
+        "binaryEncoding": "base64",
+        "type": "image/png"
+      }
+    },
+    "active": {
+      "type": "boolean"
     },
   "additionalProperties": false
   }

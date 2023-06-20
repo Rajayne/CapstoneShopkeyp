@@ -380,6 +380,36 @@ describe('Admin Route Tests', () => {
         expect(err instanceof ExpressError).toBeTruthy();
       }
     });
+    test('Admin cannot change username', async () => {
+      try {
+        await request(app)
+          .patch(`/admin/users/${testUser.username}/updateBalance`)
+          .set('authorization', `Bearer ${adminToken}`)
+          .send({ username: 'newUser1' });
+      } catch (e) {
+        expect(e instanceof ExpressError).toBeTruthy();
+      }
+    });
+    test('Admin cannot change password', async () => {
+      try {
+        await request(app)
+          .patch(`/admin/users/${testUser.username}/updateBalance`)
+          .set('authorization', `Bearer ${adminToken}`)
+          .send({ password: 'newUser1' });
+      } catch (e) {
+        expect(e instanceof ExpressError).toBeTruthy();
+      }
+    });
+    test('Admin cannot change profileImage', async () => {
+      try {
+        await request(app)
+          .patch(`/admin/users/${testUser.username}/updateBalance`)
+          .set('authorization', `Bearer ${adminToken}`)
+          .send({ profileImage: 'newImage.png' });
+      } catch (e) {
+        expect(e instanceof ExpressError).toBeTruthy();
+      }
+    });
   });
 
   describe('GET /admin/items/:itemId', () => {

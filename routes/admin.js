@@ -11,6 +11,8 @@ const Item = require('../models/item');
 const Transaction = require('../models/transaction');
 const ExpressError = require('../expressError');
 const itemUpdateSchema = require('../schemas/itemUpdate.json');
+const itemNewSchema = require('../schemas/itemNew.json');
+const adminUpdateSchema = require('../schemas/adminUpdate.json');
 
 const router = express.Router();
 
@@ -72,6 +74,10 @@ router.patch(
   requireAdmin,
   async (req, res, next) => {
     try {
+      const validator = jsonschema.validate(req.body, adminUpdateSchema);
+      if (!validator.valid) {
+        throw new ExpressError('Bad Request', 400);
+      }
       const user = await User.toggleActive(req.params.username, true);
       return res.json(user);
     } catch (err) {
@@ -87,6 +93,10 @@ router.patch(
   requireAdmin,
   async (req, res, next) => {
     try {
+      const validator = jsonschema.validate(req.body, adminUpdateSchema);
+      if (!validator.valid) {
+        throw new ExpressError('Bad Request', 400);
+      }
       const user = await User.toggleActive(req.params.username, false);
       return res.json(user);
     } catch (err) {
@@ -102,6 +112,10 @@ router.patch(
   requireAdmin,
   async (req, res, next) => {
     try {
+      const validator = jsonschema.validate(req.body, adminUpdateSchema);
+      if (!validator.valid) {
+        throw new ExpressError('Bad Request', 400);
+      }
       const user = await User.toggleIsAdmin(req.params.username, false);
       return res.json(user);
     } catch (err) {
@@ -117,6 +131,10 @@ router.patch(
   requireAdmin,
   async (req, res, next) => {
     try {
+      const validator = jsonschema.validate(req.body, adminUpdateSchema);
+      if (!validator.valid) {
+        throw new ExpressError('Bad Request', 400);
+      }
       const user = await User.toggleIsAdmin(req.params.username, true);
       return res.json(user);
     } catch (err) {
@@ -132,6 +150,10 @@ router.patch(
   requireAdmin,
   async (req, res, next) => {
     try {
+      const validator = jsonschema.validate(req.body, adminUpdateSchema);
+      if (!validator.valid) {
+        throw new ExpressError('Bad Request', 400);
+      }
       const user = await User.updateBalance(
         req.params.username,
         req.body.amount
@@ -180,6 +202,13 @@ router.post(
   requireAdmin,
   async (req, res, next) => {
     try {
+      const { user } = res.locals;
+      const adminId = await User.checkUsernameIdSwitch(user.username);
+      req.body.createdBy = adminId;
+      const validator = jsonschema.validate(req.body, itemNewSchema);
+      if (!validator.valid) {
+        throw new ExpressError('Bad Request', 400);
+      }
       const item = await Item.add(req.body);
       return res.json(item);
     } catch (err) {

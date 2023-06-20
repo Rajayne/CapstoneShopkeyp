@@ -125,6 +125,7 @@ describe('Shop Route Tests', () => {
   });
   describe('POST /shop/item/:itemId/purchase', () => {
     test('user can purchase item from shop', async () => {
+      await User.updateBalance(testUser.username, 10);
       const res = await request(app)
         .post(`/shop/item/${testItem.itemId}/purchase`)
         .send({
@@ -139,6 +140,21 @@ describe('Shop Route Tests', () => {
       const user = await User.getByUsername(testUser.username);
       expect(user.inventory.length).toEqual(1);
       expect(user.inventory[0].itemId).toEqual(testItem.itemId);
+    });
+    test('returns error if insufficient balance', async () => {
+      try {
+        await request(app)
+          .post(`/shop/item/${testItem.itemId}/purchase`)
+          .send({
+            toUser: testUser.username,
+            itemId: testItem.itemId,
+            quantity: 2,
+            total: 10,
+          })
+          .set('authorization', `Bearer ${u1Token}`);
+      } catch (err) {
+        expect(err instanceof ExpressError).toBeTruthy();
+      }
     });
     test('returns error if wrong user', async () => {
       try {
