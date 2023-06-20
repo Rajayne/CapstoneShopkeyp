@@ -1,0 +1,16 @@
+.Admin-toolbar {
+  max-width: none;
+  background-color: #455169;
+}
+
+.Admin-link {
+  align-content: center;
+  font-size: calc(8px + 2vmin);
+  padding: 0 calc(8px + 10vmin);
+  text-decoration: none;
+  color: white;
+}
+
+.Admin-link:hover {
+  color: slategray;
+}
