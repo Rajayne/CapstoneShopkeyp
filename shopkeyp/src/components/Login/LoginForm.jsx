@@ -1,8 +1,9 @@
-import React,  { useState } from "react";
+import React from "react";
 import { useNavigate } from 'react-router-dom';
 import { Button, Card, CardContent } from '@mui/material';
 import './LoginForm.css'
 import useFields from '../Hooks/useFields';
+import ShopkeypApi from '../Api/Api';
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -12,10 +13,18 @@ const LoginForm = () => {
     password: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     resetFormData();
-    navigate('/profile')
+    try {
+      const res = await ShopkeypApi.login({username: formData.username, password: formData.password});
+      alert('SUCCESS')
+      console.log(res)
+      navigate('/profile')
+    } catch (err) {
+      alert('FAILURE')
+      console.log(err)
+    }
   };
 
   const validate = () => !Object.values(formData)

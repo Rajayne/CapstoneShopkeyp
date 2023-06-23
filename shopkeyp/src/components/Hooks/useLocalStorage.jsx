@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const useLocalStorageState = (key, defaultValue) => {
   const [state, setState] = useState(() => {
@@ -8,7 +8,7 @@ const useLocalStorageState = (key, defaultValue) => {
 
   useEffect(() => {
     window.localStorage.setItem(key, state);
-  }, [state]);
+  }, [key, state]);
 
   return [state, setState];
 };
