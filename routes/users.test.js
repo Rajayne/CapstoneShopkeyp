@@ -2,8 +2,6 @@
 const request = require('supertest');
 const db = require('../db');
 const User = require('../models/user');
-const Item = require('../models/item');
-const ExpressError = require('../expressError');
 
 const app = require('../app');
 

@@ -25,9 +25,7 @@ router.post('/logout', requireLogin, async (req, res, next) => {
  * User recieves auth token after logging in */
 router.post('/login', async (req, res, next) => {
   try {
-    console.log('BODY', req.body);
     const validator = jsonschema.validate(req.body, userAuthSchema);
-    console.log('VALID', validator.valid);
     if (!validator.valid) {
       throw new ExpressError('Bad Request', 400);
     }

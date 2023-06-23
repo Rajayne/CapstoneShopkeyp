@@ -45,7 +45,6 @@ router.patch(
   requireLogin,
   ensureCorrectUserOrAdmin,
   async (req, res, next) => {
-    console.log(req.body);
     const validator = jsonschema.validate(req.body, userUpdateSchema);
     if (!validator.valid) {
       throw new ExpressError('Bad Request', 400);

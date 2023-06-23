@@ -84,15 +84,17 @@ describe('Shop Route Tests', () => {
       const res = await request(app)
         .get('/shop')
         .set('authorization', `Bearer ${u1Token}`);
-      expect(res.body.length).toEqual(1);
+      expect(res.body.length).toEqual(2);
       expect(res.body[0].name).toEqual('item1');
+      expect(res.body[1].name).toEqual('item2');
     });
     test('displays purchasable items to admins', async () => {
       const res = await request(app)
         .get('/shop')
         .set('authorization', `Bearer ${adminToken}`);
-      expect(res.body.length).toEqual(1);
+      expect(res.body.length).toEqual(2);
       expect(res.body[0].name).toEqual('item1');
+      expect(res.body[1].name).toEqual('item2');
     });
     test('returns error if not logged in', async () => {
       try {

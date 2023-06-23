@@ -39,7 +39,6 @@ class User {
            WHERE username = $1`,
       [username]
     );
-
     const user = result.rows[0];
 
     if (user) {
