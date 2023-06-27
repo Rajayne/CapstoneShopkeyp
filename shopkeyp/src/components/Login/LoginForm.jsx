@@ -15,16 +15,17 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    resetFormData();
     try {
       const res = await ShopkeypApi.login({username: formData.username, password: formData.password});
-      alert('LOGIN SUCCESS')
+      alert('Successfully logged in!')
       console.log(res)
       navigate('/profile')
     } catch (err) {
-      alert('LOGIN FAILURE')
+      alert('Invalid username/password.')
       console.log(err)
+      return;
     }
+    resetFormData();
   };
 
   const validate = () => !Object.values(formData)

@@ -20,11 +20,14 @@ const NewRegisterForm = () => {
       alert("Passwords do not match!");
       return;
     }
-    console.log("Submitted!")
     try {
-      await ShopkeypApi.register({username: formData.username, password: formData.password});
+      const res = await ShopkeypApi.register({username: formData.username, password: formData.password});
+      alert("New user created successfully!")
+      console.log(res)
     } catch (err) {
-      console.log('FAIL API RES', err)
+      alert("Username already taken.")
+      console.log(err)
+      return;
     }
     resetFormData();
     navigate('/profile')
