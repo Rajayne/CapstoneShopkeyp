@@ -3,6 +3,7 @@ import { Button, Card, CardContent } from '@mui/material';
 import './RegisterForm.css'
 import { useNavigate, useParams } from 'react-router-dom';
 import useFields from '../Hooks/useFields';
+import ShopkeypApi from '../Api/Api';
 
 const NewRegisterForm = () => {
   const navigate = useNavigate();
@@ -13,11 +14,17 @@ const NewRegisterForm = () => {
     retype: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.retype) {
       alert("Passwords do not match!");
       return;
+    }
+    console.log("Submitted!")
+    try {
+      await ShopkeypApi.register({username: formData.username, password: formData.password});
+    } catch (err) {
+      console.log('FAIL API RES', err)
     }
     resetFormData();
     navigate('/profile')

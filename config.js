@@ -18,7 +18,7 @@ function getDatabaseUri() {
 // Speed up bcrypt during tests with lower salt
 const BCRYPT_WORK_FACTOR = process.env.NODE_ENV === 'test' ? 1 : 13;
 
-console.log('Jobly Config:'.green);
+console.log('Shopkeyp Config:'.green);
 console.log('SECRET_KEY:'.yellow, SECRET_KEY);
 console.log('PORT:'.yellow, PORT.toString());
 console.log('BCRYPT_WORK_FACTOR'.yellow, BCRYPT_WORK_FACTOR);

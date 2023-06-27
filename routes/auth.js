@@ -42,13 +42,16 @@ router.post('/login', async (req, res, next) => {
  * New user recieves login token after registering */
 router.post('/register', async (req, res, next) => {
   try {
+    console.log('REGISTER ROUTE');
     const validator = jsonschema.validate(req.body, userRegisterSchema);
     if (!validator.valid) {
       throw new ExpressError('Bad Request', 400);
     }
-
+    console.log('VALID SCHEMA');
     const newUser = await User.register({ ...req.body, isAdmin: false });
+    console.log('NEW USER', newUser);
     const token = createToken(newUser);
+    console.log('TOKEN', token);
     return res.status(201).json({ token });
   } catch (e) {
     return next(e);

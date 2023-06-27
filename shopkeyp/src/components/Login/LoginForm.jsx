@@ -18,11 +18,11 @@ const LoginForm = () => {
     resetFormData();
     try {
       const res = await ShopkeypApi.login({username: formData.username, password: formData.password});
-      alert('SUCCESS')
+      alert('LOGIN SUCCESS')
       console.log(res)
       navigate('/profile')
     } catch (err) {
-      alert('FAILURE')
+      alert('LOGIN FAILURE')
       console.log(err)
     }
   };

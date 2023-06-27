@@ -1,6 +1,6 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable comma-dangle, no-param-reassign */
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const db = require('../db');
 const ExpressError = require('../expressError');
 const Transaction = require('./transaction');
@@ -52,7 +52,8 @@ class User {
     throw new ExpressError('Invalid username/password', 401);
   }
 
-  static async register(username, password) {
+  static async register({ username, password }) {
+    console.log('CALLS REGISTER');
     const duplicateCheck = await db.query(
       `SELECT username
         FROM users
@@ -62,9 +63,9 @@ class User {
     if (duplicateCheck.rows[0]) {
       throw new ExpressError('Username not available', 400);
     }
-
+    console.log('SALT', BCRYPT_WORK_FACTOR);
     const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
-
+    console.log('HASH PASS', hashedPassword);
     const result = await db.query(
       `INSERT INTO users
          (username,
