@@ -4,6 +4,14 @@ import './Logout.css'
 
 const Logout = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token")
+  console.log(token)
+
+  const clearToken = () => {
+    localStorage.removeItem("token")
+  }
+
+  clearToken();
 
   useEffect(() => {
     setTimeout(() => {

@@ -25,7 +25,7 @@ const NewRegisterForm = () => {
       alert("New user created successfully!")
       localStorage.setItem("token", res.token)
     } catch (err) {
-      alert("Username already taken.")
+      alert("Username not available.")
       console.log(err)
       return;
     }
