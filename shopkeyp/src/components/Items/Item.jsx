@@ -1,5 +1,6 @@
 import { Card, CardContent, Typography } from '@mui/material';
 import React from "react";
+import { NavLink } from 'react-router-dom';
 
 const Item = () => {
   return (
@@ -7,7 +8,8 @@ const Item = () => {
       <CardContent>
         <Typography>
           <h1>Item Title</h1>
-          <p>Item Details</p>
+          <p>Item Description</p>
+          <NavLink>More Info</NavLink>
         </Typography>
       </CardContent>
     </Card>

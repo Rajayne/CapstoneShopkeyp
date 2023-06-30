@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from 'react-router-dom';
 import { Button, Card, CardContent } from '@mui/material';
 import './LoginForm.css'
@@ -18,14 +17,14 @@ const LoginForm = () => {
     try {
       const res = await ShopkeypApi.login({username: formData.username, password: formData.password});
       alert('Successfully logged in!')
-      console.log(res)
-      navigate('/profile')
+      localStorage.setItem("token", res.token)
     } catch (err) {
       alert('Invalid username/password.')
       console.log(err)
       return;
     }
     resetFormData();
+    navigate('/profile')
   };
 
   const validate = () => !Object.values(formData)

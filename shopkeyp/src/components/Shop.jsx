@@ -5,7 +5,7 @@ const Shop = () => {
   return (
     <>
       <h1>Shop Page</h1>
-      <p>Item List</p>
+      <p>Purchasable Items</p>
       <Item/>
     </>
   );

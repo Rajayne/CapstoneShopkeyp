@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Card, CardContent } from '@mui/material';
 import './RegisterForm.css'
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useFields from '../Hooks/useFields';
 import ShopkeypApi from '../Api/Api';
 
@@ -23,7 +23,7 @@ const NewRegisterForm = () => {
     try {
       const res = await ShopkeypApi.register({username: formData.username, password: formData.password});
       alert("New user created successfully!")
-      console.log(res)
+      localStorage.setItem("token", res.token)
     } catch (err) {
       alert("Username already taken.")
       console.log(err)
