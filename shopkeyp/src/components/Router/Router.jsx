@@ -2,7 +2,6 @@ import React from "react";
 import { Routes, Route } from 'react-router-dom';
 import Home from "../Home";
 import Admin from "../Admin/Admin";
-import Item from '../Items/Item';
 import Items from '../Items/Items';
 import Shop from "../Shop";
 import Profile from "../Users/User";
@@ -21,11 +20,9 @@ const Router = () => {
       <Route exact path="/admin" element={<Admin/>} />
       <Route exact path="/admin/:tab" element={<Admin/>} />
       <Route exact path="/admin/users/:username" element={<User/>} />
-      <Route exact path="/admin/items/:itemId" element={<Item/>} />
       <Route exact path="/admin/transactions/:transactionId" element={<Transaction/>} />
       <Route exact path="/shop" element={<Shop/>} />
       <Route exact path="/shop/items" element={<Items/>} />
-      <Route exact path="/shop/items/:itemId" element={<Item/>} />
       <Route exact path="/profile" element={<Profile/>} />
       <Route exact path="/register" element={<Register/>} />
       <Route exact path="/login" element={<Login/>} />

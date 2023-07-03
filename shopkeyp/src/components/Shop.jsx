@@ -1,12 +1,54 @@
-import React from "react";
-import Item from './Items/Item'
+import React, { useEffect, useState } from "react";
+import ShopkeypApi from './Api/Api';
+import './Shop.css'
+import { Button, Tooltip } from '@mui/material';
 
 const Shop = () => {
+  const authHeader = localStorage.getItem('token')
+  const [isLoading, setIsLoading] = useState(true);
+  const [items, setItems] = useState([]);
+  console.log("items", items)
+
+  useEffect(() => {
+    async function getItems() {
+      const allItems = await ShopkeypApi.getShop(authHeader);
+      setItems(await allItems);
+      setIsLoading(false);
+    }
+    getItems();
+  }, [authHeader]);
+
+  if (isLoading) {
+    return <p>Loading</p>;
+  }
   return (
     <>
       <h1>Shop Page</h1>
-      <p>Purchasable Items</p>
-      <Item/>
+      <table className="Shop-table">
+        <tbody className="Shop-body">
+          <tr className="Shop-title">
+            <td>Image</td>
+            <td>Name</td>
+            <td>Price</td>
+            <td>Stock</td>
+            <td>Purchase</td>
+          </tr>
+          {items.map((item) => (
+            <tr key={item.itemId} className="Shop-item">
+              <td><img className="Shop-itemImg" src={item.itemImage} alt=""></img></td>
+              <td>
+                <Tooltip title={item.description}>
+                  <Button>{item.name}</Button>
+                </Tooltip>
+              </td>
+              <td>{item.price}</td>
+              <td>{item.stock}</td>
+              <input className="Shop-quantity" type="number"></input>
+              <button>Buy</button>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </>
   );
 };

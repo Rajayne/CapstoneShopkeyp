@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink, useParams } from 'react-router-dom';
 import './Admin.css'
-import { Toolbar } from '@mui/material';
 import Users from '../Users/Users';
 import Items from '../Items/Items';
 import Transactions from '../Transactions/Transactions';
@@ -22,14 +21,16 @@ const Admin = () => {
   return (
     <>
       <h1>Admin Page</h1>
-      <Toolbar className="Admin-toolbar">
-        <NavLink className="Admin-link" to="/admin/users">Users</NavLink>
-        <NavLink className="Admin-link" to="/admin/transactions">Transactions</NavLink>
-        <NavLink className="Admin-link" to="/admin/items">Items</NavLink>
-      </Toolbar>
-      <div className="Admin-stats">
-        {currentTab()}
-      </div>
+      <table className="Admin-table">
+        <tbody className="Admin-body">
+          <tr className="Admin-title">
+            <td><NavLink className="Admin-link" to="/admin/users">Users</NavLink></td>
+            <td><NavLink className="Admin-link" to="/admin/transactions">Transactions</NavLink></td>
+            <td><NavLink className="Admin-link" to="/admin/items">Items</NavLink></td>
+          </tr>
+        </tbody>
+      </table>
+      {currentTab()}
     </>
   );
 };

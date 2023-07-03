@@ -1,11 +1,15 @@
-.Admin-toolbar {
+.Admin-table {
+  border-collapse: collapse;
+  width: 80vw;
+}
+
+.Admin-title {
+  font-size: calc(8px + 2vmin);
   background-color: #455169;
+  justify-content:space-evenly;
 }
 
 .Admin-link {
-  align-content: center;
-  font-size: calc(8px + 2vmin);
-  padding: 0 calc(8px + 10vmin);
   text-decoration: none;
   color: white;
 }

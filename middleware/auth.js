@@ -4,23 +4,26 @@ const ExpressError = require('../expressError');
 
 // Authenticate user token
 function authenticateJWT(req, res, next) {
+  console.log('authenticating JWT');
   try {
-    const authHeader = req.headers && req.headers.authorization;
-    if (authHeader) {
-      const token = authHeader.replace(/^[Bb]earer /, '').trim();
-      res.locals.user = jwt.verify(token, SECRET_KEY);
+    const authToken = req.body;
+    if (authToken) {
+      res.locals.user = jwt.verify(authToken, SECRET_KEY);
     }
     return next();
   } catch (err) {
+    console.log('JWT not authenticated');
     return next();
   }
 }
 
 function requireLogin(req, res, next) {
+  console.log('check if logged in');
   try {
     if (!res.locals.user) throw new ExpressError('Unauthorized', 401);
     return next();
   } catch (err) {
+    console.log('login error');
     return next(err);
   }
 }

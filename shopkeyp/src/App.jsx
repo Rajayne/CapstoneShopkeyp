@@ -6,7 +6,11 @@ import Router from "./components/Router/Router"
 function App() {
   return (
     <div className='App'>
-      <Card className='App-wrapper'>
+      <Card className='App-wrapper' sx={{
+    width: {
+      sx: 1.0
+    },
+  }}>
         <NavBar />
         <Toolbar />
         <CardContent>

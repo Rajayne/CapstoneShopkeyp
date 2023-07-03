@@ -1,0 +1,34 @@
+.Shop-table, tbody, th, td {
+  border-collapse: collapse;
+  width: 80vw;
+}
+
+.Shop-table {
+  padding: 5rem;
+  margin: 0 5rem;
+  content: 5rem;
+}
+
+.Shop-title {
+  color: white;
+  background-color: #455169;
+  font-size: calc(8px + 2vmin);
+}
+
+.Shop-item {
+  border: 1px solid #929cae;
+  font-size: calc(6px + 1.75vmin);
+}
+
+.Shop-itemImg {
+  height: 50px;
+}
+
+.Shop-name {
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.Shop-quantity {
+  width: 50px;
+  margin: 1.2rem 0;
+}
