@@ -1,17 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { NavLink, useNavigate } from 'react-router-dom';
 import './Logout.css'
+import UserContext from '../Hooks/UserContext';
 
 const Logout = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token")
-  console.log(token)
+  const [user, setUser] = useContext(UserContext)
 
-  const clearToken = () => {
+  const logout = () => {
     localStorage.removeItem("token")
+    setUser(null)
   }
 
-  clearToken();
+  logout();
 
   useEffect(() => {
     setTimeout(() => {

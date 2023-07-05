@@ -17,6 +17,11 @@ class ShopkeypApi {
     const res = await axios.get(`${BASE_API_URL}/shop`, { headers: { Authorization: `Bearer ${data}` } });
     return res.data;
   }
+
+  static async getUser(username, data) {
+    const res = await axios.get(`${BASE_API_URL}/users/${username}`, { headers: { Authorization: `Bearer ${data}` } });
+    return res.data;
+  }
 }
 
 export default ShopkeypApi;

@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Card, CardContent } from '@mui/material';
 import './RegisterForm.css'
 import { useNavigate } from 'react-router-dom';
 import useFields from '../Hooks/useFields';
 import ShopkeypApi from '../Api/Api';
+import UserContext from '../Hooks/UserContext';
 
 const NewRegisterForm = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useContext(UserContext)
 
   const [formData, handleChange, resetFormData] = useFields({
     username: "",
@@ -24,6 +26,7 @@ const NewRegisterForm = () => {
       const res = await ShopkeypApi.register({username: formData.username, password: formData.password});
       alert("New user created successfully!")
       localStorage.setItem("token", res.token)
+      setUser(formData.username)
     } catch (err) {
       alert("Username not available.")
       console.log(err)

@@ -3,9 +3,12 @@ import { Button, Card, CardContent } from '@mui/material';
 import './LoginForm.css'
 import useFields from '../Hooks/useFields';
 import ShopkeypApi from '../Api/Api';
+import { useContext } from 'react';
+import UserContext from '../Hooks/UserContext';
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useContext(UserContext)
 
   const [formData, handleChange, resetFormData] = useFields({
     username: "",
@@ -16,6 +19,7 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const res = await ShopkeypApi.login({username: formData.username, password: formData.password});
+      setUser(formData.username)
       alert('Successfully logged in!')
       localStorage.setItem("token", res.token)
     } catch (err) {

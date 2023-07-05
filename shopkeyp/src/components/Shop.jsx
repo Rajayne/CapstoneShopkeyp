@@ -7,12 +7,11 @@ const Shop = () => {
   const authHeader = localStorage.getItem('token')
   const [isLoading, setIsLoading] = useState(true);
   const [items, setItems] = useState([]);
-  console.log("items", items)
 
   useEffect(() => {
     async function getItems() {
       const allItems = await ShopkeypApi.getShop(authHeader);
-      setItems(await allItems);
+      setItems(allItems);
       setIsLoading(false);
     }
     getItems();
@@ -43,8 +42,10 @@ const Shop = () => {
               </td>
               <td>{item.price}</td>
               <td>{item.stock}</td>
-              <input className="Shop-quantity" type="number"></input>
-              <button>Buy</button>
+              <td>
+                <button className="Shop-button">Buy</button>
+              </td>
+              
             </tr>
           ))}
         </tbody>
