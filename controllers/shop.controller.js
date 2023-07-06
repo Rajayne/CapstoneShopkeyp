@@ -3,9 +3,9 @@
 const Item = require('../models/item.js');
 const User = require('../models/user.js');
 
-const getItems = async (req, res, next) => {
+const getPurchasable = async (req, res, next) => {
   try {
-    const items = await Item.all();
+    const items = await Item.purchasable();
     return res.json(items);
   } catch (err) {
     return next(err);
@@ -30,4 +30,4 @@ const createPurchaseItem = async (req, res, next) => {
   }
 };
 
-module.exports = { getItems, getItemByID, createPurchaseItem };
+module.exports = { getPurchasable, getItemByID, createPurchaseItem };

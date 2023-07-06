@@ -13,13 +13,20 @@ class ShopkeypApi {
       return res.data;
   }
 
-  static async getShop(authToken) {
-    const res = await axios.get(`${BASE_API_URL}/shop`, { headers: { Authorization: `Bearer ${authToken}` } });
+  static async getUser(username, authToken) {
+    const res = await axios.get(`${BASE_API_URL}/users/${username}`, { headers: { Authorization: `Bearer ${authToken}` } });
     return res.data;
   }
 
-  static async getUser(username, authToken) {
-    const res = await axios.get(`${BASE_API_URL}/users/${username}`, { headers: { Authorization: `Bearer ${authToken}` } });
+  static async updateUser(data, authToken) {
+    console.log("CALLING UPDATE")
+    const res = await axios.patch(`${BASE_API_URL}/users/${data.username}/edit`, data, { headers: { Authorization: `Bearer ${authToken}` } });
+    console.log("API RES", res)
+    return res.data;
+  }
+
+  static async getShop(authToken) {
+    const res = await axios.get(`${BASE_API_URL}/shop`, { headers: { Authorization: `Bearer ${authToken}` } });
     return res.data;
   }
 

@@ -1,9 +1,9 @@
 import './App.css';
-import {Card, CardContent, Toolbar} from '@mui/material'
+import {Card, CardContent} from '@mui/material'
 import NavBar from "./components/NavBar/NavBar";
 import Router from "./components/Router/Router"
 import UserContext from './components/Hooks/UserContext';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -16,9 +16,8 @@ function App() {
       sx: 1.0
     },
   }}>
-        <NavBar />
-        <Toolbar />
-        <CardContent>
+        <NavBar className='App-nav'/>
+        <CardContent className='App-content'>
           <Router />
         </CardContent>
       </Card>

@@ -8,13 +8,13 @@ const {
 } = require('../middleware/auth.js');
 const {
   getItemByID,
-  getItems,
+  getPurchasable,
   createPurchaseItem,
 } = require('../controllers/shop.controller.js');
 
 const router = express.Router();
 
-router.get('/', authenticateJWT, requireLogin, getItems);
+router.get('/', authenticateJWT, requireLogin, getPurchasable);
 
 router.get('/item/:itemId', authenticateJWT, requireLogin, getItemByID);
 

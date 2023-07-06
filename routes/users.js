@@ -49,6 +49,7 @@ router.patch(
     if (!validator.valid) {
       throw new ExpressError('Bad Request', 400);
     }
+
     try {
       const fields = {
         username: req.body.username,
@@ -56,9 +57,13 @@ router.patch(
         profileImage: req.body.profileImage,
       };
 
+      await User.authenticate(fields.username, fields.password);
+
       Object.keys(fields).forEach(
         (key) => fields[key] === undefined && delete fields[key]
       );
+
+      delete fields.password;
 
       if (Object.keys(fields).length === 0) {
         throw new ExpressError('Unauthorized or blank fields.', 401);

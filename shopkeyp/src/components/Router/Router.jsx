@@ -11,6 +11,7 @@ import Error404 from "../Error404";
 import Register from '../Register/Register';
 import User from '../Users/User';
 import Transaction from '../Transactions/Transaction';
+import UpdateUserForm from '../Users/UserForm';
 
 
 const Router = () => {
@@ -24,6 +25,7 @@ const Router = () => {
       <Route exact path="/shop" element={<Shop/>} />
       <Route exact path="/shop/items" element={<Items/>} />
       <Route exact path="/profile" element={<Profile/>} />
+      <Route exact path="/profile/:tab" element={<Profile/>} />
       <Route exact path="/register" element={<Register/>} />
       <Route exact path="/login" element={<Login/>} />
       <Route exact path="/logout" element={<Logout/>} />

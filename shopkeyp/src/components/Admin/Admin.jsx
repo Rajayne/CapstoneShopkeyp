@@ -13,7 +13,7 @@ const Admin = () => {
     if (!user) {
       console.log(!user, user)
       alert("You must be an admin to view this page.")
-      navigate('/')
+      navigate('/', {state: {message:'You must be an admin to view this page.'}})
       return;
     }
   }, [user, navigate])

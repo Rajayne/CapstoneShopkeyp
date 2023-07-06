@@ -15,7 +15,7 @@ const Logout = () => {
     logout();
     setTimeout(() => {
       navigate('/')
-    }, 2000);
+    }, 250);
   }, [setUser, navigate]);
 
   return (

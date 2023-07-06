@@ -1,7 +1,33 @@
+.User-profilebar {
+  display: inline-flex;
+}
+
 .User-image {
+  border-radius:50%;
   height: 250px;
 }
 
 .User-name {
   margin: 0;
+  padding: 1rem 1rem 0;
+}
+
+.User-table {
+  border-collapse: collapse;
+  width: 90vw;
+}
+
+.User-title {
+  font-size: calc(8px + 2vmin);
+  background-color: #455169;
+  justify-content:space-evenly;
+}
+
+.User-link {
+  text-decoration: none;
+  color: white;
+}
+
+.User-link:hover {
+  color: slategray;
 }

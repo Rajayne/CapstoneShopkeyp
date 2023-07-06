@@ -3,11 +3,11 @@ CREATE DATABASE shopkeyp;
 
 \c shopkeyp;
 -- password0, password1, password2
-INSERT INTO users (username, password, is_admin)
+INSERT INTO users (username, password, profile_image, is_admin)
   VALUES 
-  ('Shopkeyp', '$2a$13$1U2XPY9X5BArR8geCSSurejbImN5DV1kzVWix2prCIovX051pT5fG', 'true'),
-  ('TestAdmin', '$2a$13$eSnNeLRCQ5SfWXu5vxVhz.97VhJnhlvnl2WChYEddNRtzc2Zi73Mq', 'true'),
-  ('TestUser', '$2a$13$M1eNI7FzMHr48q4/0alin.JtSWx0uxpc2ZpTQvExZPtaB8uHbB//u', 'false');
+  ('Shopkeyp', '$2a$13$1U2XPY9X5BArR8geCSSurejbImN5DV1kzVWix2prCIovX051pT5fG', 'https://freeiconshop.com/wp-content/uploads/edd/key-flat.png', 'true'),
+  ('TestAdmin', '$2a$13$eSnNeLRCQ5SfWXu5vxVhz.97VhJnhlvnl2WChYEddNRtzc2Zi73Mq', 'https://cdna.artstation.com/p/assets/images/images/034/457/398/large/shin-min-jeong-.jpg?1612345160', 'true'),
+  ('TestUser', '$2a$13$M1eNI7FzMHr48q4/0alin.JtSWx0uxpc2ZpTQvExZPtaB8uHbB//u', 'https://cdna.artstation.com/p/assets/images/images/034/457/364/large/shin-min-jeong-.jpg?1612345089', 'false');
 
 INSERT INTO items (name, description, item_image, price, stock, purchasable, created_by)
   VALUES 

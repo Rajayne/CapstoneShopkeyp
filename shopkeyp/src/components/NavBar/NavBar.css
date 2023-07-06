@@ -4,6 +4,10 @@
   color: white;
 }
 
+.NavBar-icon {
+  height: 4vh;
+}
+
 .NavBar a.active {
   color: white;
 }
