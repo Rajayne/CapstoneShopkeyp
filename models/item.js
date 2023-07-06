@@ -155,6 +155,21 @@ class Item {
     return new Item(item);
   }
 
+  static async buy(itemId, quantity) {
+    const result = await db.query(
+      `UPDATE items 
+        SET stock = stock - $1
+        WHERE item_id = $2
+        RETURNING name`,
+      [quantity, itemId]
+    );
+
+    const item = result.rows[0];
+
+    if (!item) throw new ExpressError(`No stock to update: ${itemId}`, 404);
+    return `You have successfully purchased ${quantity} ${item.name}(s).`;
+  }
+
   static async update(itemId, data) {
     const { setCols, values } = sqlForPartialUpdate(data, {
       itemImage: 'item_image',

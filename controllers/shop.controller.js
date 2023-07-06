@@ -21,7 +21,7 @@ const getItemByID = async (req, res, next) => {
   }
 };
 
-const createPuchaseItem = async (req, res, next) => {
+const createPurchaseItem = async (req, res, next) => {
   try {
     const transaction = await User.purchase(req.body);
     return res.json(transaction);
@@ -30,4 +30,4 @@ const createPuchaseItem = async (req, res, next) => {
   }
 };
 
-module.exports = { getItems, getItemByID, createPuchaseItem };
+module.exports = { getItems, getItemByID, createPurchaseItem };

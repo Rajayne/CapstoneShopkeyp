@@ -51,8 +51,15 @@ function ensureCorrectUserOrAdmin(req, res, next) {
 function authorizePurchase(req, res, next) {
   try {
     const { user } = res.locals;
-    if (!user.username === req.body.username) {
-      throw new ExpressError('Unauthorized', 401);
+    if (req.body.username) {
+      if (user.username !== req.body.username) {
+        throw new ExpressError('Unauthorized', 401);
+      }
+    }
+    if (req.body.toUser) {
+      if (user.username !== req.body.toUser) {
+        throw new ExpressError('Unauthorized', 401);
+      }
     }
     return next();
   } catch (err) {

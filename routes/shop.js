@@ -9,7 +9,7 @@ const {
 const {
   getItemByID,
   getItems,
-  createPuchaseItem,
+  createPurchaseItem,
 } = require('../controllers/shop.controller.js');
 
 const router = express.Router();
@@ -23,7 +23,7 @@ router.post(
   authenticateJWT,
   requireLogin,
   authorizePurchase,
-  createPuchaseItem
+  createPurchaseItem
 );
 
 module.exports = router;

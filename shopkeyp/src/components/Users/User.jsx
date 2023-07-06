@@ -21,8 +21,7 @@ const User = () => {
   if (isLoading) {
     return <p>Loading</p>;
   }
-
-  console.log(user)
+  
   return (
     <>
       <img className="User-image" src={userData.profileImage} alt=""></img>

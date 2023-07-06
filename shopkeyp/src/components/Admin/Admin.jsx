@@ -7,7 +7,6 @@ import Transactions from '../Transactions/Transactions';
 
 const Admin = () => {
   const {tab} = useParams();
-  console.log(tab)
 
   const currentTab = () => {
     switch(tab) {

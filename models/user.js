@@ -6,6 +6,7 @@ const ExpressError = require('../expressError');
 const Transaction = require('./transaction');
 const { sqlForPartialUpdate } = require('../helpers/sql');
 const { BCRYPT_WORK_FACTOR } = require('../config');
+const Item = require('./item');
 
 class User {
   constructor({
@@ -311,6 +312,11 @@ class User {
     const checkBalance = await this.checkBalance(toUser, total);
     if (!checkBalance) {
       return new ExpressError('Insufficient balance', 400);
+    }
+    try {
+      await Item.buy(itemId, quantity);
+    } catch (e) {
+      return new ExpressError('Insufficient stock', 400);
     }
     await this.updateBalance(toUser, -total);
     const update = await this.updateInventory(toUser, itemId, quantity);
