@@ -3,21 +3,32 @@ import ShopkeypApi from './Api/Api';
 import './Shop.css'
 import { Button, Tooltip } from '@mui/material';
 import UserContext from './Hooks/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 const Shop = () => {
   const [user, setUser] = useContext(UserContext);
   const authHeader = localStorage.getItem('token')
   const [isLoading, setIsLoading] = useState(true);
   const [items, setItems] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    async function getItems() {
-      const allItems = await ShopkeypApi.getShop(authHeader);
-      setItems(allItems);
-      setIsLoading(false);
+    if (!user) {
+      alert("Please register or login to view this page.")
+      navigate('/login')
     }
-    getItems();
-  }, [authHeader]);
+  })
+
+  useEffect(() => {
+    if (user) {
+      async function getItems() {
+        const allItems = await ShopkeypApi.getShop(authHeader);
+        setItems(allItems);
+        setIsLoading(false);
+      }
+      getItems();
+    }
+  }, [user, authHeader]);
 
   if (isLoading) {
     return <p>Loading</p>;

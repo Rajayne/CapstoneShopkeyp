@@ -3,12 +3,13 @@ import { Button, Card, CardContent } from '@mui/material';
 import './LoginForm.css'
 import useFields from '../Hooks/useFields';
 import ShopkeypApi from '../Api/Api';
+import jwt_decode from "jwt-decode"
 import { useContext } from 'react';
 import UserContext from '../Hooks/UserContext';
 
 const LoginForm = () => {
-  const navigate = useNavigate();
   const [user, setUser] = useContext(UserContext)
+  const navigate = useNavigate();
 
   const [formData, handleChange, resetFormData] = useFields({
     username: "",
@@ -19,12 +20,11 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const res = await ShopkeypApi.login({username: formData.username, password: formData.password});
-      setUser(formData.username)
+      setUser(jwt_decode(res.token))
       alert('Successfully logged in!')
       localStorage.setItem("token", res.token)
     } catch (err) {
       alert('Invalid username/password.')
-      console.log(err)
       return;
     }
     resetFormData();

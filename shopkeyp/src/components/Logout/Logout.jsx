@@ -7,18 +7,16 @@ const Logout = () => {
   const navigate = useNavigate();
   const [user, setUser] = useContext(UserContext)
 
-  const logout = () => {
-    localStorage.removeItem("token")
-    setUser(null)
-  }
-
-  logout();
-
   useEffect(() => {
+    const logout = async () => {
+      localStorage.removeItem("token")
+      setUser(null)
+    }
+    logout();
     setTimeout(() => {
       navigate('/')
     }, 2000);
-  }, [navigate]);
+  }, [setUser, navigate]);
 
   return (
     <>
