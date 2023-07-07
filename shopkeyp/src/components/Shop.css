@@ -1,12 +1,6 @@
-.Shop-table, tbody, th, td {
-  border-collapse: collapse;
-  width: 90vw;
-}
-
 .Shop-table {
-  padding: 5rem;
-  margin: 0 5rem;
-  content: 5rem;
+  border-collapse: collapse;
+  width: 100%
 }
 
 .Shop-title {

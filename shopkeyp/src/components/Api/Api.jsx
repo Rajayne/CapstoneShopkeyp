@@ -19,9 +19,13 @@ class ShopkeypApi {
   }
 
   static async updateUser(data, authToken) {
-    console.log("CALLING UPDATE")
     const res = await axios.patch(`${BASE_API_URL}/users/${data.username}/edit`, data, { headers: { Authorization: `Bearer ${authToken}` } });
-    console.log("API RES", res)
+    return res.data;
+  }
+
+  static async getInventoryItem(itemId, authToken) {
+    console.log("CALLS GET ITEM", )
+    const res = await axios.get(`${BASE_API_URL}/shop/item/${itemId}`, { headers: { Authorization: `Bearer ${authToken}` } });
     return res.data;
   }
 

@@ -1,12 +1,16 @@
 .Admin-table {
   border-collapse: collapse;
-  width: 90vw;
+  width: 100%
 }
 
 .Admin-title {
   font-size: calc(8px + 2vmin);
   background-color: #455169;
   justify-content:space-evenly;
+}
+
+.Admin-title a.active {
+  text-decoration: underline;
 }
 
 .Admin-link {

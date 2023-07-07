@@ -11,7 +11,6 @@ import Error404 from "../Error404";
 import Register from '../Register/Register';
 import User from '../Users/User';
 import Transaction from '../Transactions/Transaction';
-import UpdateUserForm from '../Users/UserForm';
 
 
 const Router = () => {

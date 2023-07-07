@@ -1,11 +1,36 @@
 .NavBar {
-  justify-content: space-evenly;
-  padding: 1rem 0;
+  padding: 1rem 2rem;
   color: white;
+  justify-content: space-between;
 }
 
-.NavBar-icon {
-  height: 4vh;
+.NavBar-left {
+  display: flex;
+}
+
+.NavBar-home {
+  justify-content: flex-start;
+  vertical-align: middle;
+}
+
+#NavBar-button {
+  background-color: lightsteelblue;
+  border-radius: 5px;
+  border-color: lightslategray;
+  height: 3.5vh;
+}
+
+#NavBar-input {
+  border-radius: 5px;
+  height: 3vh;
+}
+
+.NavBar-anon {
+  justify-content: flex-end;
+}
+
+#NavBar-icon {
+  height: 2.5rem;
 }
 
 .NavBar a.active {

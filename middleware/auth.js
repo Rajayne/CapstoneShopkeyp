@@ -4,8 +4,10 @@ const ExpressError = require('../expressError');
 
 // Authenticate user token
 function authenticateJWT(req, res, next) {
+  console.log('AUTH JWT');
   try {
     const authToken = req.headers && req.headers.authorization;
+    console.log(authToken);
     if (authToken) {
       const token = authToken.replace(/^[Bb]earer /, '').trim();
       res.locals.user = jwt.verify(token, SECRET_KEY);
@@ -17,6 +19,7 @@ function authenticateJWT(req, res, next) {
 }
 
 function requireLogin(req, res, next) {
+  console.log('LOGGED IN');
   try {
     if (!res.locals.user) throw new ExpressError('Unauthorized', 401);
     return next();
@@ -57,7 +60,8 @@ function authorizePurchase(req, res, next) {
       }
     }
     if (req.body.toUser) {
-      if (user.username !== req.body.toUser) {
+      const { toUser } = req.body;
+      if (user.username !== toUser) {
         throw new ExpressError('Unauthorized', 401);
       }
     }

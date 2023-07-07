@@ -1,0 +1,14 @@
+.Inventory-table {
+  border-collapse: collapse;
+  width: 100%
+}
+
+.Inventory-title {
+  color: white;
+  background-color: slategray;
+  font-size: calc(8px + 2vmin);
+}
+
+.Inventory-itemImg {
+  height: 50px;
+}

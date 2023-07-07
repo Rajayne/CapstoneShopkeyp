@@ -37,7 +37,7 @@ const Shop = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     const data = {
-      toUser: user,
+      toUser: user.username,
       itemId: e.target.id,
       quantity: 1,
       total: e.target.value,
@@ -71,7 +71,7 @@ const Shop = () => {
                 </Tooltip>
               </td>
               <td>{item.price}</td>
-              <td>{item.stock}</td>
+              <td>{item.stock > 0 ? item.stock : "Out of Stock"}</td>
               <td>
                 <button id={item.itemId} name={item.name} value={item.price} disabled={item.stock === 0 ? true : false} className="Shop-button" onClick={handleClick}>Buy</button>
               </td>

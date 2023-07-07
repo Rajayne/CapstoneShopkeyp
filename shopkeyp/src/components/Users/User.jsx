@@ -15,6 +15,7 @@ const User = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const {tab} = useParams();
+  console.log("USERDATA", userData.inventory)
 
   useEffect(() => {
     if (!user && authHeader) {
@@ -46,7 +47,7 @@ const User = () => {
   const currentTab = () => {
     switch(tab) {
       case "edit": return <UpdateUserForm />;
-      case "inventory": return <Inventory />;
+      case "inventory": return <Inventory inventory={userData.inventory}/>;
       case "transactions": return <Transactions />;
       default: return <p>User Info</p>
     }

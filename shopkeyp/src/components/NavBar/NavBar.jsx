@@ -6,6 +6,7 @@ import UserContext from '../Hooks/UserContext';
 import AdminNav from './AdminNav';
 import UserNav from './UserNav';
 import AnonNav from './AnonNav';
+import HomeNav from './HomeNav';
 
 const NavBar = () => {
   const [user, setUser] = useContext(UserContext)
@@ -13,17 +14,17 @@ const NavBar = () => {
   return (
     <AppBar position="sticky" style={{ background: '#2E3B55'}}>
       <Toolbar className="NavBar">
-          <NavLink className="NavBar-link" to="/">
-            Home
-          </NavLink>
+        <div className="NavBar-left">
+          <HomeNav className="NavBar-home"/>
+        </div>
           {user && user.isAdmin? (
-            <AdminNav/>
+            <AdminNav className="NavBar-admin"/>
           ) : ''}
           {user !== null ? (
-            <UserNav/>
+              <UserNav className="NavBar-user"/>
           ) : ''}
           {!user ? (
-            <AnonNav/>
+              <AnonNav className="NavBar-anon"/>
           ) : ''}
       </Toolbar>
     </AppBar>
