@@ -11,6 +11,7 @@ import Error404 from "../Error404";
 import Register from '../Register/Register';
 import User from '../Users/User';
 import Transaction from '../Transactions/Transaction';
+import ItemDetails from '../Items/ItemDetails';
 
 
 const Router = () => {
@@ -23,6 +24,7 @@ const Router = () => {
       <Route exact path="/admin/transactions/:transactionId" element={<Transaction/>} />
       <Route exact path="/shop" element={<Shop/>} />
       <Route exact path="/shop/items" element={<Items/>} />
+      <Route exact path="/shop/items/:itemId" element={<ItemDetails/>} />
       <Route exact path="/profile" element={<Profile/>} />
       <Route exact path="/profile/:tab" element={<Profile/>} />
       <Route exact path="/register" element={<Register/>} />

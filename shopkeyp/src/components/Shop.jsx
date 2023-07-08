@@ -4,6 +4,7 @@ import './Shop.css'
 import { Button, Tooltip } from '@mui/material';
 import UserContext from './Hooks/UserContext';
 import { useNavigate } from 'react-router-dom';
+import ItemCard from './Items/ItemCard';
 
 const Shop = () => {
   const [user, setUser] = useContext(UserContext);
@@ -51,35 +52,14 @@ const Shop = () => {
       alert(`You have successfully purchased ${data.quantity} ${e.target.name}(s).`)
   };
   return (
-    <>
+    <div>
       <h1>Shop Page</h1>
-      <table className="Shop-table">
-        <tbody className="Shop-body">
-          <tr className="Shop-title">
-            <td>Image</td>
-            <td>Name</td>
-            <td>Price</td>
-            <td>Stock</td>
-            <td>Purchase</td>
-          </tr>
-          {items.map((item) => (
-            <tr key={item.itemId} className="Shop-item">
-              <td><img className="Shop-itemImg" src={item.itemImage} alt=""></img></td>
-              <td>
-                <Tooltip title={item.description}>
-                  <Button>{item.name}</Button>
-                </Tooltip>
-              </td>
-              <td>{item.price}</td>
-              <td>{item.stock > 0 ? item.stock : "Out of Stock"}</td>
-              <td>
-                <button id={item.itemId} name={item.name} value={item.price} disabled={item.stock === 0 ? true : false} className="Shop-button" onClick={handleClick}>Buy</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </>
+      <div className="Shop-items">
+        {items.map((itemObj) => (
+          <ItemCard key={itemObj.itemId} itemObj={itemObj} className="Shop-item" />
+        ))}
+      </div>
+    </div>
   );
 };
 
