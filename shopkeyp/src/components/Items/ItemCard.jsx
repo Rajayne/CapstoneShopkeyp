@@ -11,7 +11,7 @@ const ItemCard = ({itemObj}) => {
   }
 
   return (
-    <Card className="ItemCard" sx={{ width: 225, height: 350}}>
+    <Card className="ItemCard" sx={{ width: 225}}>
       <CardActionArea>
       <CardMedia className="ItemCard-image" height="200" component="img" alt={itemObj.name} image={itemObj.itemImage}/>
       <CardContent>
@@ -20,6 +20,9 @@ const ItemCard = ({itemObj}) => {
         </Typography>
         <Typography>
           <b>Price:</b> {itemObj.price}gp
+        </Typography>
+        <Typography>
+          <i>{itemObj.stock >= 0 ? "" : "Out of Stock"}</i>
         </Typography>
       </CardContent>
       </CardActionArea>
