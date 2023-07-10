@@ -2,12 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import './Admin.css'
 import Users from '../Admin/Users';
-import Items from '../Items/Items';
+import Items from './Items';
 import Transactions from '../Transactions/Transactions';
 import UserContext from '../Hooks/UserContext';
 import jwt_decode from "jwt-decode"
 import ShopkeypApi from '../Api/Api';
 import AdminContext from '../Hooks/AdminContext';
+import AdminHome from './AdminHome';
 
 const Admin = () => {
   const [user, setUser] = useContext(UserContext)
@@ -64,7 +65,7 @@ const Admin = () => {
       case "users": return <Users users={userData}/>;
       case "items": return <Items items={itemData}/>;
       case "transactions": return <Transactions transactions={transactionData}/>;
-      default: return <p>Admin Stats</p>
+      default: return <div>Admin Stats</div>
     }
   }
 

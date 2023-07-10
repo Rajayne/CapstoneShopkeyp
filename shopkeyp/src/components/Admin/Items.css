@@ -1,0 +1,30 @@
+.Items-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.ItemsRow {
+  border: 1px solid slategray;
+}
+
+.ItemsRow td {
+  padding: .5rem;
+}
+
+.Items-title {
+  color: white;
+  background-color: slategray;
+  font-size: calc(8px + 2vmin);
+}
+.ItemsRow-item {
+  display: flex;
+  width: 8rem;
+}
+
+.ItemsRow-itemImg {
+  height: 50px;
+}
+
+.ItemsRow-name {
+  padding: 0 1rem;
+}

@@ -8,9 +8,10 @@
   display: flex;
 }
 
-.NavBar-home {
-  justify-content: flex-start;
-  vertical-align: middle;
+.HomeNav {
+  display: flex;
+  text-decoration: none;
+  color: lightsteelblue;
 }
 
 #NavBar-button {

@@ -28,6 +28,11 @@ class ShopkeypApi {
     return res.data;
   }
 
+  static async getItem(itemId, authToken) {
+    const res = await axios.get(`${BASE_API_URL}/admin/items/${itemId}`, { headers: { Authorization: `Bearer ${authToken}` } });
+    return res.data;
+  }
+
   static async allItems(authToken) {
     const res = await axios.get(`${BASE_API_URL}/admin/items`, { headers: { Authorization: `Bearer ${authToken}` } });
     return res.data;

@@ -2,8 +2,7 @@ import React from "react";
 import { Routes, Route } from 'react-router-dom';
 import Home from "../Home";
 import Admin from "../Admin/Admin";
-import Items from '../Items/Items';
-import Shop from "../Shop";
+import Shop from "../Shop/Shop";
 import Profile from "../Users/User";
 import Login from "../Login/Login";
 import Logout from '../Logout/Logout';
@@ -11,7 +10,7 @@ import Error404 from "../Error404";
 import Register from '../Register/Register';
 import User from '../Users/User';
 import Transaction from '../Transactions/Transaction';
-import ItemDetails from '../Items/ItemDetails';
+import ItemDetails from '../Shop/Items/ItemDetails';
 
 
 const Router = () => {
@@ -23,7 +22,6 @@ const Router = () => {
       <Route exact path="/admin/users/:username" element={<User/>} />
       <Route exact path="/admin/transactions/:transactionId" element={<Transaction/>} />
       <Route exact path="/shop" element={<Shop/>} />
-      <Route exact path="/shop/items" element={<Items/>} />
       <Route exact path="/shop/items/:itemId" element={<ItemDetails/>} />
       <Route exact path="/profile" element={<Profile/>} />
       <Route exact path="/profile/:tab" element={<Profile/>} />
