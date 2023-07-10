@@ -13,7 +13,6 @@ const getPurchasable = async (req, res, next) => {
 };
 
 const getItemByID = async (req, res, next) => {
-  console.log("CALLS GET ITEM BY ID")
   try {
     const item = await Item.get(req.params.itemId);
     return res.json(item);

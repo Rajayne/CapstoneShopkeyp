@@ -4,7 +4,6 @@ const ExpressError = require('../expressError');
 
 // Authenticate user token
 function authenticateJWT(req, res, next) {
-  console.log('AUTH JWT');
   try {
     const authToken = req.headers && req.headers.authorization;
     console.log(authToken);
@@ -19,7 +18,6 @@ function authenticateJWT(req, res, next) {
 }
 
 function requireLogin(req, res, next) {
-  console.log('LOGGED IN');
   try {
     if (!res.locals.user) throw new ExpressError('Unauthorized', 401);
     return next();

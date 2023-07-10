@@ -1,0 +1,31 @@
+.Users-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.UserItem {
+  border: 1px solid slategray;
+}
+
+.UserItem td {
+  padding: .5rem;
+}
+
+.Users-title {
+  color: white;
+  background-color: slategray;
+  font-size: calc(8px + 2vmin);
+}
+
+.UserItem-user {
+  display: flex;
+  width: 8rem;
+}
+
+.UserItem-profileImg {
+  height: 50px;
+}
+
+.UserItem-username {
+  padding: 0 1rem;
+}

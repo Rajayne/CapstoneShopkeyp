@@ -23,6 +23,21 @@ class ShopkeypApi {
     return res.data;
   }
 
+  static async allUsers(authToken) {
+    const res = await axios.get(`${BASE_API_URL}/admin/users`, { headers: { Authorization: `Bearer ${authToken}` } });
+    return res.data;
+  }
+
+  static async allItems(authToken) {
+    const res = await axios.get(`${BASE_API_URL}/admin/items`, { headers: { Authorization: `Bearer ${authToken}` } });
+    return res.data;
+  }
+
+  static async allTransactions(authToken) {
+    const res = await axios.get(`${BASE_API_URL}/admin/transactions`, { headers: { Authorization: `Bearer ${authToken}` } });
+    return res.data;
+  }
+
   static async getInventoryItem(itemId, authToken) {
     console.log("CALLS GET ITEM", )
     const res = await axios.get(`${BASE_API_URL}/shop/item/${itemId}`, { headers: { Authorization: `Bearer ${authToken}` } });
