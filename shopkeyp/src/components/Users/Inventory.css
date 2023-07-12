@@ -1,14 +1,8 @@
-.Inventory-table {
-  border-collapse: collapse;
-  width: 100%
+.InventoryCard-itemImg {
+  height: 75px;
 }
 
-.Inventory-title {
-  color: white;
-  background-color: slategray;
-  font-size: calc(8px + 2vmin);
-}
-
-.Inventory-itemImg {
-  height: 50px;
+.InventoryCard {
+  margin: .5rem;
+  width: 125px;
 }

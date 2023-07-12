@@ -3,10 +3,10 @@ import ShopkeypApi from '../Api/Api';
 import './User.css'
 import UserContext from '../Hooks/UserContext';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
-import Transactions from '../Transactions/Transactions';
 import Inventory from './Inventory';
 import UpdateUserForm from './UserForm';
 import jwt_decode from "jwt-decode"
+import Transaction from '../Transactions/TransactionDetails';
 
 const User = () => {
   const authHeader = localStorage.getItem('token')
@@ -14,7 +14,6 @@ const User = () => {
   const [userData, setUserData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-  const {tab} = useParams();
   console.log("USERDATA", userData.inventory)
 
   useEffect(() => {
@@ -44,15 +43,6 @@ const User = () => {
     navigate('/profile/edit')
   }
 
-  const currentTab = () => {
-    switch(tab) {
-      case "edit": return <UpdateUserForm />;
-      case "inventory": return <Inventory inventory={userData.inventory}/>;
-      case "transactions": return <Transactions />;
-      default: return <p>User Info</p>
-    }
-  }
-
   return (
     <>
       <div className="User-profilebar">
@@ -63,15 +53,16 @@ const User = () => {
           <button onClick={handleClick}>Edit Profile</button>
         </div>
       </div>
-      <table className="User-table">
-          <tbody className="User-body">
-            <tr className="User-title">
-              <td><NavLink className="User-link" to="/profile/inventory">Inventory</NavLink></td>
-              <td><NavLink className="User-link" to="/profile/transactions">Transactions</NavLink></td>
-            </tr>
-          </tbody>
-        </table>
-        {currentTab()}
+      <div className="User-sections">
+        <h3>{userData.username}'s Inventory</h3>
+        <div className="User-inventory">
+          {userData.inventory ? <Inventory inventory={userData.inventory}/> : "N/A"}
+        </div>
+        <h3>Transaction History</h3>
+        <div className="User-transactions">
+          <Transaction/>
+        </div>
+      </div>
     </>
   );
 };

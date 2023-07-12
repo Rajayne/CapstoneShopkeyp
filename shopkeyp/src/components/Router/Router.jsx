@@ -9,7 +9,7 @@ import Logout from '../Logout/Logout';
 import Error404 from "../Error404";
 import Register from '../Register/Register';
 import User from '../Users/User';
-import Transaction from '../Transactions/Transaction';
+import Transaction from '../Transactions/TransactionDetails';
 import ItemDetails from '../Shop/Items/ItemDetails';
 
 

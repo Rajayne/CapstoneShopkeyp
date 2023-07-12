@@ -6,7 +6,6 @@ const ExpressError = require('../expressError');
 function authenticateJWT(req, res, next) {
   try {
     const authToken = req.headers && req.headers.authorization;
-    console.log(authToken);
     if (authToken) {
       const token = authToken.replace(/^[Bb]earer /, '').trim();
       res.locals.user = jwt.verify(token, SECRET_KEY);

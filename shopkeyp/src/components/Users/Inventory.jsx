@@ -1,27 +1,25 @@
 import React from "react";
 import './Inventory.css'
-import InventoryItem from './InventoryItem';
+import InventoryCard from './InventoryCard';
 
 const Inventory = ({inventory}) => {
-  console.log("INVENTORY", inventory)
-  return (
-    <>
-      <table className="Inventory-table">
-        <tbody>
-        <tr className="Inventory-title">
-          <td>Image</td>
-          <td>Name</td>
-          <td>Quantity</td>
-        </tr>
+  if (inventory.length) {
+    return (
+      <>
         {inventory.map((itemObj) => (
-          <tr className="Inventory-item" key={itemObj.itemId}>
-            <InventoryItem itemObj={itemObj}/>
-          </tr>
+          <div className="InventoryCard" key={itemObj.itemId}>
+            <InventoryCard itemObj={itemObj}/>
+          </div>
         ))}
-        </tbody>
-      </table>
-    </>
-  );
-};
+      </>
+    );
+  } else {
+    return (
+      <>
+        <div>N/A</div>
+      </>
+    )
+  }
+}
 
 export default Inventory;

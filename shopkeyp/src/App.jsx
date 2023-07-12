@@ -3,14 +3,24 @@ import {Card, CardContent} from '@mui/material'
 import NavBar from "./components/NavBar/NavBar";
 import Router from "./components/Router/Router"
 import UserContext from './components/Hooks/UserContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AdminContext from './components/Hooks/AdminContext';
+import jwt_decode from "jwt-decode"
+import Footer from './components/Footer';
 
 function App() {
   const [user, setUser] = useState(null)
   const [userData, setUserData] = useState(null)
   const [itemData, setItemData] = useState(null)
   const [transactionData, setTransactionData] = useState(null)
+
+  const authHeader = localStorage.getItem('token')
+  useEffect(() => {
+    if (!user && authHeader) {
+      setUser(jwt_decode(authHeader))
+      return;
+    }
+  }, [user, authHeader, setUser])
 
   return (
     <div className='App'>
@@ -25,6 +35,7 @@ function App() {
           <CardContent className='App-content'>
             <Router />
           </CardContent>
+          <Footer/>
         </Card>
         </AdminContext.Provider>
       </UserContext.Provider>

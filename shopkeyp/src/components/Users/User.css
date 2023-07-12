@@ -12,26 +12,15 @@
   padding: 1rem 1rem 0;
 }
 
-.User-table {
-  border-collapse: collapse;
-  width: 100%
-}
-
-.User-title {
+.User-sections h3 {
+  display: block;
   font-size: calc(8px + 2vmin);
-  background-color: #455169;
-  justify-content:space-evenly;
-}
-
-.User-title a.active{
-  text-decoration: underline;
-}
-
-.User-link {
-  text-decoration: none;
+  font-weight: normal;
   color: white;
+  background-color: #455169;
 }
 
-.User-link:hover {
-  color: slategray;
+.User-inventory {
+  display: flex;
+  flex-wrap: wrap;
 }

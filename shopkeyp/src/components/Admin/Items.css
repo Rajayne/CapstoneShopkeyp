@@ -16,6 +16,7 @@
   background-color: slategray;
   font-size: calc(8px + 2vmin);
 }
+
 .ItemsRow-item {
   display: flex;
   width: 8rem;

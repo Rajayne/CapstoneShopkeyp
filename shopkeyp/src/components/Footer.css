@@ -1,0 +1,21 @@
+.Footer {
+  color: white;
+  font-size: .8rem;
+  background-color: #2E3B55;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin: auto;
+  padding: 2rem;
+}
+
+.Footer a {
+  text-decoration: none;
+  color: white;
+  font-weight: 700;
+}
+
+.Footer a:hover{
+  color: rgb(60, 154, 236);
+}

@@ -4,8 +4,11 @@
   flex-direction: column;
   font-size: calc(10px + 2vmin);
   color: white;
+  position: relative;
+  min-height: 100vh;
 }
 
 .App-content {
   text-align: center;
+  margin: 0 0 6rem 0;
 }
