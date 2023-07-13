@@ -1,0 +1,36 @@
+.ItemForm {
+  padding: .5rem;
+}
+
+.ItemForm-table {
+  display: flexbox;
+}
+
+.ItemForm-left {
+  width: 40vw;
+}
+
+.ItemForm-right {
+  width: 60vw;
+}
+
+.ItemForm-preview {
+  height: 50vh;
+  object-fit: contain;
+}
+
+.ItemForm-label {
+  font-size: 1rem;
+  text-align: center;
+}
+
+.ItemForm-input {
+  font-size: 1rem;
+  padding: .2rem;
+  text-align: left;
+  width: 80%;
+}
+
+.ItemForm-button {
+  margin: 1rem;
+}

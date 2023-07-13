@@ -28,16 +28,24 @@
 }
 
 .ItemsRow-name {
-  padding: 0 1rem;
+  padding: 0 0 0 .5rem;
   text-align: left;
+  color: black;
+  text-decoration: none;
+}
+
+.ItemsRow-name:hover {
+  color: lightslategray;
 }
 
 .ItemsRow-description {
   text-align: left;
+  max-width: 40vw;
+  text-overflow: ellipsis;
 }
 
 .ItemsRow-date {
-  column-width: 10vw;
+  column-width: 15vw;
 }
 
 .ItemsRow-price {

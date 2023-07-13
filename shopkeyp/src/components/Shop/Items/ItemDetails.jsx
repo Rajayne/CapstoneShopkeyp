@@ -22,8 +22,8 @@ const ItemDetails = () => {
     navigate('/shop')
   }
 
-  const handleInventory = () => {
-    navigate('/profile')
+  const handleBack = () => {
+    navigate(-1)
   }
 
   return (
@@ -34,8 +34,8 @@ const ItemDetails = () => {
       <Typography>{itemData.stock > 0 ? `Available Stock: ${itemData.stock}` : "Out of Stock" }</Typography>
       <Typography>{itemData.description}</Typography>
       <div className="ItemDetails-button">
-        <Button onClick={handleShop} id="ItemDetails-shop" variant="outlined">Go to Shop</Button>
-        <Button onClick={handleInventory} id="ItemDetails-inventory" variant="contained">My Inventory</Button>
+        <Button onClick={handleShop} id="ItemDetails-shop" variant="outlined">Shop</Button>
+        <Button onClick={handleBack} id="ItemDetails-back" variant="contained">Back</Button>
       </div>
     </>
   );
