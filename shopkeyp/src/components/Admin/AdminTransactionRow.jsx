@@ -52,7 +52,8 @@ const AdminTransactionRow = ({transactionId}) => {
 
   return (
     <>
-      <td>{transaction.action}</td>
+      <td>{transaction.transactionId}</td>
+      <td className="Transactions-type">{transaction.action}</td>
       <td>{toUser ? toUser.username : ""}</td>
       <td>{fromUser.username === "Shopkeyp" || transaction.fromUser === null ? "Shop" : fromUser.username }</td>
       <td>{item.name}</td>

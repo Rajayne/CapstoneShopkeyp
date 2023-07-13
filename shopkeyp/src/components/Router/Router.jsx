@@ -11,6 +11,7 @@ import Register from '../Register/Register';
 import User from '../Users/User';
 import Transaction from '../Transactions/TransactionRow';
 import ItemDetails from '../Shop/Items/ItemDetails';
+import UpdateItemForm from '../Admin/ItemForm';
 
 
 const Router = () => {
@@ -21,6 +22,7 @@ const Router = () => {
       <Route exact path="/admin/:tab" element={<Admin/>} />
       <Route exact path="/admin/users/:username" element={<User/>} />
       <Route exact path="/admin/transactions/:transactionId" element={<Transaction/>} />
+      <Route exact path="/admin/items/:itemId/edit" element={<UpdateItemForm/>} />
       <Route exact path="/shop" element={<Shop/>} />
       <Route exact path="/shop/items/:itemId" element={<ItemDetails/>} />
       <Route exact path="/profile" element={<Profile/>} />

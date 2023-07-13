@@ -10,6 +10,10 @@
   color: white;
 }
 
+.Transactions-type {
+  text-transform: capitalize;
+}
+
 .TransactionRow {
   border-bottom: 1px solid slategray;
 }

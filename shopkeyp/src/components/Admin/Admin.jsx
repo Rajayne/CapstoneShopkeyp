@@ -1,24 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import React, { useContext, useEffect } from "react";
+import { useNavigate, useParams } from 'react-router-dom';
 import './Admin.css'
 import Users from '../Admin/Users';
 import Items from './Items';
 import AdminTransactions from './AdminTransactions';
 import UserContext from '../Hooks/UserContext';
 import jwt_decode from "jwt-decode"
-import ShopkeypApi from '../Api/Api';
-import AdminContext from '../Hooks/AdminContext';
+import AdminDashboard from './AdminDashboard';
 
 const Admin = () => {
   const [user, setUser] = useContext(UserContext)
-  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-
   const authHeader = localStorage.getItem('token')
-  const {users, items, transactions} = useContext(AdminContext);
-  const [userData, setUserData] = users;
-  const [itemData, setItemData] = items;
-  const [transactionData, setTransactionData] = transactions;
 
   useEffect(() => {
     if (!user && authHeader) {
@@ -33,44 +26,14 @@ const Admin = () => {
     }
   }, [user, navigate, authHeader, setUser])
 
-  useEffect(() => {
-    async function getUsers() {
-      const res = await ShopkeypApi.allUsers(authHeader);
-      setUserData(await res);
-    }
-    if (user) {
-      getUsers();
-    }
-  }, [authHeader, setUserData, user]);
-
-  useEffect(() => {
-    async function getItems() {
-      const res = await ShopkeypApi.allItems(authHeader);
-      setItemData(await res);
-    }
-    if (user) {
-      getItems();
-    }
-  }, [authHeader, setItemData, user]);
-
-  useEffect(() => {
-    async function getTransactions() {
-      const res = await ShopkeypApi.allTransactions(authHeader);
-      setTransactionData(await res);
-    }
-    if (user) {
-      getTransactions();
-    }
-  }, [authHeader, setTransactionData, user]);
-
   const {tab} = useParams();
 
   const currentTab = () => {
     switch(tab) {
-      case "users": return <Users users={userData}/>;
-      case "items": return <Items items={itemData}/>;
-      case "transactions": return <AdminTransactions transactions={transactionData}/>;
-      default: return <div>Admin Stats</div>
+      case "users": return <Users/>;
+      case "items": return <Items/>;
+      case "transactions": return <AdminTransactions/>;
+      default: return <AdminDashboard/>
     }
   }
 
@@ -78,15 +41,7 @@ const Admin = () => {
     return (
       <>
         <h1>Admin Page</h1>
-        <table className="Admin-table">
-          <tbody className="Admin-body">
-            <tr className="Admin-title">
-              <td><NavLink className="Admin-link" to="/admin/users">Users</NavLink></td>
-              <td><NavLink className="Admin-link" to="/admin/transactions">Transactions</NavLink></td>
-              <td><NavLink className="Admin-link" to="/admin/items">Items</NavLink></td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="Admin-tab">{tab ? tab : "Dashboard"}</div>
         {currentTab()}
       </>
     );

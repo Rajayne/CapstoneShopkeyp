@@ -29,7 +29,7 @@ const TransactionRow = ({transactionId}) => {
 
   return (
     <>
-      <td>{transaction.action}</td>
+      <td className="Transactions-type">{transaction.action}</td>
       <td>{item.name}</td>
       <td>{transaction.quantity}</td>
       <td>{transaction.total}</td>

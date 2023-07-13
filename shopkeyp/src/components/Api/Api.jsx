@@ -54,7 +54,6 @@ class ShopkeypApi {
   }
 
   static async getInventoryItem(itemId, authToken) {
-    console.log("CALLS GET ITEM", )
     const res = await axios.get(`${BASE_API_URL}/shop/item/${itemId}`, { headers: { Authorization: `Bearer ${authToken}` } });
     return res.data;
   }

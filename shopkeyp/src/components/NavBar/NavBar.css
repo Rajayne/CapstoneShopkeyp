@@ -14,6 +14,11 @@
   color: lightsteelblue;
 }
 
+.AdminNav-menu {
+  color: #2E3B55;
+  text-decoration: none;
+}
+
 #NavBar-button {
   background-color: lightsteelblue;
   border-radius: 5px;
@@ -34,7 +39,7 @@
   height: 2.5rem;
 }
 
-.NavBar a.active {
+.NavBar a.active:not(.AdminNav-menu) {
   color: white;
 }
 
@@ -44,5 +49,5 @@
 }
 
 .NavBar-link:hover {
-  text-decoration: underline;
+  color: white;
 }

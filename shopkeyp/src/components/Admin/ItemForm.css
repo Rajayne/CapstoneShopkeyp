@@ -1,0 +1,19 @@
+.ItemForm {
+  padding: .5rem;
+}
+
+.ItemForm-label {
+  font-size: 1rem;
+  text-align: center;
+}
+
+.ItemForm-input {
+  font-size: 1rem;
+  padding: .25rem;
+  text-align: left;
+  width: 45%;
+}
+
+.ItemForm-button {
+  margin: 1rem;
+}

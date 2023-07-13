@@ -1,6 +1,7 @@
-.Admin-table {
-  border-collapse: collapse;
-  width: 100%;
+.Admin-tab {
+  text-transform: capitalize;
+  background-color: #455169;
+  color: white;
 }
 
 .Admin-title {
@@ -20,4 +21,9 @@
 
 .Admin-link:hover {
   color: slategray;
+}
+
+.UpdateButton-link {
+  color: white;
+  text-decoration: none;
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import Moment from 'moment'
+import UpdateButton from './UpdateButton';
 
 const ItemsRow = ({itemObj}) => {
   const date = Moment(itemObj.dateCreated).format('MM-DD-YY')
@@ -14,6 +15,7 @@ const ItemsRow = ({itemObj}) => {
       <td className="ItemsRow-price">{itemObj.price}</td>
       <td>{itemObj.stock}</td>
       <td className="ItemsRow-date">{date}</td>
+      <td><UpdateButton itemId={itemObj.itemId}/></td>
     </>
   );
 };

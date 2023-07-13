@@ -1,30 +1,58 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import UserItem from './UserItem';
 import './Users.css'
+import UserContext from '../Hooks/UserContext';
+import AdminContext from '../Hooks/AdminContext';
+import ShopkeypApi from '../Api/Api';
 
-const Users = ({users}) => {
-  return (
-    <>
-      <table className="Users-table">
-        <tbody className="Users-body">
-        <tr className="Users-title">
-          <td>ID</td>
-          <td>User</td>
-          <td>Balance</td>
-          <td>Inventory</td>
-          <td>Transactions</td>
-          <td>Active</td>
-          <td>Account Created</td>
-        </tr>
-        {users.map((userObj) => (
-          <tr className="UserItem" key={userObj.userId}>
-            <UserItem userObj={userObj}/>
+const Users = () => {
+  const [user, setUser] = useContext(UserContext)
+  const [isLoading, setIsLoading] = useState(true);
+
+  const authHeader = localStorage.getItem('token')
+  const {users} = useContext(AdminContext);
+  const [userData, setUserData] = users;
+
+  useEffect(() => {
+    async function getUsers() {
+      const res = await ShopkeypApi.allUsers(authHeader);
+      setUserData(await res);
+    }
+    if (user) {
+      getUsers();
+    }
+  }, [authHeader, setUserData, user]);
+
+  useEffect(() => {
+    if (userData) {
+      setIsLoading(false);
+    }
+  }, [userData])
+
+  if (!isLoading) {
+    return (
+      <>
+        <table className="Users-table">
+          <tbody className="Users-body">
+          <tr className="Users-title">
+            <td>ID</td>
+            <td>User</td>
+            <td>Balance</td>
+            <td>Inventory</td>
+            <td>Transactions</td>
+            <td>Active</td>
+            <td>Account Created</td>
           </tr>
-        ))}
-        </tbody>
-      </table>
-    </>
-  );
+          {userData.map((userObj) => (
+            <tr className="UserItem" key={userObj.userId}>
+              <UserItem userObj={userObj}/>
+            </tr>
+          ))}
+          </tbody>
+        </table>
+      </>
+    );
+  }
 };
 
 export default Users;
