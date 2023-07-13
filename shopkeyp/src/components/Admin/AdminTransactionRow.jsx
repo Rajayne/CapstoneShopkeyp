@@ -9,8 +9,6 @@ const AdminTransactionRow = ({transactionId}) => {
   const [fromUser, setFromUser] = useState([]);
   const [item, setItem] = useState([]);
 
-  console.log(toUser, fromUser)
-
   useEffect(() => {
       async function getTransaction() {
         const transactionData = await ShopkeypApi.getTransaction(transactionId, authHeader);

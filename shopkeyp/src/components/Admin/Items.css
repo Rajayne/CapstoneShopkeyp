@@ -29,4 +29,17 @@
 
 .ItemsRow-name {
   padding: 0 1rem;
+  text-align: left;
+}
+
+.ItemsRow-description {
+  text-align: left;
+}
+
+.ItemsRow-date {
+  column-width: 10vw;
+}
+
+.ItemsRow-price {
+  text-align: right;
 }

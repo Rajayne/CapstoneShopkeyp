@@ -1,0 +1,17 @@
+.ItemDetails {
+  width: 100%;
+  margin: 0;
+}
+
+.ItemDetails-image {
+  height: 200px;
+  object-fit: contain;
+}
+
+.ItemDetails-button {
+  margin: 1rem;
+}
+
+.ItemDetails-button Button {
+  margin: .5rem;
+}

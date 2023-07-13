@@ -3,7 +3,6 @@ import AdminTransactionRow from './AdminTransactionRow';
 import '../Transactions/TransactionsTable.css'
 
 const AdminTransactions = ({transactions}) => {
-  console.log("ADMIN transactions arr", transactions)
   return (
     <table className="Transactions-table">
       <tbody>

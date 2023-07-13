@@ -8,7 +8,6 @@ import ItemCard from './Items/ItemCard';
 
 const Shop = () => {
   const [user, setUser] = useContext(UserContext);
-  console.log(user)
   const authHeader = localStorage.getItem('token')
   const [isLoading, setIsLoading] = useState(true);
   const [items, setItems] = useState([]);

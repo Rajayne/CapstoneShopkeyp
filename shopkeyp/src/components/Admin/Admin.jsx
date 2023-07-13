@@ -19,9 +19,6 @@ const Admin = () => {
   const [userData, setUserData] = users;
   const [itemData, setItemData] = items;
   const [transactionData, setTransactionData] = transactions;
-  console.log("USERS", userData)
-  console.log("ITEMS", itemData)
-  console.log("TRANSACTIONS", transactionData)
 
   useEffect(() => {
     if (!user && authHeader) {
@@ -41,21 +38,30 @@ const Admin = () => {
       const res = await ShopkeypApi.allUsers(authHeader);
       setUserData(await res);
     }
+    if (user) {
+      getUsers();
+    }
+  }, [authHeader, setUserData, user]);
+
+  useEffect(() => {
     async function getItems() {
       const res = await ShopkeypApi.allItems(authHeader);
       setItemData(await res);
     }
+    if (user) {
+      getItems();
+    }
+  }, [authHeader, setItemData, user]);
+
+  useEffect(() => {
     async function getTransactions() {
       const res = await ShopkeypApi.allTransactions(authHeader);
       setTransactionData(await res);
     }
     if (user) {
-      getUsers();
-      getItems();
       getTransactions();
     }
-    setIsLoading(false);
-  }, [authHeader, navigate, setItemData, setTransactionData, setUser, setUserData, user]);
+  }, [authHeader, setTransactionData, user]);
 
   const {tab} = useParams();
 

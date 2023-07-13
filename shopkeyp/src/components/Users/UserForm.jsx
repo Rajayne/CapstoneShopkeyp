@@ -48,8 +48,8 @@ const UpdateUserForm = () => {
   if (user) {
     return (
       <>
-        <Card className="UserForm">
-        <CardContent className="UserForm-content">
+        <div className="UserForm">
+        <div className="UserForm-content">
         <form onSubmit={handleSubmit} className="UserForm-form">
           <div className="UserForm-profileImage">
             <label htmlFor="profileImage" className="UserForm-label">Profile Image</label>
@@ -74,8 +74,8 @@ const UpdateUserForm = () => {
             <Button variant="contained" type="button" onClick={handleClick}>Back</Button>
           </div>
         </form>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
       </>
     );
   }

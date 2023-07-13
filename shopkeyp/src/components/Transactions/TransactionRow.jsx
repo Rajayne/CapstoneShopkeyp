@@ -6,7 +6,6 @@ const TransactionRow = ({transactionId}) => {
   const authHeader = localStorage.getItem('token')
   const [transaction, setTransaction] = useState([]);
   const [item, setItem] = useState([]);
-  console.log("TRANSACTION", transaction)
 
   useEffect(() => {
       async function getTransaction() {

@@ -2,9 +2,7 @@ import React from "react";
 import Moment from 'moment'
 
 const ItemsRow = ({itemObj}) => {
-  console.log(itemObj)
-
-  const date = Moment(itemObj.dateCreated).format('MM-DD-YYYY')
+  const date = Moment(itemObj.dateCreated).format('MM-DD-YY')
   
   return (
     <>
@@ -12,8 +10,8 @@ const ItemsRow = ({itemObj}) => {
         <img className="ItemsRow-itemImg" src={itemObj.itemImage} alt=""></img>
         <div className="ItemsRow-name">{itemObj.name}</div>
       </td>
-      <td>{itemObj.description}</td>
-      <td>{itemObj.price}</td>
+      <td className="ItemsRow-description">{itemObj.description}</td>
+      <td className="ItemsRow-price">{itemObj.price}</td>
       <td>{itemObj.stock}</td>
       <td className="ItemsRow-date">{date}</td>
     </>

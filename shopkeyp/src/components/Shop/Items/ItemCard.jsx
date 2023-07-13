@@ -1,7 +1,7 @@
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import React, { useContext } from "react";
 import './ItemCard.css'
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import ShopkeypApi from '../../Api/Api';
 import UserContext from '../../Hooks/UserContext';
 
@@ -30,9 +30,16 @@ const ItemCard = ({itemObj}) => {
       alert(`You have successfully purchased ${data.quantity} ${e.target.name}(s).`)
   };
 
+  const visible = () => {
+    if (itemObj.stock === 0) {
+      return 'none';
+    }
+    return 'inline-block';
+  }
+
   return (
-    <Card className="ItemCard" sx={{ width: 225}}>
-      <CardActionArea>
+    <Card className="ItemCard" sx={{ width: 225}} style={{display: visible()}}>
+      <CardActionArea component={NavLink} to={`/shop/items/${itemObj.itemId}`}>
       <CardMedia className="ItemCard-image" height="200" component="img" alt={itemObj.name} image={itemObj.itemImage}/>
       <CardContent>
         <Typography variant="h5">

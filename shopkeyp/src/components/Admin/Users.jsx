@@ -3,7 +3,6 @@ import UserItem from './UserItem';
 import './Users.css'
 
 const Users = ({users}) => {
-  console.log("USERS.JSX", users)
   return (
     <>
       <table className="Users-table">
