@@ -5,10 +5,10 @@
   "properties": {
 
     "fromUser": {
-      "type": "integer"
+      "type": "string"
     },
     "toUser": {
-      "type": "integer"
+      "type": "string"
     },
     "action": {
       "type": "string",

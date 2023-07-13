@@ -255,34 +255,4 @@ router.patch(
   }
 );
 
-router.get(
-  '/transactions',
-  authenticateJWT,
-  requireLogin,
-  requireAdmin,
-  async (req, res, next) => {
-    try {
-      const transactions = await Transaction.all();
-      return res.json(transactions);
-    } catch (err) {
-      return next(err);
-    }
-  }
-);
-
-router.get(
-  '/transactions/:transactionId',
-  authenticateJWT,
-  requireLogin,
-  requireAdmin,
-  async (req, res, next) => {
-    try {
-      const transaction = await Transaction.get(req.params.transactionId);
-      return res.json(transaction);
-    } catch (err) {
-      return next(err);
-    }
-  }
-);
-
 module.exports = router;

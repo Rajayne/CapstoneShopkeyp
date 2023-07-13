@@ -7,9 +7,8 @@ const Items = ({items}) => {
       <table className="Items-table">
         <tbody>
         <tr className="Items-title">
-          <td>ID</td>
           <td>Item</td>
-          <td>Description</td>
+          <td className="Items-description">Description</td>
           <td>Price</td>
           <td>Stock</td>
           <td>Created</td>

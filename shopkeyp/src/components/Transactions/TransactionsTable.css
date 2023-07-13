@@ -1,0 +1,15 @@
+.Transactions-table {
+  border-collapse: collapse;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.Transactions-title {
+  background-color: slategray;
+  color: white;
+}
+
+.TransactionRow {
+  border-bottom: 1px solid slategray;
+}

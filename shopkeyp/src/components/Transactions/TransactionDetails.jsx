@@ -1,18 +1,11 @@
-import { Card, CardContent, Typography } from '@mui/material';
 import React from "react";
 
-const Transaction = () => {
+const TransactionDetails = () => {
   return (
-    <table>
-      <tr>
-        <td>ID</td>
-        <td>Type</td>
-        <td>Item</td>
-        <td>Quantity</td>
-        <td>Total</td>
-      </tr>
-    </table>
+    <>
+      <div>Transaction Details Page</div>
+    </>
   );
 };
 
-export default Transaction;
+export default TransactionDetails;

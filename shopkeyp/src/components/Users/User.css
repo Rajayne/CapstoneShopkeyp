@@ -12,7 +12,11 @@
   padding: 1rem 1rem 0;
 }
 
-.User-sections h3 {
+.User-sections {
+  margin: 1rem 0;
+}
+
+.User-title {
   display: block;
   font-size: calc(8px + 2vmin);
   font-weight: normal;
@@ -23,4 +27,9 @@
 .User-inventory {
   display: flex;
   flex-wrap: wrap;
+}
+
+.User-title {
+  margin-bottom: 0;
+  padding: .25rem;
 }

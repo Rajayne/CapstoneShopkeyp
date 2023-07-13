@@ -28,15 +28,15 @@ class Transaction {
   static async all() {
     const results = await db.query(
       `SELECT
-          transaction_id AS "transactionId",
-          from_user AS "fromUser",
-          to_user AS "toUser",
-          action,
-          item_id AS "itemId",
-          quantity,
-          total,
-          admin_id AS "adminId",
-          transaction_date AS "transactionDate"
+        transaction_id AS "transactionId",
+        from_user AS "fromUser",
+        to_user AS "toUser",
+        action,
+        item_id AS "itemId",
+        quantity,
+        total,
+        admin_id AS "adminId",
+        transaction_date AS "transactionDate"
         FROM transactions`
     );
     return results.rows.map((t) => new Transaction(t));
@@ -54,8 +54,8 @@ class Transaction {
         total,
         admin_id AS "adminId",
         transaction_date AS "transactionDate"
-       FROM transactions
-       WHERE transaction_id = $1`,
+        FROM transactions
+        WHERE transaction_id = $1`,
       [transactionId]
     );
 

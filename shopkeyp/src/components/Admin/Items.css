@@ -4,7 +4,7 @@
 }
 
 .ItemsRow {
-  border: 1px solid slategray;
+  border-bottom: 1px solid slategray;
 }
 
 .ItemsRow td {
@@ -19,11 +19,12 @@
 
 .ItemsRow-item {
   display: flex;
-  width: 8rem;
 }
 
 .ItemsRow-itemImg {
   height: 50px;
+  width: 50px;
+  object-fit: contain;
 }
 
 .ItemsRow-name {

@@ -2,11 +2,10 @@ import React, { useEffect, useState, useContext } from "react";
 import ShopkeypApi from '../Api/Api';
 import './User.css'
 import UserContext from '../Hooks/UserContext';
-import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Inventory from './Inventory';
-import UpdateUserForm from './UserForm';
 import jwt_decode from "jwt-decode"
-import Transaction from '../Transactions/TransactionDetails';
+import TransactionsTable from '../Transactions/TransactionsTable';
 
 const User = () => {
   const authHeader = localStorage.getItem('token')
@@ -14,7 +13,7 @@ const User = () => {
   const [userData, setUserData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-  console.log("USERDATA", userData.inventory)
+  console.log("USERDATA", userData)
 
   useEffect(() => {
     if (!user && authHeader) {
@@ -54,13 +53,13 @@ const User = () => {
         </div>
       </div>
       <div className="User-sections">
-        <h3>{userData.username}'s Inventory</h3>
+        <div className="User-title">{userData.username}'s Inventory</div>
         <div className="User-inventory">
           {userData.inventory ? <Inventory inventory={userData.inventory}/> : "N/A"}
         </div>
-        <h3>Transaction History</h3>
+        <div className="User-title">Transaction History</div>
         <div className="User-transactions">
-          <Transaction/>
+          <TransactionsTable transactions={userData.transactions}/>
         </div>
       </div>
     </>

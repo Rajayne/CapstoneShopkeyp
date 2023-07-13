@@ -8,15 +8,14 @@ const ItemsRow = ({itemObj}) => {
   
   return (
     <>
-      <td>{itemObj.itemId}</td>
-      <td className="ItemRow-item">
+      <td className="ItemsRow-item">
         <img className="ItemsRow-itemImg" src={itemObj.itemImage} alt=""></img>
         <div className="ItemsRow-name">{itemObj.name}</div>
       </td>
       <td>{itemObj.description}</td>
       <td>{itemObj.price}</td>
       <td>{itemObj.stock}</td>
-      <td>{date}</td>
+      <td className="ItemsRow-date">{date}</td>
     </>
   );
 };

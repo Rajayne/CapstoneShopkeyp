@@ -23,6 +23,20 @@ router.get('/', authenticateJWT, requireLogin, async (req, res, next) => {
 });
 
 router.get(
+  '/id/:userId',
+  authenticateJWT,
+  requireLogin,
+  async (req, res, next) => {
+    try {
+      const user = await User.getById(req.params.userId);
+      return res.json(user);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
+router.get(
   '/:username',
   authenticateJWT,
   requireLogin,
