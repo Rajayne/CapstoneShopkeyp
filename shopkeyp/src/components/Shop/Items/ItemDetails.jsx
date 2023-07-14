@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ShopkeypApi from '../../Api/Api';
 import { Button, Typography } from '@mui/material';
 import './ItemDetails.css'
+import BackButton from '../../BackButton';
 
 const ItemDetails = () => {
   const navigate = useNavigate();
@@ -22,10 +23,6 @@ const ItemDetails = () => {
     navigate('/shop')
   }
 
-  const handleBack = () => {
-    navigate(-1)
-  }
-
   return (
     <>
       <img className="ItemDetails-image" src={itemData.itemImage} alt={itemData.name}/>
@@ -35,7 +32,7 @@ const ItemDetails = () => {
       <Typography>{itemData.description}</Typography>
       <div className="ItemDetails-button">
         <Button onClick={handleShop} id="ItemDetails-shop" variant="outlined">Shop</Button>
-        <Button onClick={handleBack} id="ItemDetails-back" variant="contained">Back</Button>
+        <BackButton/>
       </div>
     </>
   );

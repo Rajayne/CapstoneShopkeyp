@@ -31,17 +31,15 @@ const Register = () => {
       return;
     }
     try {
-      const res = await ShopkeypApi.register({username: formData.username, password: formData.password});
+      await ShopkeypApi.register({username: formData.username, password: formData.password});
       alert("New user created successfully!")
-      localStorage.setItem("token", res.token)
-      setUser(formData.username)
     } catch (err) {
       alert("Username not available.")
       console.log(err)
       return;
     }
     resetFormData();
-    navigate('/profile')
+    navigate('/login')
   };
 
   const validate = () => !Object.values(formData)

@@ -180,21 +180,6 @@ router.get(
   }
 );
 
-router.get(
-  '/items/:itemId',
-  authenticateJWT,
-  requireLogin,
-  requireAdmin,
-  async (req, res, next) => {
-    try {
-      const item = await Item.get(req.params.itemId);
-      return res.json(item);
-    } catch (err) {
-      return next(err);
-    }
-  }
-);
-
 router.post(
   '/items/new',
   authenticateJWT,

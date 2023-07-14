@@ -53,11 +53,6 @@ class ShopkeypApi {
     return res.data;
   }
 
-  static async getInventoryItem(itemId, authToken) {
-    const res = await axios.get(`${BASE_API_URL}/shop/item/${itemId}`, { headers: { Authorization: `Bearer ${authToken}` } });
-    return res.data;
-  }
-
   static async getShop(authToken) {
     const res = await axios.get(`${BASE_API_URL}/shop`, { headers: { Authorization: `Bearer ${authToken}` } });
     return res.data;
