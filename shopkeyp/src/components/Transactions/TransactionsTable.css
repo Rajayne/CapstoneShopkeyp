@@ -1,19 +1,32 @@
 .Transactions-table {
   border-collapse: collapse;
   width: 100%;
-  padding: 0;
-  margin: 0;
 }
 
 .Transactions-title {
-  background-color: slategray;
   color: white;
+  background-color: slategray;
+  font-size: calc(8px + 2vmin);
 }
 
-.Transactions-type {
+.Transactions-title.TransactionRow #id, #date, #type, #total {
+  text-align: left;
+}
+
+.TransactionRow #type {
   text-transform: capitalize;
 }
 
 .TransactionRow {
   border-bottom: 1px solid slategray;
+  width: 100%;
+}
+
+.TransactionRow td {
+  padding: .5rem;
+}
+
+.DetailsButton-link {
+  color: white;
+  text-decoration: none;
 }

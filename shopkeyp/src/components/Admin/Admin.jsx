@@ -40,9 +40,11 @@ const Admin = () => {
   if (user && user.isAdmin) {
     return (
       <>
-        <h1>Admin Page</h1>
-        <div className="Admin-tab">{tab ? tab : "Dashboard"}</div>
-        {currentTab()}
+        <h1>Admin Dashboard</h1>
+        <div className="Admin-tab">{tab}</div>
+        <div className="Admin-content">
+          {currentTab()}
+        </div>
       </>
     );
   }

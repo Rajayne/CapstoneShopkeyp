@@ -9,9 +9,10 @@ import Logout from '../Logout/Logout';
 import Error404 from "../Error404";
 import Register from '../Register/Register';
 import User from '../Users/User';
-import Transaction from '../Transactions/TransactionRow';
 import ItemDetails from '../Shop/Items/ItemDetails';
 import ItemUpdateForm from '../Admin/ItemUpdate';
+import UserUpdateForm from '../Users/UserUpdate';
+import TransactionDetails from '../Transactions/TransactionDetails';
 
 
 const Router = () => {
@@ -21,12 +22,12 @@ const Router = () => {
       <Route exact path="/admin" element={<Admin/>} />
       <Route exact path="/admin/:tab" element={<Admin/>} />
       <Route exact path="/admin/users/:username" element={<User/>} />
-      <Route exact path="/admin/transactions/:transactionId" element={<Transaction/>} />
+      <Route exact path="/transactions/:transactionId" element={<TransactionDetails/>} />
       <Route exact path="/admin/items/:itemId/edit" element={<ItemUpdateForm />} />
       <Route exact path="/shop" element={<Shop/>} />
       <Route exact path="/shop/items/:itemId" element={<ItemDetails/>} />
       <Route exact path="/profile" element={<Profile/>} />
-      <Route exact path="/profile/:tab" element={<Profile/>} />
+      <Route exact path="/profile/edit" element={<UserUpdateForm/>} />
       <Route exact path="/register" element={<Register/>} />
       <Route exact path="/login" element={<Login/>} />
       <Route exact path="/logout" element={<Logout/>} />

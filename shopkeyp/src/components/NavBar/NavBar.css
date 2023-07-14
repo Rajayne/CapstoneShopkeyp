@@ -14,6 +14,10 @@
   color: lightsteelblue;
 }
 
+#HomeNav-title {
+  margin: auto;
+}
+
 .AdminNav-menu {
   color: #2E3B55;
   text-decoration: none;

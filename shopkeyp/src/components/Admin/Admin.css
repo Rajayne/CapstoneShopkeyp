@@ -2,12 +2,11 @@
   text-transform: capitalize;
   background-color: #455169;
   color: white;
+  font-size:1.5em;
 }
 
-.Admin-title {
-  font-size: calc(8px + 2vmin);
-  background-color: #455169;
-  justify-content:space-evenly;
+.Admin-content {
+  margin-bottom: 5rem;
 }
 
 .Admin-title a.active {

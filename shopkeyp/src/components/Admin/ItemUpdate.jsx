@@ -66,61 +66,56 @@ const ItemUpdateForm = () => {
   if (!isLoading) {
     return (
       <>
-        <h3>Item Update Form</h3>
-        <table className="ItemForm-table">
-          <tbody>
-            <td className="ItemForm-left">
-              <img className="ItemForm-preview" src={itemPreview()} alt="Item Preview"></img>
-            </td>
-            <td className="ItemForm-right">
-              <div className="ItemForm-content">
-                <form onSubmit={handleSubmit} className="ItemForm-form">
-                  <div className="ItemForm-itemImage">
-                    <label htmlFor="itemImage" className="ItemForm-label">Item Image</label>
-                  </div>
-                  <div className="ItemForm-itemImage">
-                    <input name="itemImage" id="itemImage" onChange={handleChange} value={formData.itemImage} className="ItemForm-input" type="text" placeholder={itemData.itemImage}></input>
-                  </div>
-                  <div className="ItemForm-name">
-                    <label htmlFor="name" className="ItemForm-label">Item Name</label>
-                  </div>
-                  <div className="ItemForm-name">
-                    <input name="name" id="name" onChange={handleChange} value={formData.name} className="ItemForm-input" type="text" placeholder={itemData.name}></input>
-                  </div>
-                  <div className="ItemForm-description">
-                    <label htmlFor="description" className="ItemForm-label">Item Description</label>
-                  </div>
-                  <div className="ItemForm-description">
-                    <textarea name="description" id="description" onChange={handleChange} value={formData.description} className="ItemForm-input"  placeholder={itemData.description} style={{resize: 'none', fontFamily: 'Arial'}}></textarea>
-                  </div>
-                  <div className="ItemForm-price">
-                    <label htmlFor="price" className="ItemForm-label">Item Price</label>
-                  </div>
-                  <div className="ItemForm-price">
-                    <input name="price" id="price" onChange={handleChange} value={formData.price} className="ItemForm-input" placeholder={itemData.price} type="number"></input>
-                  </div>
-                  <div className="ItemForm-stock">
-                    <label htmlFor="stock" className="ItemForm-label">Item Stock</label>
-                  </div>
-                  <div className="ItemForm-price">
-                    <input name="stock" id="stock" onChange={handleChange} value={formData.stock} className="ItemForm-input" placeholder={itemData.stock} type="number"></input>
-                  </div>
-                  <div className="ItemForm-purchasable">
-                    <label htmlFor="purchasable" className="ItemForm-label">Purchasable</label>
-                  </div>
-                  <select name="purchasable" id="purchasable" className="ItemForm-input">
-                    <option value="true">True</option>
-                    <option value="false">False</option>
-                  </select>
-                  <div className="ItemForm-button">
-                    <Button variant="contained" type="submit" disabled={!validate()}>Submit</Button>
-                    <Button variant="contained" type="button" onClick={handleClick}>Back</Button>
-                  </div>
-                </form>
+        <div className="ItemForm-table">
+          <div className="ItemForm-left">
+            <img className="ItemForm-preview" src={itemPreview()} alt="Item Preview"></img>
+          </div>
+          <div className="ItemForm-right">
+            <form onSubmit={handleSubmit} className="ItemForm-form">
+              <div className="ItemForm-itemImage">
+                <label htmlFor="itemImage" className="ItemForm-label">Item Image</label>
               </div>
-            </td>
-          </tbody>
-        </table>
+              <div className="ItemForm-itemImage">
+                <input name="itemImage" id="itemImage" onChange={handleChange} value={formData.itemImage} className="ItemForm-input" type="text" placeholder={itemData.itemImage}></input>
+              </div>
+              <div className="ItemForm-name">
+                <label htmlFor="name" className="ItemForm-label">Item Name</label>
+              </div>
+              <div className="ItemForm-name">
+                <input name="name" id="name" onChange={handleChange} value={formData.name} className="ItemForm-input" type="text" placeholder={itemData.name}></input>
+              </div>
+              <div className="ItemForm-description">
+                <label htmlFor="description" className="ItemForm-label">Item Description</label>
+              </div>
+              <div className="ItemForm-description">
+                <textarea name="description" id="description" onChange={handleChange} value={formData.description} className="ItemForm-input"  placeholder={itemData.description} style={{resize: 'none', fontFamily: 'Arial'}}></textarea>
+              </div>
+              <div className="ItemForm-price">
+                <label htmlFor="price" className="ItemForm-label">Item Price</label>
+              </div>
+              <div className="ItemForm-price">
+                <input name="price" id="price" onChange={handleChange} value={formData.price} className="ItemForm-input" placeholder={itemData.price} type="number"></input>
+              </div>
+              <div className="ItemForm-stock">
+                <label htmlFor="stock" className="ItemForm-label">Item Stock</label>
+              </div>
+              <div className="ItemForm-price">
+                <input name="stock" id="stock" onChange={handleChange} value={formData.stock} className="ItemForm-input" placeholder={itemData.stock} type="number"></input>
+              </div>
+              <div className="ItemForm-purchasable">
+                <label htmlFor="purchasable" className="ItemForm-label">Purchasable</label>
+              </div>
+              <select name="purchasable" id="purchasable" className="ItemForm-input">
+                <option value="true">True</option>
+                <option value="false">False</option>
+              </select>
+              <div className="ItemForm-button">
+                <Button variant="contained" type="submit" disabled={!validate()}>Submit</Button>
+                <Button variant="contained" type="button" onClick={handleClick}>Back</Button>
+              </div>
+            </form>
+          </div>
+        </div>
       </>
     );
   };

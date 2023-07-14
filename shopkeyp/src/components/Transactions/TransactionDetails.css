@@ -1,0 +1,25 @@
+.TransactionDetails {
+  border-collapse: collapse;
+  margin: auto;
+  text-align: center;
+  width: 20vw;
+}
+
+.TransactionDetails-body {
+  border-bottom: 1px solid slategray;
+}
+
+.TransactionDetails .title {
+  color: white;
+  background-color: slategray;
+  font-size: calc(8px + 2vmin);
+  text-align: center;
+}
+
+.TransactionDetails-button {
+  margin: .5rem;
+}
+
+.TransactionDetails Button {
+  margin: .5rem;
+}

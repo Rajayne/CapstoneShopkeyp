@@ -1,6 +1,7 @@
 .Shop-container {
+  margin: auto;
   display: flex;
   flex-wrap: wrap;
-  align-content: space-between;
   justify-content: center;
+  margin-bottom: 4rem;
 }

@@ -1,10 +1,14 @@
 .User-profilebar {
-  display: inline-flex;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-width: 80vw;
 }
 
 .User-image {
   border-radius:50%;
-  height: 250px;
+  max-height: 35vh;
+  object-fit: contain;
 }
 
 .User-name {
@@ -24,9 +28,15 @@
   background-color: #455169;
 }
 
+.User-content {
+  margin-bottom: 4rem;
+}
+
 .User-inventory {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
+  margin-right: auto;
 }
 
 .User-title {

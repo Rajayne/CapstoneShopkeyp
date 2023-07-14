@@ -70,7 +70,9 @@ const User = () => {
           <button onClick={handleClick}>Edit Profile</button>
         </div>
       </div>
-      {currentTab()}
+      <div className="User-content">
+        {currentTab()}
+      </div>
     </>
   );
 };

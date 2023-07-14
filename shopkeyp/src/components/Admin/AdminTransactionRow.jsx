@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ShopkeypApi from '../Api/Api';
 import Moment from 'moment'
+import DetailsButton from '../Transactions/DetailsButton';
 
 const AdminTransactionRow = ({transactionId}) => {
   const authHeader = localStorage.getItem('token')
   const [transaction, setTransaction] = useState([]);
-  const [toUser, setToUser] = useState([]);
-  const [fromUser, setFromUser] = useState([]);
-  const [item, setItem] = useState([]);
 
   useEffect(() => {
       async function getTransaction() {
@@ -15,51 +13,18 @@ const AdminTransactionRow = ({transactionId}) => {
         setTransaction(transactionData);
       }
       getTransaction();
-
-      
   }, [authHeader, transactionId]);
-
-  useEffect(() => {
-    async function getItem() {
-      const itemData = await ShopkeypApi.getItem(transaction.itemId, authHeader);
-      setItem(itemData);
-    }
-    async function getToUser(userId) {
-      const userData = await ShopkeypApi.getUserById(userId, authHeader);
-      setToUser(userData);
-    }
-    async function getFromUser(userId) {
-      const userData = await ShopkeypApi.getUserById(userId, authHeader);
-      setFromUser(userData);
-    }
-    
-    if (transaction.itemId) {
-      getItem();
-    }
-
-    if (transaction.toUser) {
-      getToUser(transaction.toUser)
-    }
-
-    if (transaction.fromUser) {
-      setFromUser(getFromUser(transaction.fromUser))
-    }
-    
-  }, [authHeader, transaction]);
 
 
   const date = Moment(transaction.transactionDate).format('MM-DD-YYYY')
 
   return (
     <>
-      <td>{transaction.transactionId}</td>
-      <td className="Transactions-type">{transaction.action}</td>
-      <td>{toUser ? toUser.username : ""}</td>
-      <td>{fromUser.username === "Shopkeyp" || transaction.fromUser === null ? "Shop" : fromUser.username }</td>
-      <td>{item.name}</td>
-      <td>{transaction.quantity}</td>
-      <td>{transaction.total}</td>
-      <td>{date}</td>
+      <td id="id">{transaction.transactionId}</td>
+      <td id="type">{transaction.action}</td>
+      <td id="total">{transaction.total ? `${transaction.total}gp` : "-"}</td>
+      <td id="date">{date}</td>
+      <td id="details"><DetailsButton transactionId={transactionId}/></td>
     </>
   );
 };

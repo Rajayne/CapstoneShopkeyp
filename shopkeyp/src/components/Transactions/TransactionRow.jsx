@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ShopkeypApi from '../Api/Api';
 import Moment from 'moment'
+import DetailsButton from './DetailsButton';
 
 const TransactionRow = ({transactionId}) => {
   const authHeader = localStorage.getItem('token')
   const [transaction, setTransaction] = useState([]);
-  const [item, setItem] = useState([]);
+  console.log(transaction)
 
   useEffect(() => {
       async function getTransaction() {
@@ -15,25 +16,15 @@ const TransactionRow = ({transactionId}) => {
       getTransaction();
   }, [authHeader, transactionId]);
 
-  useEffect(() => {
-      async function getItem() {
-      const itemData = await ShopkeypApi.getItem(transaction.itemId, authHeader);
-        setItem(itemData);
-    }
-    if (transaction.itemId) {
-      getItem();
-    }
-  }, [authHeader, transaction]);
-
   const date = Moment(transaction.dateCreated).format('MM-DD-YYYY')
 
   return (
     <>
-      <td className="Transactions-type">{transaction.action}</td>
-      <td>{item.name}</td>
-      <td>{transaction.quantity}</td>
-      <td>{transaction.total}</td>
-      <td>{date}</td>
+      <td id="id">{transaction.transactionId}</td>
+      <td id="date">{date}</td>
+      <td id="type">{transaction.action}</td>
+      <td id="total">{transaction.total ? `${transaction.total}gp` : "-"}</td>
+      <td id="details"><DetailsButton transactionId={transaction.transactionId}/></td>
     </>
   );
 };

@@ -12,8 +12,8 @@ const AdminDashboard = () => {
             ],
           },
         ]}
-        width={400}
-        height={200}
+        width={500}
+        height={300}
       />
     </>
   );

@@ -8,11 +8,11 @@ const TransactionsTable = ({transactions}) => {
     <table className="Transactions-table">
       <tbody>
         <tr className="Transactions-title">
-          <td>Type</td>
-          <td>Item</td>
-          <td>Quantity</td>
-          <td>Total</td>
-          <td>Date</td>
+          <td id="id">ID</td>
+          <td id="date">Date</td>
+          <td id="type">Type</td>
+          <td id="total">Total</td>
+          <td id="details"></td>
         </tr >
         {transactions.map((transactionId) => (
           <tr className="TransactionRow" key={transactionId}>

@@ -36,7 +36,7 @@ const Shop = () => {
   }
 
   return (
-    <div>
+    <div className="Shop">
       <h1>Shop Page</h1>
       <div className="Shop-container">
         {items.map((itemObj) => (

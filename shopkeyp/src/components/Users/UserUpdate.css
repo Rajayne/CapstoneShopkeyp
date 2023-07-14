@@ -1,4 +1,4 @@
-.ItemForm-table {
+.UserForm-table {
   display: flex;
   flex-wrap: wrap;
   margin: 1rem;
@@ -8,34 +8,34 @@
   justify-content: center;
 }
 
-.ItemForm-left {
+.UserForm-left {
   margin: auto;
   min-height: 50vh;
 }
 
-.ItemForm-right {
+.UserForm-right {
   margin: auto;
   max-width: 100%;
   min-width: 60%;
 }
 
-.ItemForm-preview {
+.UserForm-preview {
   height: 50vh;
   object-fit: contain;
 }
 
-.ItemForm-label {
+.UserForm-label {
   font-size: 1rem;
   text-align: center;
 }
 
-.ItemForm-input {
+.UserForm-input {
   font-size: 1rem;
   padding: .2rem;
   text-align: left;
   width: 80%;
 }
 
-.ItemForm-button {
+.UserForm-button {
   margin: 1rem 0 0 0;
 }
