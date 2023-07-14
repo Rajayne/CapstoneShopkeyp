@@ -7,6 +7,7 @@ import Inventory from './Inventory';
 import jwt_decode from "jwt-decode"
 import TransactionsTable from '../Transactions/TransactionsTable';
 import UpdateUserForm from './UserForm';
+import { Button } from '@mui/material';
 
 const User = () => {
   const authHeader = localStorage.getItem('token')
@@ -67,7 +68,7 @@ const User = () => {
         <div className="User-info">
           <h1 className="User-name">{userData.username}'s Profile Page</h1>
           <p>Balance: {userData.balance}gp</p>
-          <button onClick={handleClick}>Edit Profile</button>
+          <Button variant="outlined" onClick={handleClick}>Edit Profile</Button>
         </div>
       </div>
       <div className="User-content">

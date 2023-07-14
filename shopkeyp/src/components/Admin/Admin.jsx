@@ -18,9 +18,8 @@ const Admin = () => {
       setUser(jwt_decode(authHeader))
       return;
     }
-    if (!user) {
+    if (!user || !user.isAdmin) {
       console.log(!user, user)
-      alert("You must be an admin to view this page.")
       navigate('/', {state: {message:'You must be an admin to view this page.'}})
       return;
     }

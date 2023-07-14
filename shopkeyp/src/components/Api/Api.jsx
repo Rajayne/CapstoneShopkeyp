@@ -23,8 +23,8 @@ class ShopkeypApi {
     return res.data;
   }
 
-  static async getTransaction(transactionId, authToken) {
-    const res = await axios.get(`${BASE_API_URL}/transactions/${transactionId}`, { headers: { Authorization: `Bearer ${authToken}` } });
+  static async getTransaction(transactionId, authToken, username) {
+    const res = await axios.get(`${BASE_API_URL}/transactions/${transactionId}`, { headers: { Authorization: `Bearer ${authToken}`} });
     return res.data;
   }
 
@@ -39,7 +39,7 @@ class ShopkeypApi {
   }
 
   static async getItem(itemId, authToken) {
-    const res = await axios.get(`${BASE_API_URL}/admin/items/${itemId}`, { headers: { Authorization: `Bearer ${authToken}` } });
+    const res = await axios.get(`${BASE_API_URL}/shop/item/${itemId}`, { headers: { Authorization: `Bearer ${authToken}` } });
     return res.data;
   }
 

@@ -2,10 +2,12 @@
   border-collapse: collapse;
   margin: auto;
   text-align: center;
-  width: 20vw;
+  max-width: 50%;
+  min-width: 20vw;
 }
 
 .TransactionDetails-body {
+  margin-bottom: 1rem;
   border-bottom: 1px solid slategray;
 }
 
@@ -22,4 +24,8 @@
 
 .TransactionDetails Button {
   margin: .5rem;
+}
+
+#action {
+  text-transform: capitalize;
 }

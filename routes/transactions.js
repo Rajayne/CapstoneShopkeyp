@@ -2,7 +2,6 @@
 const express = require('express');
 const {
   authenticateJWT,
-  ensureCorrectUserOrAdmin,
   requireLogin,
   requireAdmin,
 } = require('../middleware/auth');
@@ -30,7 +29,6 @@ router.get(
   '/:transactionId',
   authenticateJWT,
   requireLogin,
-  ensureCorrectUserOrAdmin,
   async (req, res, next) => {
     try {
       const transaction = await Transaction.get(req.params.transactionId);

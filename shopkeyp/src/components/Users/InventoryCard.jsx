@@ -9,7 +9,7 @@ const InventoryCard = ({itemObj}) => {
 
   useEffect(() => {
       async function getItem() {
-        const itemData = await ShopkeypApi.getInventoryItem(itemObj.itemId, authHeader);
+        const itemData = await ShopkeypApi.getItem(itemObj.itemId, authHeader);
         setItem(itemData);
       }
       getItem();

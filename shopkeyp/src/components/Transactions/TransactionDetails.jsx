@@ -32,7 +32,7 @@ const TransactionDetails = () => {
           <div className="title">Date</div>
           <div className="text">{date}</div>
           <div className="title">Type</div>
-          <div className="text">{transaction.action}</div>
+          <div className="text" id="action">{transaction.action}</div>
           <div className="title">Item</div>
           <div className="text">{transaction.itemId}</div>
           <div className="title">Quantity</div>

@@ -37,6 +37,7 @@ function requireAdmin(req, res, next) {
 }
 
 function ensureCorrectUserOrAdmin(req, res, next) {
+  console.log('PARAMS', req.params);
   try {
     const { user } = res.locals;
     if (!(user && (user.isAdmin || user.username === req.params.username))) {
