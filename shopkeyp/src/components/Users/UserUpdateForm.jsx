@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button } from '@mui/material';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useFields from '../Hooks/useFields';
 import ShopkeypApi from '../Api/Api';
-import './UserUpdate.css'
+import './UserUpdateForm.css'
 import UserContext from '../Hooks/UserContext';
+import BackButton from '../BackButton';
 
 const UserUpdateForm = () => {
   const navigate = useNavigate();
@@ -30,11 +31,6 @@ const UserUpdateForm = () => {
     password: "",
     retype: "",
   });
-
-  const handleClick = async (e) => {
-    e.preventDefault();
-    navigate('/profile')
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -92,8 +88,8 @@ const UserUpdateForm = () => {
                  <input name="retype" id="retype" onChange={handleChange} value={formData.retype} className="UserForm-input" type="password" placeholder="********"></input>
                </div>
                <div className="UserForm-button">
+                <BackButton />
                  <Button variant="contained" type="submit" disabled={!validate()}>Submit</Button>
-                 <Button variant="contained" type="button" onClick={handleClick}>Back</Button>
                </div>
             </form>
           </div>

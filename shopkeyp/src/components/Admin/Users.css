@@ -1,5 +1,6 @@
 .Users-table {
   border-collapse: collapse;
+  table-layout: fixed;
   width: 100%;
 }
 
@@ -15,6 +16,26 @@
   color: white;
   background-color: slategray;
   font-size: calc(8px + 2vmin);
+}
+
+.Users-id {
+  width: 5vw;
+}
+
+.Users-user {
+  width: 22vw;
+}
+
+.Users-balance {
+  width: 10vw;
+}
+
+.Users-created {
+  width: 15vw;
+}
+
+.UserItem {
+  font-size: calc(7px + 1.75vmin);
 }
 
 .UserItem-user {

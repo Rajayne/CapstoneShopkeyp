@@ -4,6 +4,7 @@ import ShopkeypApi from '../../Api/Api';
 import { Button, Typography } from '@mui/material';
 import './ItemDetails.css'
 import BackButton from '../../BackButton';
+import BuyButton from './BuyButton';
 
 const ItemDetails = () => {
   const navigate = useNavigate();
@@ -19,10 +20,6 @@ const ItemDetails = () => {
       getItem();
   }, [itemId, authHeader]);
 
-  const handleShop = () => {
-    navigate('/shop')
-  }
-
   return (
     <>
       <img className="ItemDetails-image" src={itemData.itemImage} alt={itemData.name}/>
@@ -31,8 +28,8 @@ const ItemDetails = () => {
       <Typography>{itemData.stock > 0 ? `Available Stock: ${itemData.stock}` : "Out of Stock" }</Typography>
       <Typography>{itemData.description}</Typography>
       <div className="ItemDetails-button">
-        <Button onClick={handleShop} id="ItemDetails-shop" variant="outlined">Shop</Button>
         <BackButton/>
+        <BuyButton id={itemData.itemId} name={itemData.name} value={itemData.price}/>
       </div>
     </>
   );

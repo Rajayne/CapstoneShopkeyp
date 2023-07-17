@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ShopkeypApi from '../Api/Api';
 import Moment from 'moment'
+import UserDetails from './UserDetails';
 
 const UserItem = ({userObj}) => {
   const authHeader = localStorage.getItem('token')
@@ -24,10 +25,9 @@ const UserItem = ({userObj}) => {
         <div className="UserItem-username">{user.username}</div>    
       </td>
       <td>{user.balance}</td>
-      <td>{user.inventory ? user.inventory.length : 0}</td>
-      <td>{user.transactions ? user.transactions.length : 0 }</td>
       <td>{user.active === true ? '✓' : '✗'}</td>
       <td>{date}</td>
+      <td><UserDetails id={user.userId}/></td>
     </>
   );
 };

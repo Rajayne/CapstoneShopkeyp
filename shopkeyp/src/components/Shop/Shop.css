@@ -1,5 +1,14 @@
-.Shop-container {
+.Shop {
   margin: auto;
+  width: 90vw;
+}
+
+.Shop-balance {
+  font-size: 2em;
+  margin: 1rem;
+}
+
+.Shop-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

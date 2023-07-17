@@ -1,14 +1,7 @@
 .Items-table {
   border-collapse: collapse;
+  table-layout: fixed;
   width: 100%;
-}
-
-.ItemsRow {
-  border-bottom: 1px solid slategray;
-}
-
-.ItemsRow td {
-  padding: .5rem;
 }
 
 .Items-title {
@@ -17,37 +10,75 @@
   font-size: calc(8px + 2vmin);
 }
 
+.Items-item {
+  width: 20vw;
+}
+
+.Items-description {
+  width: 20vw;
+}
+
+.Items-price {
+  width: 10vw;
+  text-align: right;
+}
+
+.Items-stock {
+  width: 5vw;
+  text-align: right;
+}
+
+.Items-date {
+  width: 20vw;
+  text-align: right;
+}
+
+.ItemsRow {
+  font-size: calc(7px + 1.75vmin);
+  border-bottom: 1px solid slategray;
+}
+
+.ItemsRow td {
+  padding: .25rem;
+}
+
 .ItemsRow-item {
   display: flex;
 }
 
 .ItemsRow-itemImg {
   height: 50px;
-  width: 50px;
+  max-width: 50px;
   object-fit: contain;
 }
 
 .ItemsRow-name {
   padding: 0 0 0 .5rem;
+  margin: auto;
+  margin-left: 0;
   text-align: left;
   color: black;
   text-decoration: none;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.ItemsRow-name:hover {
-  color: lightslategray;
+.ItemsRow-item:hover {
+  background-color: rgb(214, 220, 225);
 }
 
 .ItemsRow-description {
   text-align: left;
-  max-width: 40vw;
   text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ItemsRow-price, .ItemsRow-stock {
+  text-align: right;
 }
 
 .ItemsRow-date {
-  column-width: 15vw;
-}
-
-.ItemsRow-price {
   text-align: right;
 }

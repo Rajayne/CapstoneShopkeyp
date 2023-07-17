@@ -35,13 +35,12 @@ const Users = () => {
         <table className="Users-table">
           <tbody className="Users-body">
           <tr className="Users-title">
-            <td>ID</td>
-            <td>User</td>
-            <td>Balance</td>
-            <td>Inventory</td>
-            <td>Transactions</td>
-            <td>Active</td>
-            <td>Account Created</td>
+            <td className="Users-id">ID</td>
+            <td className="Users-user">User</td>
+            <td className="Users-balance">Balance</td>
+            <td className="Users-active">Active</td>
+            <td className="Users-created">Account Created</td>
+            <td></td>
           </tr>
           {userData.map((userObj) => (
             <tr className="UserItem" key={userObj.userId}>

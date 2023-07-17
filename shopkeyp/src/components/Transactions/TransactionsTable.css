@@ -1,6 +1,8 @@
 .Transactions-table {
   border-collapse: collapse;
+  table-layout: fixed;
   width: 100%;
+  text-align: left;
 }
 
 .Transactions-title {
@@ -9,17 +11,29 @@
   font-size: calc(8px + 2vmin);
 }
 
-.Transactions-title.TransactionRow #id, #date, #type, #total {
-  text-align: left;
+.Transactions-id {
+  width: 5vw;
 }
 
-.TransactionRow #type {
+.Transactions-date {
+  width: 22vw;
+}
+
+.Transactions-type {
+  width: 20vw;
+}
+
+.Transactions-total {
+  width: 20vw;
+}
+
+.TransactionRow-type {
   text-transform: capitalize;
 }
 
 .TransactionRow {
   border-bottom: 1px solid slategray;
-  width: 100%;
+  font-size: calc(7px + 1.75vmin);
 }
 
 .TransactionRow td {

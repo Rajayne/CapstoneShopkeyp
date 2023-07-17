@@ -35,11 +35,11 @@ const Items = () => {
         <table className="Items-table">
           <tbody>
           <tr className="Items-title">
-            <td>Item</td>
+            <td className="Items-item">Item</td>
             <td className="Items-description">Description</td>
-            <td>Price</td>
-            <td>Stock</td>
-            <td>Created</td>
+            <td className="Items-price">Price</td>
+            <td className="Items-stock">Stock</td>
+            <td className="Items-date">Created</td>
             <td>Edit</td>
           </tr>
           {itemData.map((itemObj) => (

@@ -34,11 +34,11 @@ const AdminTransactions = () => {
       <table className="Transactions-table">
         <tbody>
           <tr className="Transactions-title">
-            <td id="id">ID</td>
-            <td id="type">Type</td>
-            <td id="total">Total</td>
-            <td id="date">Date</td>
-            <td id="details"></td>
+            <td className="Transactions-id">ID</td>
+            <td className="Transactions-date">Date</td>
+            <td className="Transactions-type">Type</td>
+            <td className="Transactions-total">Total</td>
+            <td className="Transactions-details"></td>
           </tr >
           {transactionData.map(({transactionId}) => (
               <tr className="TransactionRow" key={transactionId}>

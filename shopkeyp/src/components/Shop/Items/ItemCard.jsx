@@ -1,34 +1,15 @@
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
-import React, { useContext } from "react";
+import React from "react";
 import './ItemCard.css'
 import { NavLink, useNavigate } from 'react-router-dom';
-import ShopkeypApi from '../../Api/Api';
-import UserContext from '../../Hooks/UserContext';
+import BuyButton from './BuyButton';
 
 const ItemCard = ({itemObj}) => {
-  const [user, setUser] = useContext(UserContext);
-  const authHeader = localStorage.getItem('token')
   const navigate = useNavigate();
   const handleDetails = (e) => {
     const itemId = e.target.id;
     navigate(`/shop/items/${itemId}`)
   }
-
-  const handlePurchase = async (e) => {
-    const data = {
-      toUser: user.username,
-      itemId: e.target.id,
-      quantity: 1,
-      total: e.target.value,
-    }
-      const res = await ShopkeypApi.buyItem(data, authHeader)
-      if (res.message) {
-        const error = JSON.stringify(res.message)
-        alert(JSON.parse(error))
-        return;
-      }
-      alert(`You have successfully purchased ${data.quantity} ${e.target.name}(s).`)
-  };
 
   const visible = () => {
     if (itemObj.stock === 0) {
@@ -55,7 +36,7 @@ const ItemCard = ({itemObj}) => {
       </CardActionArea>
       <CardActions>
         <Button onClick={handleDetails} variant="outlined" id={itemObj.itemId}>Item Details</Button>
-        <Button onClick={handlePurchase} variant="contained" id={itemObj.itemId} value={itemObj.price} name={itemObj.name}>Buy</Button>
+        <BuyButton id={itemObj.itemId} name={itemObj.name} value={itemObj.price}/>
       </CardActions>
     </Card>
   );

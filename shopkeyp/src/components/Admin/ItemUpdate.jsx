@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useFields from '../Hooks/useFields';
 import ShopkeypApi from '../Api/Api';
 import './ItemUpdate.css'
+import BackButton from '../BackButton';
 
 const ItemUpdateForm = () => {
   const {itemId} = useParams();
@@ -34,11 +35,6 @@ const ItemUpdateForm = () => {
     stock: "",
     purchasable: "",
   });
-
-  const handleClick = async (e) => {
-    e.preventDefault();
-    navigate('/admin/items')
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -105,13 +101,13 @@ const ItemUpdateForm = () => {
               <div className="ItemForm-purchasable">
                 <label htmlFor="purchasable" className="ItemForm-label">Purchasable</label>
               </div>
-              <select name="purchasable" id="purchasable" className="ItemForm-input">
+              <select name="purchasable" id="purchasable" onChange={handleChange} className="ItemForm-input" placeholder={itemData.purchasable} value={formData.purchasable}>
                 <option value="true">True</option>
                 <option value="false">False</option>
               </select>
               <div className="ItemForm-button">
+                <BackButton />
                 <Button variant="contained" type="submit" disabled={!validate()}>Submit</Button>
-                <Button variant="contained" type="button" onClick={handleClick}>Back</Button>
               </div>
             </form>
           </div>

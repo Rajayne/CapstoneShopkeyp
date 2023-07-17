@@ -11,7 +11,7 @@ import Register from '../Register/Register';
 import User from '../Users/User';
 import ItemDetails from '../Shop/Items/ItemDetails';
 import ItemUpdateForm from '../Admin/ItemUpdate';
-import UserUpdateForm from '../Users/UserUpdate';
+import UserUpdateForm from '../Users/UserUpdateForm';
 import TransactionDetails from '../Transactions/TransactionDetails';
 
 

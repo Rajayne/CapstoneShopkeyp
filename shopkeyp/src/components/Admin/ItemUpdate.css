@@ -36,6 +36,10 @@
   width: 80%;
 }
 
+.ItemForm-button Button{
+  margin: .5rem;
+}
+
 .ItemForm-button {
-  margin: 1rem 0 0 0;
+  margin: .5rem;
 }

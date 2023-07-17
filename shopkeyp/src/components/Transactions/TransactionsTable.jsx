@@ -3,16 +3,16 @@ import TransactionRow from './TransactionRow';
 import './TransactionsTable.css'
 
 const TransactionsTable = ({transactions}) => {
-  console.log("transactions arr", transactions)
+if (transactions.length) {
   return (
     <table className="Transactions-table">
       <tbody>
         <tr className="Transactions-title">
-          <td id="id">ID</td>
-          <td id="date">Date</td>
-          <td id="type">Type</td>
-          <td id="total">Total</td>
-          <td id="details"></td>
+          <td className="Transactions-id">ID</td>
+          <td className="Transactions-date">Date</td>
+          <td className="Transactions-type">Type</td>
+          <td className="Transactions-total">Total</td>
+          <td className="Transactions-details"></td>
         </tr >
         {transactions.map((transactionId) => (
           <tr className="TransactionRow" key={transactionId}>
@@ -22,6 +22,13 @@ const TransactionsTable = ({transactions}) => {
       </tbody>
     </table>
   );
+} else {
+  return (
+    <>
+      <div id="empty">No Transactions</div>
+    </>
+  )
+}
 };
 
 export default TransactionsTable;

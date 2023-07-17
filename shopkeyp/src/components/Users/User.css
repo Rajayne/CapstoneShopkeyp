@@ -39,6 +39,12 @@
   margin-right: auto;
 }
 
+#empty {
+  margin: auto;
+  padding: 1rem;
+  justify-content: center;
+}
+
 .User-title {
   margin-bottom: 0;
   padding: .25rem;

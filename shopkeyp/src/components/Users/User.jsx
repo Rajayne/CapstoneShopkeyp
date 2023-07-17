@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Inventory from './Inventory';
 import jwt_decode from "jwt-decode"
 import TransactionsTable from '../Transactions/TransactionsTable';
-import UpdateUserForm from './UserForm';
+import UserUpdateForm from './UserUpdateForm';
 import { Button } from '@mui/material';
 
 const User = () => {
@@ -16,7 +16,7 @@ const User = () => {
   const [isLoading, setIsLoading] = useState(true);
   const {tab} = useParams();
   const navigate = useNavigate();
-
+  console.log("INV", userData.inveotory)
   useEffect(() => {
     if (!user && authHeader) {
       setUser(jwt_decode(authHeader))
@@ -42,12 +42,12 @@ const User = () => {
 
   const currentTab = () => {
     switch(tab) {
-      case "edit": return <UpdateUserForm />;
+      case "edit": return <UserUpdateForm />;
       default: return (
         <div className="User-sections">
         <div className="User-title">{userData.username}'s Inventory</div>
         <div className="User-inventory">
-          {userData.inventory ? <Inventory inventory={userData.inventory}/> : "N/A"}
+          <Inventory inventory={userData.inventory}/>
         </div>
         <div className="User-title">Transaction History</div>
         <div className="User-transactions">

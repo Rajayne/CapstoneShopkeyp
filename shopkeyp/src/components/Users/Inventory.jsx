@@ -16,7 +16,7 @@ const Inventory = ({inventory}) => {
   } else {
     return (
       <>
-        <div>N/A</div>
+        <div id="empty">Inventory Empty</div>
       </>
     )
   }

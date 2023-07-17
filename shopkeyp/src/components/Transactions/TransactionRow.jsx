@@ -6,7 +6,6 @@ import DetailsButton from './DetailsButton';
 const TransactionRow = ({transactionId}) => {
   const authHeader = localStorage.getItem('token')
   const [transaction, setTransaction] = useState([]);
-  console.log(transaction)
 
   useEffect(() => {
       async function getTransaction() {
@@ -20,11 +19,11 @@ const TransactionRow = ({transactionId}) => {
 
   return (
     <>
-      <td id="id">{transaction.transactionId}</td>
-      <td id="date">{date}</td>
-      <td id="type">{transaction.action}</td>
-      <td id="total">{transaction.total ? `${transaction.total}gp` : "-"}</td>
-      <td id="details"><DetailsButton transactionId={transaction.transactionId}/></td>
+      <td className="TransactionRow-id">{transaction.transactionId}</td>
+      <td className="TransactionRow-date">{date}</td>
+      <td className="TransactionRow-type">{transaction.action}</td>
+      <td className="TransactionRow-total">{transaction.total ? `${transaction.total}gp` : "-"}</td>
+      <td className="TransactionRow-details"><DetailsButton transactionId={transaction.transactionId}/></td>
     </>
   );
 };

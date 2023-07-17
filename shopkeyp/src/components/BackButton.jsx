@@ -8,7 +8,7 @@ const BackButton = () => {
   }
   return(
     <>
-      <Button onClick={handleBack} id="ItemDetails-back" variant="contained">Back</Button>
+      <Button onClick={handleBack} id="ItemDetails-back" variant="outlined">Back</Button>
     </>
   )
 }
