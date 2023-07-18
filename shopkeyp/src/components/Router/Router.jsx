@@ -8,12 +8,12 @@ import Login from "../Login/Login";
 import Logout from '../Logout/Logout';
 import Error404 from "../Error404";
 import Register from '../Register/Register';
-import User from '../Users/User';
 import ItemDetails from '../Shop/Items/ItemDetails';
 import ItemUpdateForm from '../Admin/ItemUpdate';
 import UserUpdateForm from '../Users/UserUpdateForm';
 import TransactionDetails from '../Transactions/TransactionDetails';
 import UserProfile from '../Admin/UserProfile';
+import ItemNewForm from '../Admin/ItemNew';
 
 
 const Router = () => {
@@ -23,8 +23,9 @@ const Router = () => {
       <Route exact path="/admin" element={<Admin/>} />
       <Route exact path="/admin/:tab" element={<Admin/>} />
       <Route exact path="/admin/users/:username" element={<UserProfile/>} />
-      <Route exact path="/transactions/:transactionId" element={<TransactionDetails/>} />
+      <Route exact path="/admin/items/new" element={<ItemNewForm />} />
       <Route exact path="/admin/items/:itemId/edit" element={<ItemUpdateForm />} />
+      <Route exact path="/transactions/:transactionId" element={<TransactionDetails/>} />
       <Route exact path="/shop" element={<Shop/>} />
       <Route exact path="/shop/items/:itemId" element={<ItemDetails/>} />
       <Route exact path="/profile" element={<Profile/>} />
