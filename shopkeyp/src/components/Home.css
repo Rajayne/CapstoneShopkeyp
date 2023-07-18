@@ -1,0 +1,22 @@
+a {
+  color: #1976d2 ;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.Home-login {
+  display: flex;
+  justify-content: center;
+}
+
+.Home-login h4 {
+  font-size: larger;
+}
+
+.Home-admin, .Home-user {
+  margin: 0 2rem;
+  font-size: smaller;
+}

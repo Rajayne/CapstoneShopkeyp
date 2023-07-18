@@ -29,7 +29,7 @@ const ItemDetails = () => {
       <Typography>{itemData.description}</Typography>
       <div className="ItemDetails-button">
         <BackButton/>
-        <BuyButton id={itemData.itemId} name={itemData.name} value={itemData.price}/>
+        <BuyButton id={itemData.itemId} name={itemData.name} value={itemData.price} stock={itemData.stock}/>
       </div>
     </>
   );

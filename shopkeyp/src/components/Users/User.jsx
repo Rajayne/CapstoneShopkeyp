@@ -16,14 +16,12 @@ const User = () => {
   const [isLoading, setIsLoading] = useState(true);
   const {tab} = useParams();
   const navigate = useNavigate();
-  console.log("INV", userData.inveotory)
   useEffect(() => {
     if (!user && authHeader) {
       setUser(jwt_decode(authHeader))
       return;
     }
     if (!user) {
-      alert("Please register or login to view this page.")
       navigate('/login')
     }
     async function getUser() {

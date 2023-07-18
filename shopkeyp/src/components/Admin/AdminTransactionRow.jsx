@@ -20,7 +20,7 @@ const AdminTransactionRow = ({transactionId}) => {
 
   return (
     <>
-      <td className="TransactionRow-total">{transaction.transactionId}</td>
+      <td className="TransactionRow-id">{transaction.transactionId}</td>
       <td className="TransactionRow-date">{date}</td>
       <td className="TransactionRow-type">{transaction.action}</td>
       <td className="TransactionRow-total">{transaction.total ? `${transaction.total}gp` : "-"}</td>

@@ -36,7 +36,7 @@ const ItemCard = ({itemObj}) => {
       </CardActionArea>
       <CardActions>
         <Button onClick={handleDetails} variant="outlined" id={itemObj.itemId}>Item Details</Button>
-        <BuyButton id={itemObj.itemId} name={itemObj.name} value={itemObj.price}/>
+        <BuyButton id={itemObj.itemId} name={itemObj.name} value={itemObj.price} stock={itemObj.stock}/>
       </CardActions>
     </Card>
   );

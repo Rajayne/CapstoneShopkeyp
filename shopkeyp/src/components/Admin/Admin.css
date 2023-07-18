@@ -5,6 +5,14 @@
   font-size:1.5em;
 }
 
+.Admin-buttons {
+  margin-bottom: 2rem;
+}
+
+.Admin-buttons Button {
+  margin: 0 .5rem;
+}
+
 .Admin-content {
   margin-bottom: 5rem;
 }
@@ -20,9 +28,4 @@
 
 .Admin-link:hover {
   color: slategray;
-}
-
-.UpdateButton-link {
-  color: white;
-  text-decoration: none;
 }

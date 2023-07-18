@@ -23,11 +23,6 @@ class ShopkeypApi {
     return res.data;
   }
 
-  static async getTransaction(transactionId, authToken, username) {
-    const res = await axios.get(`${BASE_API_URL}/transactions/${transactionId}`, { headers: { Authorization: `Bearer ${authToken}`} });
-    return res.data;
-  }
-
   static async updateUser(data, authToken) {
     const res = await axios.patch(`${BASE_API_URL}/users/${data.username}/edit`, data, { headers: { Authorization: `Bearer ${authToken}` } });
     return res.data;
@@ -38,13 +33,18 @@ class ShopkeypApi {
     return res.data;
   }
 
-  static async getItem(itemId, authToken) {
-    const res = await axios.get(`${BASE_API_URL}/shop/item/${itemId}`, { headers: { Authorization: `Bearer ${authToken}` } });
+  static async allItems(authToken) {
+    const res = await axios.get(`${BASE_API_URL}/admin/items`, { headers: { Authorization: `Bearer ${authToken}` } });
     return res.data;
   }
 
-  static async allItems(authToken) {
-    const res = await axios.get(`${BASE_API_URL}/admin/items`, { headers: { Authorization: `Bearer ${authToken}` } });
+  static async updateItem(data, authToken) {
+    const res = await axios.patch(`${BASE_API_URL}/admin/items/${data.itemId}/edit`, data, { headers: { Authorization: `Bearer ${authToken}` } });
+    return res.data;
+  }
+
+  static async addItem(data, authToken) {
+    const res = await axios.post(`${BASE_API_URL}/admin/items/new`, data, { headers: { Authorization: `Bearer ${authToken}` } });
     return res.data;
   }
 
@@ -53,8 +53,18 @@ class ShopkeypApi {
     return res.data;
   }
 
+  static async getTransaction(transactionId, authToken, username) {
+    const res = await axios.get(`${BASE_API_URL}/transactions/${transactionId}`, { headers: { Authorization: `Bearer ${authToken}`} });
+    return res.data;
+  }
+
   static async getShop(authToken) {
     const res = await axios.get(`${BASE_API_URL}/shop`, { headers: { Authorization: `Bearer ${authToken}` } });
+    return res.data;
+  }
+
+  static async getItem(itemId, authToken) {
+    const res = await axios.get(`${BASE_API_URL}/shop/item/${itemId}`, { headers: { Authorization: `Bearer ${authToken}` } });
     return res.data;
   }
 

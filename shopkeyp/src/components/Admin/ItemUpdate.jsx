@@ -5,6 +5,7 @@ import useFields from '../Hooks/useFields';
 import ShopkeypApi from '../Api/Api';
 import './ItemUpdate.css'
 import BackButton from '../BackButton';
+import jwt_decode from "jwt-decode"
 
 const ItemUpdateForm = () => {
   const {itemId} = useParams();
@@ -12,6 +13,13 @@ const ItemUpdateForm = () => {
   const authHeader = localStorage.getItem('token')
   const [itemData, setItemData] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
+  
+  useEffect(() => {
+    const user = jwt_decode(authHeader)
+    if (!user.isAdmin) {
+      navigate('/404')
+    }
+  }, [authHeader, navigate])
 
   useEffect(() => {
     async function getItem(itemId) {
@@ -39,7 +47,15 @@ const ItemUpdateForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // await ShopkeypApi.updateItem({username: user.username, profileImage: formData.profileImage, password: formData.password}, authHeader);
+      await ShopkeypApi.updateItem({
+        itemId: JSON.parse(itemId),
+        itemImage: formData.itemImage, 
+        name: formData.name, 
+        description: formData.description,
+        price: JSON.parse(formData.price),
+        stock: JSON.parse(formData.stock),
+        purchasable: JSON.parse(formData.purchasable),
+      }, authHeader);
       alert("Item Updated Successfully!")
     } catch (err) {
       console.log(err)
@@ -101,7 +117,7 @@ const ItemUpdateForm = () => {
               <div className="ItemForm-purchasable">
                 <label htmlFor="purchasable" className="ItemForm-label">Purchasable</label>
               </div>
-              <select name="purchasable" id="purchasable" onChange={handleChange} className="ItemForm-input" placeholder={itemData.purchasable} value={formData.purchasable}>
+              <select name="purchasable" id="purchasable" onChange={handleChange} className="ItemForm-input" placeholder={itemData.purchasable.toString()} value={formData.purchasable}>
                 <option value="true">True</option>
                 <option value="false">False</option>
               </select>

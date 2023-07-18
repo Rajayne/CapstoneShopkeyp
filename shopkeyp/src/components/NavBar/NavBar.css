@@ -45,6 +45,7 @@
 
 .NavBar a.active:not(.AdminNav-menu) {
   color: white;
+  text-decoration: none;
 }
 
 .NavBar-link {
@@ -54,4 +55,9 @@
 
 .NavBar-link:hover {
   color: white;
+  text-decoration: none;
+}
+
+.AdminNav-menu:hover {
+  text-decoration: none;
 }

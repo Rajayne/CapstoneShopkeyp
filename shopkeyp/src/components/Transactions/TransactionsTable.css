@@ -13,6 +13,7 @@
 
 .Transactions-id {
   width: 5vw;
+  text-align: center;
 }
 
 .Transactions-date {
@@ -40,7 +41,6 @@
   padding: .5rem;
 }
 
-.DetailsButton-link {
-  color: white;
-  text-decoration: none;
+.TransactionRow-id {
+  text-align: center;
 }

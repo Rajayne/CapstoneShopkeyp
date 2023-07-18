@@ -1,10 +1,14 @@
 import { Button } from '@mui/material'
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const UpdateButton = ({itemId}) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/admin/items/${itemId}/edit`)
+  }
   return (
-    <Button className="UpdateButton" variant="contained">
-      <NavLink className="UpdateButton-link" to={`/admin/items/${itemId}/edit`}>Edit</NavLink>
+    <Button style={{ fontSize: '.75em' }} className="UpdateButton" variant="contained" onClick={handleClick}>
+      Edit
     </Button>
   )
 }

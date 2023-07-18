@@ -9,7 +9,7 @@ const UserDetails = ({userId}) => {
   }
 
   return (
-    <Button onClick={handleClick} variant="contained">View Profile</Button>
+    <Button onClick={handleClick} style={{ fontSize: '.75em' }} variant="contained">View Profile</Button>
   )
 }
 

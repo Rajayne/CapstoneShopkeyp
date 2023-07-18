@@ -15,21 +15,21 @@
 }
 
 .Items-description {
-  width: 20vw;
+  width: 25vw;
 }
 
 .Items-price {
-  width: 10vw;
+  width: 8vw;
   text-align: right;
 }
 
 .Items-stock {
-  width: 5vw;
-  text-align: right;
+  width: 8vw;
+  text-align: center;
 }
 
 .Items-date {
-  width: 20vw;
+  width: 15vw;
   text-align: right;
 }
 
@@ -75,10 +75,10 @@
   white-space: nowrap;
 }
 
-.ItemsRow-price, .ItemsRow-stock {
+.ItemsRow-price, .ItemsRow-date {
   text-align: right;
 }
 
-.ItemsRow-date {
-  text-align: right;
+.ItemsRow-stock {
+  text-align: center;
 }

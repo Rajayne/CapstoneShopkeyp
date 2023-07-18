@@ -19,7 +19,6 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      console.log(!user, user)
       navigate('/profile')
       return;
     }

@@ -4,10 +4,9 @@ import './ItemCard.css'
 import ShopkeypApi from '../../Api/Api';
 import UserContext from '../../Hooks/UserContext';
 
-const BuyButton = ({id, name, value}) => {
+const BuyButton = ({id, name, value, stock}) => {
   const [user, setUser] = useContext(UserContext);
   const authHeader = localStorage.getItem('token')
-  console.log("VAL", value)
   const handlePurchase = async (e) => {
     const data = {
       toUser: user.username,
@@ -25,7 +24,7 @@ const BuyButton = ({id, name, value}) => {
   };
 
   return (
-    <Button onClick={handlePurchase} variant="contained">Buy</Button>
+    <Button onClick={handlePurchase} variant="contained" disabled={stock === 0 && true}>Buy</Button>
   )
 }
 

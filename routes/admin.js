@@ -210,19 +210,19 @@ router.patch(
   async (req, res, next) => {
     const validator = jsonschema.validate(req.body, itemUpdateSchema);
     if (!validator.valid) {
+      console.log(validator);
       throw new ExpressError('Bad Request', 400);
     }
     try {
       const fields = {
-        itemUuid: req.body.itemUuid,
+        itemId: req.body.Id,
         name: req.body.name,
         description: req.body.description,
         itemImage: req.body.itemImage,
         price: req.body.price,
         stock: req.body.stock,
-        purchasable: req.body.stock,
+        purchasable: req.body.purchasable,
       };
-
       Object.keys(fields).forEach(
         (key) => fields[key] === undefined && delete fields[key]
       );

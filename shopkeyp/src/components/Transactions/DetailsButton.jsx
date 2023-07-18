@@ -1,10 +1,14 @@
 import { Button } from '@mui/material'
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const DetailsButton = ({transactionId}) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    return navigate(`/transactions/${transactionId}`)
+  }
   return (
-    <Button className="DetailsButton" variant="contained">
-      <NavLink className="DetailsButton-link" to={`/transactions/${transactionId}`}>More Details</NavLink>
+    <Button className="DetailsButton" style={{ fontSize: '.75em' }} onClick={handleClick} variant="contained">
+      More Details
     </Button>
   )
 }

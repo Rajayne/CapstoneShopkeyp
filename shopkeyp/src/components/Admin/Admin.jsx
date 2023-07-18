@@ -4,9 +4,9 @@ import './Admin.css'
 import Users from '../Admin/Users';
 import Items from './Items';
 import AdminTransactions from './AdminTransactions';
-import UserContext from '../Hooks/UserContext';
-import jwt_decode from "jwt-decode"
 import AdminDashboard from './AdminDashboard';
+import { Button } from '@mui/material';
+import UserContext from '../Hooks/UserContext';
 
 const Admin = () => {
   const [user, setUser] = useContext(UserContext)
@@ -14,16 +14,10 @@ const Admin = () => {
   const authHeader = localStorage.getItem('token')
 
   useEffect(() => {
-    if (!user && authHeader) {
-      setUser(jwt_decode(authHeader))
-      return;
+    if (!user || !authHeader) {
+      navigate('/login')
     }
-    if (!user || !user.isAdmin) {
-      console.log(!user, user)
-      navigate('/', {state: {message:'You must be an admin to view this page.'}})
-      return;
-    }
-  }, [user, navigate, authHeader, setUser])
+  }, [user, navigate, authHeader])
 
   const {tab} = useParams();
 
@@ -36,16 +30,31 @@ const Admin = () => {
     }
   }
 
+  const handleClick = () => {
+    if (tab) {
+      return navigate(`/admin/${tab}/new`)
+    }
+  };
+
+  const button = () => {
+    if (tab) {
+      return <Button variant="outlined" onClick={handleClick}>Add {tab}</Button>
+    }
+  };
+
   if (user && user.isAdmin) {
     return (
       <>
         <h1>Admin Dashboard</h1>
+        <div className="Admin-buttons">
+          {button()}
+        </div>
         <div className="Admin-tab">{tab}</div>
         <div className="Admin-content">
           {currentTab()}
         </div>
       </>
-    );
+      );
   }
 };
 

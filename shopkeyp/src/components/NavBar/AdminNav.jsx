@@ -40,7 +40,7 @@ const AdminNav = () => {
       <div>
         <NavLink
           to="/admin"
-          className="NavBar-link"
+          className="NavBar-link AdminNav"
           ref={anchorRef}
           aria-controls={open ? 'composition-menu' : undefined}
           aria-expanded={open ? 'true' : undefined}
