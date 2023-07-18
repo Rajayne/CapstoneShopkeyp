@@ -14,8 +14,13 @@ const Admin = () => {
   const authHeader = localStorage.getItem('token')
 
   useEffect(() => {
-    if (!user || !authHeader) {
+    if (!authHeader) {
       navigate('/login')
+    }
+    if (user) {
+      if (user.isAdmin === false) {
+        navigate('/404')
+      }
     }
   }, [user, navigate, authHeader])
 
@@ -31,14 +36,14 @@ const Admin = () => {
   }
 
   const handleClick = () => {
-    if (tab) {
+    if (tab === "items") {
       return navigate(`/admin/${tab}/new`)
     }
   };
 
   const button = () => {
-    if (tab) {
-      return <Button variant="outlined" onClick={handleClick}>Add {tab}</Button>
+    if (tab === "items") {
+      return <Button variant="outlined" onClick={handleClick}>Add Item</Button>
     }
   };
 

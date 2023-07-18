@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import useFields from '../Hooks/useFields';
 import ShopkeypApi from '../Api/Api';
 import './ItemUpdate.css'
 import BackButton from '../BackButton';
-import jwt_decode from "jwt-decode"
+import UserContext from '../Hooks/UserContext';
 
 const ItemUpdateForm = () => {
+  const [user, setUser] = useContext(UserContext)
   const {itemId} = useParams();
   const navigate = useNavigate();
   const authHeader = localStorage.getItem('token')
@@ -15,19 +16,25 @@ const ItemUpdateForm = () => {
   const [isLoading, setIsLoading] = useState(true)
   
   useEffect(() => {
-    const user = jwt_decode(authHeader)
-    if (!user.isAdmin) {
-      navigate('/404')
+    if (!authHeader) {
+      navigate('/login')
     }
-  }, [authHeader, navigate])
+    if (user) {
+      if (user.isAdmin === false) {
+        navigate('/404')
+      }
+    }
+  }, [authHeader, navigate, user])
 
   useEffect(() => {
     async function getItem(itemId) {
       const res = await ShopkeypApi.getItem(itemId, authHeader);
       setItemData(await res);
     }
-    getItem(itemId);
-  }, [authHeader, itemId]);
+    if (user) {
+      getItem(itemId);
+    }
+  }, [authHeader, itemId, user]);
 
   useEffect(() => {
     if (itemData) {

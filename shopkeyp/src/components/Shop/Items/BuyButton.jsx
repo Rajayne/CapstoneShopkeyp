@@ -3,8 +3,10 @@ import React, { useContext } from "react";
 import './ItemCard.css'
 import ShopkeypApi from '../../Api/Api';
 import UserContext from '../../Hooks/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 const BuyButton = ({id, name, value, stock}) => {
+  const navigate = useNavigate();
   const [user, setUser] = useContext(UserContext);
   const authHeader = localStorage.getItem('token')
   const handlePurchase = async (e) => {
@@ -21,6 +23,7 @@ const BuyButton = ({id, name, value, stock}) => {
       return;
     }
     alert(`You have successfully purchased ${data.quantity} ${name}(s).`)
+    navigate(0)
   };
 
   return (
