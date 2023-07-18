@@ -24,10 +24,10 @@ const UserItem = ({userObj}) => {
         <img className="UserItem-profileImg" src={user.profileImage} alt=""></img>
         <div className="UserItem-username">{user.username}</div>    
       </td>
-      <td>{user.balance}</td>
+      <td>{user.balance}gp</td>
       <td>{user.active === true ? '✓' : '✗'}</td>
       <td>{date}</td>
-      <td><UserDetails id={user.userId}/></td>
+      <td><UserDetails username={user.username}/></td>
     </>
   );
 };

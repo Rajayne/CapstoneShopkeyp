@@ -1,0 +1,55 @@
+.User-profilebar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-width: 80vw;
+}
+
+.User-image {
+  border-radius:50%;
+  max-height: 35vh;
+  object-fit: contain;
+}
+
+.User-name {
+  margin: 0;
+  padding: 1rem 1rem 0;
+}
+
+.User-sections {
+  margin: 1rem 0;
+}
+
+.User-title {
+  display: block;
+  font-size: calc(8px + 2vmin);
+  font-weight: normal;
+  color: white;
+  background-color: #455169;
+}
+
+.User-content {
+  margin-bottom: 4rem;
+}
+
+.User-inventory {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-right: auto;
+}
+
+#empty {
+  margin: auto;
+  padding: 1rem;
+  justify-content: center;
+}
+
+.User-title {
+  margin-bottom: 0;
+  padding: .25rem;
+}
+
+.UserProfile-buttons Button {
+  margin: .5rem;
+}

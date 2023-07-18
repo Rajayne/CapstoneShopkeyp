@@ -1,11 +1,11 @@
 import { Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
-const UserDetails = ({userId}) => {
+const UserDetails = ({username}) => {
   const navigate = useNavigate()
   
   const handleClick = () => {
-    navigate(`/admin/users/${userId}`)
+    navigate(`/admin/users/${username}`)
   }
 
   return (

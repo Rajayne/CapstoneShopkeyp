@@ -9,7 +9,8 @@
 }
 
 .UserItem td {
-  padding: .5rem;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
 }
 
 .Users-title {
@@ -30,6 +31,10 @@
   width: 10vw;
 }
 
+.Users-active {
+  width: 15vw;
+}
+
 .Users-created {
   width: 15vw;
 }
@@ -40,13 +45,17 @@
 
 .UserItem-user {
   display: flex;
-  width: 8rem;
 }
 
 .UserItem-profileImg {
   height: 50px;
+  max-width: 50px;
+  object-fit: contain;
 }
 
 .UserItem-username {
-  padding: 0 1rem;
+  padding-left: .5rem;
+  margin: auto;
+  margin-left: 0;
+  text-align: left;
 }
