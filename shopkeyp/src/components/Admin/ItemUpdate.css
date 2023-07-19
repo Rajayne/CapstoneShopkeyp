@@ -11,6 +11,7 @@
 .ItemForm-left {
   margin: auto;
   min-height: 50vh;
+  min-width: 40%;
 }
 
 .ItemForm-right {
@@ -20,7 +21,8 @@
 }
 
 .ItemForm-preview {
-  height: 50vh;
+  height: 400px;
+  width: 400px;
   object-fit: contain;
 }
 

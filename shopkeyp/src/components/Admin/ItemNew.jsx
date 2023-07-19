@@ -6,13 +6,13 @@ import ShopkeypApi from '../Api/Api';
 import './ItemUpdate.css'
 import BackButton from '../BackButton';
 import UserContext from '../Hooks/UserContext';
+import Moment from 'moment'
 
 const ItemNewForm = () => {
   const [user, setUser] = useContext(UserContext)
-  const {itemId} = useParams();
   const navigate = useNavigate();
   const authHeader = localStorage.getItem('token')
-  
+
   useEffect(() => {
     if (!authHeader) {
       navigate('/login')
@@ -36,14 +36,14 @@ const ItemNewForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await ShopkeypApi.updateItem({
-        itemId: JSON.parse(itemId),
+      await ShopkeypApi.addItem({
         itemImage: formData.itemImage, 
         name: formData.name, 
         description: formData.description,
         price: JSON.parse(formData.price),
         stock: JSON.parse(formData.stock),
         purchasable: JSON.parse(formData.purchasable),
+        dateCreated: Moment().format("YYYY-MM-DD HH:MM:SS")
       }, authHeader);
       alert("Item Updated Successfully!")
     } catch (err) {

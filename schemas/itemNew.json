@@ -34,6 +34,10 @@
     },
     "createdBy": {
       "type": "integer"
+    },
+    "dateCreated": {
+      "type":"string",
+      "format":"date-time"
     }
   },
   "additionalProperties": false,

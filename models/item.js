@@ -99,7 +99,6 @@ class Item {
   }
 
   static async add({
-    itemUuid,
     name,
     description,
     itemImage,
@@ -114,8 +113,7 @@ class Item {
     }
     const results = await db.query(
       `INSERT INTO items
-         (item_uuid,
-         name, 
+         (name, 
          description, 
          item_image, 
          price, 
@@ -123,7 +121,7 @@ class Item {
          purchasable, 
          created_by, 
          date_created)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         RETURNING 
          item_uuid AS "itemUuid",
          item_id AS "itemId",
@@ -136,7 +134,6 @@ class Item {
          created_by AS "createdBy", 
          date_created AS "dateCreated"`,
       [
-        itemUuid || 0,
         name,
         description,
         itemImage,

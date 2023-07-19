@@ -191,7 +191,7 @@ router.post(
       const adminId = await User.checkUsernameIdSwitch(user.username);
       req.body.createdBy = adminId;
       const validator = jsonschema.validate(req.body, itemNewSchema);
-      if (!validator.valid) {
+      if (!validator) {
         throw new ExpressError('Bad Request', 400);
       }
       const item = await Item.add(req.body);
@@ -210,7 +210,6 @@ router.patch(
   async (req, res, next) => {
     const validator = jsonschema.validate(req.body, itemUpdateSchema);
     if (!validator.valid) {
-      console.log(validator);
       throw new ExpressError('Bad Request', 400);
     }
     try {
