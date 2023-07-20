@@ -17,7 +17,6 @@ const UserUpdateForm = () => {
   useEffect(() => {
     async function getUser(username) {
       const user = await ShopkeypApi.getUser(username, authHeader)
-      console.log(user)
       setUserData(user) 
     }
     if (user) {
@@ -43,7 +42,6 @@ const UserUpdateForm = () => {
       alert("Profile Updated Successfully!")
     } catch (err) {
       alert("Invalid Password.")
-      console.log(err)
       return;
     }
     resetFormData();

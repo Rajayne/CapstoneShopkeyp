@@ -16,6 +16,7 @@ const UserProfile = () => {
   const [userData, setUserData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+
   useEffect(() => {
     if (!user && authHeader) {
       setUser(jwt_decode(authHeader))
@@ -40,8 +41,26 @@ const UserProfile = () => {
     return <p>Loading</p>;
   }
 
-  const handleClick = () => {
-    console.log("Make admin")
+  async function handleClick() {
+    if (userData.isAdmin === true) {
+      console.log("IS ADMIN, call REMOVE")
+      const res = await ShopkeypApi.removeAdmin(userData.username, authHeader);
+      console.log(res)
+      navigate(0);
+      return;
+    }
+    console.log("IS USER, call MAKE")
+    const res = await ShopkeypApi.makeAdmin(userData.username, authHeader)
+    console.log(res)
+    navigate(0);
+  }
+
+  // Prevent 1st account's admin status from being removed
+  const disable = () => {
+    if (userData.userId > 1) {
+      return false;
+    }
+    return true;
   }
 
   return (
@@ -54,7 +73,7 @@ const UserProfile = () => {
           <p>Balance: {userData.balance}gp</p>
           <div className="UserProfile-buttons">
             <BackButton/>
-            <Button variant="contained" onClick={handleClick}>Add/Remove Admin</Button>
+            <Button variant="contained" onClick={handleClick} disabled={disable()}>Toggle Admin</Button>
           </div>
         </div>
       </div>

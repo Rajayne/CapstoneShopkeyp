@@ -44,26 +44,24 @@ Diagram created with [Quick Database Diagrams](https://app.quickdatabasediagrams
 
 ```mermaid
 graph TD
-A[Home Page] --> C(Login)
-C -- Auth Pass --> D(isAdmin?)
-C -- Auth Fail --> E{403 Error}
-E -- Retry Login --> D
-D -- Yes --> F[Admin Page]
-D -- No--> G[User Page]
-F --> H(View Transactions) --> I(Transaction Details)
-F --> J(View Items) --> K(Edit/Add Item)
-F --> L(View Users) --> M[User Page]
-M --> N(Edit User Inventory)
-N --> O(Add/Remove Item)
-M --> P(Edit User Profile) 
-P --> Q(Add/Remove Admin)
-P --> R(Edit Balance)
-P --> S
-G --> U(Edit Profile)
-U --> S(Deactivate Account)
-G --> V(User Transactions) --> W(Transaction Details)
-G --> X(View Inventory) --> Y(Item Details)
-G --> Z[View Shop] --> Y
+A[Home Page] --> B(Login/Register)
+B -- Auth Pass --> D(isAdmin?)
+B -. Auth Fail .-> C{{403 Error}}
+C -. Retry Login .-> D
+D -- Yes --> E[[Admin Dashboard]]
+D -- Both --> F{View Shop}
+D -- No --> G[[User Profile]]
+E --> H(All Transactions) --> I(Transaction Details)
+E --> J(All Users) --> K[User Profile]
+K --> O(Toggle Admin)
+K --> P(Edit Balance)
+E --> L(All Items) --> M(Add/Edit Item)
+L --> N(Item Details) --> V(Buy Item)
+F --> N
+G --> Q(Edit Profile)
+Q --> R(Deactivate Account)
+G --> S(User Inventory) --> N
+G --> T(User Transactions) --> U(Transaction Details)
 ```
 
 # Getting Started with Create React App

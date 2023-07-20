@@ -33,6 +33,18 @@ class ShopkeypApi {
     return res.data;
   }
 
+  static async makeAdmin(username, authToken) {
+    const config = { headers: { Authorization: `Bearer ${authToken}` } }
+    const res = await axios.patch(`${BASE_API_URL}/admin/users/${username}/makeAdmin`, username, config);
+    return res.data;
+  }
+
+  static async removeAdmin(username, authToken) {
+    const config = { headers: { Authorization: `Bearer ${authToken}` } }
+    const res = await axios.patch(`${BASE_API_URL}/admin/users/${username}/removeAdmin`, username, config);
+    return res.data;
+  }
+
   static async allItems(authToken) {
     const res = await axios.get(`${BASE_API_URL}/admin/items`, { headers: { Authorization: `Bearer ${authToken}` } });
     return res.data;
@@ -53,7 +65,7 @@ class ShopkeypApi {
     return res.data;
   }
 
-  static async getTransaction(transactionId, authToken, username) {
+  static async getTransaction(transactionId, authToken) {
     const res = await axios.get(`${BASE_API_URL}/transactions/${transactionId}`, { headers: { Authorization: `Bearer ${authToken}`} });
     return res.data;
   }

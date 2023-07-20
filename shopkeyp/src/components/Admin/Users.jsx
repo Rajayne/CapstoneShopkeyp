@@ -35,8 +35,8 @@ const Users = () => {
         <table className="Users-table">
           <tbody className="Users-body">
           <tr className="Users-title">
-            <td className="Users-id">ID</td>
-            <td className="Users-user">User</td>
+            <td className="Users-icon"></td>
+            <td className="Users-user">Username</td>
             <td className="Users-balance">Balance</td>
             <td className="Users-active">Active</td>
             <td className="Users-created">Account Created</td>

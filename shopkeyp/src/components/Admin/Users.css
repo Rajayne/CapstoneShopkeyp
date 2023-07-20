@@ -8,27 +8,26 @@
   border-bottom: 1px solid slategray;
 }
 
-.UserItem td {
-  padding-top: .25rem;
-  padding-bottom: .25rem;
-}
-
 .Users-title {
   color: white;
   background-color: slategray;
   font-size: calc(8px + 2vmin);
 }
 
-.Users-id {
-  width: 5vw;
+.Users-icon {
+  width: 10vw;
+  padding-right: .5rem;
 }
 
 .Users-user {
-  width: 22vw;
+  width: 20vw;
+  text-align: left;
+  vertical-align: middle;
 }
 
 .Users-balance {
-  width: 10vw;
+  width: 12vw;
+  text-align: center;
 }
 
 .Users-active {
@@ -43,19 +42,17 @@
   font-size: calc(7px + 1.75vmin);
 }
 
-.UserItem-user {
-  display: flex;
+.UserItem-icon {
+  text-align: center;
 }
 
 .UserItem-profileImg {
+  vertical-align: middle;
   height: 50px;
   max-width: 50px;
   object-fit: contain;
 }
 
 .UserItem-username {
-  padding-left: .5rem;
-  margin: auto;
-  margin-left: 0;
   text-align: left;
 }

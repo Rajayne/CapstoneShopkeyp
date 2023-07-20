@@ -19,11 +19,8 @@ const UserItem = ({userObj}) => {
   
   return (
     <>
-     <td>{user.userId}</td>
-     <td className="UserItem-user">
-        <img className="UserItem-profileImg" src={user.profileImage} alt=""></img>
-        <div className="UserItem-username">{user.username}</div>    
-      </td>
+      <td className="UserItem-icon"><img className="UserItem-profileImg" src={user.profileImage} alt=""></img></td>
+      <td className="UserItem-username">{user.username}</td>
       <td>{user.balance}gp</td>
       <td>{user.active === true ? '✓' : '✗'}</td>
       <td>{date}</td>
