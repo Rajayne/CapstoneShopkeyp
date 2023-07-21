@@ -23,6 +23,7 @@ const Router = () => {
       <Route exact path="/admin" element={<Admin/>} />
       <Route exact path="/admin/:tab" element={<Admin/>} />
       <Route exact path="/admin/users/:username" element={<UserProfile/>} />
+      <Route exact path="/admin/users/:username/:tab" element={<UserProfile/>} />
       <Route exact path="/admin/items/new" element={<ItemNewForm />} />
       <Route exact path="/admin/items/:itemId/edit" element={<ItemUpdateForm />} />
       <Route exact path="/transactions/:transactionId" element={<TransactionDetails/>} />

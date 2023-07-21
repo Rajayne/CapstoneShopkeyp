@@ -1,15 +1,12 @@
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
+import { Card, CardActionArea, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import React from "react";
 import './ItemCard.css'
 import { NavLink, useNavigate } from 'react-router-dom';
 import BuyButton from './BuyButton';
+import InfoButton from './InfoButton';
 
 const ItemCard = ({itemObj}) => {
   const navigate = useNavigate();
-  const handleDetails = (e) => {
-    const itemId = e.target.id;
-    navigate(`/shop/items/${itemId}`)
-  }
 
   const visible = () => {
     if (itemObj.stock === 0) {
@@ -34,8 +31,8 @@ const ItemCard = ({itemObj}) => {
         </Typography>
       </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button onClick={handleDetails} variant="outlined" id={itemObj.itemId}>Item Details</Button>
+      <CardActions className="ItemCard-buttons">
+        <InfoButton itemId={itemObj.itemId}/>
         <BuyButton id={itemObj.itemId} name={itemObj.name} value={itemObj.price} stock={itemObj.stock}/>
       </CardActions>
     </Card>

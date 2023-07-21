@@ -53,3 +53,9 @@
 .UserProfile-buttons Button {
   margin: .5rem;
 }
+
+.BalanceButton Button {
+  min-height: 0;
+  min-width: 0;
+  padding: .5rem;
+}

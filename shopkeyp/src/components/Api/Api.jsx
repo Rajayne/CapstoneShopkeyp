@@ -33,6 +33,12 @@ class ShopkeypApi {
     return res.data;
   }
 
+  static async updateBalance(data, authToken) {
+    const config = { headers: { Authorization: `Bearer ${authToken}` } }
+    const res = await axios.patch(`${BASE_API_URL}/admin/users/${data.username}/updateBalance`, data, config);
+    return res.data;
+  }
+
   static async makeAdmin(username, authToken) {
     const config = { headers: { Authorization: `Bearer ${authToken}` } }
     const res = await axios.patch(`${BASE_API_URL}/admin/users/${username}/makeAdmin`, username, config);

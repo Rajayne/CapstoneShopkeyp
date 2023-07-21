@@ -1,6 +1,6 @@
 import React from "react";
 import Moment from 'moment'
-import UpdateButton from './UpdateButton';
+import EditItemButton from './EditItemButton';
 import { useNavigate } from 'react-router-dom';
 
 const ItemsRow = ({itemObj}) => {
@@ -20,7 +20,7 @@ const ItemsRow = ({itemObj}) => {
       <td className="ItemsRow-price">{itemObj.price}</td>
       <td className="ItemsRow-stock">{itemObj.stock}</td>
       <td className="ItemsRow-date">{date}</td>
-      <td><UpdateButton className="ItemsRow-button" itemId={itemObj.itemId}/></td>
+      <td><EditItemButton className="ItemsRow-button" itemId={itemObj.itemId}/></td>
     </>
   );
 };

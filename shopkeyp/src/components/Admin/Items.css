@@ -15,7 +15,7 @@
 }
 
 .Items-description {
-  width: 25vw;
+  width: 30vw;
 }
 
 .Items-price {
@@ -39,8 +39,7 @@
 }
 
 .ItemsRow td {
-  padding-top: .25rem;
-  padding-bottom: .25rem;
+  padding: .25rem;
 }
 
 .ItemsRow-item {

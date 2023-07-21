@@ -30,6 +30,10 @@
   margin: .5rem;
 }
 
+.Button-text {
+  margin-left: .25rem;
+}
+
 #action {
   text-transform: capitalize;
 }

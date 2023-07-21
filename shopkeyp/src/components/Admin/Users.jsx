@@ -39,8 +39,9 @@ const Users = () => {
             <td className="Users-user">Username</td>
             <td className="Users-balance">Balance</td>
             <td className="Users-active">Active</td>
-            <td className="Users-created">Account Created</td>
-            <td></td>
+            <td className="Users-created">Created</td>
+            <td className="Users-view">View</td>
+            <td className="Users-update">Edit</td>
           </tr>
           {userData.map((userObj) => (
             <tr className="UserItem" key={userObj.userId}>

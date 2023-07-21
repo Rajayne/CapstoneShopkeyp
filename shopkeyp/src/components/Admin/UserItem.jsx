@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ShopkeypApi from '../Api/Api';
 import Moment from 'moment'
 import UserDetails from './UserDetails';
+import EditUserButton from './EditUserButton';
 
 const UserItem = ({userObj}) => {
   const authHeader = localStorage.getItem('token')
@@ -21,10 +22,11 @@ const UserItem = ({userObj}) => {
     <>
       <td className="UserItem-icon"><img className="UserItem-profileImg" src={user.profileImage} alt=""></img></td>
       <td className="UserItem-username">{user.username}</td>
-      <td>{user.balance}gp</td>
+      <td className="UserItem-balance">{user.balance}gp</td>
       <td>{user.active === true ? '✓' : '✗'}</td>
       <td>{date}</td>
       <td><UserDetails username={user.username}/></td>
+      <td className="UserItem-updateBalance"><EditUserButton username={user.username}/></td>
     </>
   );
 };

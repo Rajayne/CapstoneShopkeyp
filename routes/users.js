@@ -91,7 +91,7 @@ router.patch(
   }
 );
 
-router.get(
+router.patch(
   '/:username/deactivate',
   requireLogin,
   ensureCorrectUserOrAdmin,
@@ -105,7 +105,7 @@ router.get(
   }
 );
 
-router.get(
+router.patch(
   '/:username/reactivate',
   requireLogin,
   ensureCorrectUserOrAdmin,

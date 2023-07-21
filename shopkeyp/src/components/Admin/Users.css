@@ -15,12 +15,12 @@
 }
 
 .Users-icon {
-  width: 10vw;
+  width: 5vw;
   padding-right: .5rem;
 }
 
 .Users-user {
-  width: 20vw;
+  width: 12vw;
   text-align: left;
   vertical-align: middle;
 }
@@ -31,12 +31,21 @@
 }
 
 .Users-active {
-  width: 15vw;
+  width: 10vw;
 }
 
 .Users-created {
-  width: 15vw;
+  width: 18vw;
 }
+
+.Users-view {
+  width: 10vw;
+}
+
+.Users-update {
+  width: 10vw;
+}
+
 
 .UserItem {
   font-size: calc(7px + 1.75vmin);
@@ -55,4 +64,8 @@
 
 .UserItem-username {
   text-align: left;
+}
+
+.Button-text {
+  margin-left: .25rem;
 }

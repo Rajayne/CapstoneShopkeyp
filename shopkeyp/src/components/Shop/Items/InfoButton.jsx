@@ -2,16 +2,16 @@ import { Button } from '@mui/material'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { useNavigate } from 'react-router-dom';
 
-const DetailsButton = ({transactionId}) => {
+const InfoButton = ({itemId}) => {
   const navigate = useNavigate();
   const handleClick = () => {
-    return navigate(`/transactions/${transactionId}`)
+    navigate(`/shop/items/${itemId}`)
   }
   return (
-    <Button className="DetailsButton" style={{ fontSize: '.75em' }} onClick={handleClick} variant="contained">
+    <Button className="DetailsButton" onClick={handleClick} variant="outlined">
       <InfoOutlinedIcon/><span className="Button-text">Details</span>
     </Button>
   )
 }
 
-export default DetailsButton;
+export default InfoButton;
