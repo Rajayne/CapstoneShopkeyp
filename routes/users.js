@@ -56,6 +56,7 @@ router.get(
 
 router.patch(
   '/:username/edit',
+  authenticateJWT,
   requireLogin,
   ensureCorrectUserOrAdmin,
   async (req, res, next) => {
@@ -93,6 +94,7 @@ router.patch(
 
 router.patch(
   '/:username/deactivate',
+  authenticateJWT,
   requireLogin,
   ensureCorrectUserOrAdmin,
   async (req, res, next) => {

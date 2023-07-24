@@ -16,6 +16,10 @@
   padding: 1rem 1rem 0;
 }
 
+.User-info {
+  font-size: calc(8px + 2vmin);
+}
+
 .User-sections {
   margin: 1rem 0;
 }

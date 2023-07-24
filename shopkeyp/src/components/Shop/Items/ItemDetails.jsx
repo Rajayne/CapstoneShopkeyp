@@ -7,7 +7,6 @@ import BackButton from '../../BackButton';
 import BuyButton from './BuyButton';
 
 const ItemDetails = () => {
-  const navigate = useNavigate();
   const {itemId} = useParams();
   const authHeader = localStorage.getItem('token')
   const [itemData, setItemData] = useState([]);

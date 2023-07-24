@@ -1,12 +1,11 @@
 import { Card, CardActionArea, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import React from "react";
 import './ItemCard.css'
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import BuyButton from './BuyButton';
 import InfoButton from './InfoButton';
 
 const ItemCard = ({itemObj}) => {
-  const navigate = useNavigate();
 
   const visible = () => {
     if (itemObj.stock === 0) {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_API_URL = 'http://localhost:5000';
+const BASE_API_URL = process.env.BASE || 'http://localhost:5000/';
 
 class ShopkeypApi {
   static async register(authToken) {
@@ -25,6 +25,16 @@ class ShopkeypApi {
 
   static async updateUser(data, authToken) {
     const res = await axios.patch(`${BASE_API_URL}/users/${data.username}/edit`, data, { headers: { Authorization: `Bearer ${authToken}` } });
+    return res.data;
+  }
+
+  static async deactivateUser(username, authToken) {
+    const res = await axios.patch(`${BASE_API_URL}/users/${username}/deactivate`, username, { headers: { Authorization: `Bearer ${authToken}` } });
+    return res.data;
+  }
+
+  static async reactivateUser(username, authToken) {
+    const res = await axios.patch(`${BASE_API_URL}/users/${username}/reactivate`, username, { headers: { Authorization: `Bearer ${authToken}` } });
     return res.data;
   }
 

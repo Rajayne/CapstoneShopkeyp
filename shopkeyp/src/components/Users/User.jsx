@@ -16,6 +16,7 @@ const User = () => {
   const [isLoading, setIsLoading] = useState(true);
   const {tab} = useParams();
   const navigate = useNavigate();
+
   useEffect(() => {
     if (!user && authHeader) {
       setUser(jwt_decode(authHeader))
@@ -59,6 +60,35 @@ const User = () => {
     navigate('/profile/edit')
   }
 
+  async function toggleActive() {
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm(`Press OK to ${userData.active === true ? "deactivate" : "re-activate"} ${userData.username}'s account or Cancel to abort.`) === true) {
+      alert(`Your account status has successfully changed to ${userData.active === true ? "inactive" : "active"}`)
+      if (userData.active === true) {
+        console.log("DEACTIVATE", userData.username)
+        try {
+          await ShopkeypApi.deactivateUser(userData.username, authHeader)
+        } catch (e) {
+          console.log(e)
+        }
+      } else {
+        console.log("REACTIVATE", userData.username)
+        await ShopkeypApi.reactivateUser(userData.username, authHeader)
+      }
+      navigate(0)
+    } else {
+      alert(`You have cancelled any changes to your account status.`);
+    }
+  }
+
+  const activeButton = () => {
+    if (userData.active === true) {
+      return <Button color="info" variant="text" onClick={toggleActive}>Active</Button>
+    } else {
+      return <Button color="error" variant="text" onClick={toggleActive}>Inactive</Button>
+    }  
+  }
+
   return (
     <>
       <div className="User-profilebar">
@@ -66,6 +96,7 @@ const User = () => {
         <div className="User-info">
           <h1 className="User-name">{userData.username}'s Profile Page</h1>
           <p>Balance: {userData.balance}gp</p>
+          <p>Acount Status: {activeButton()}</p>
           <Button variant="outlined" onClick={handleClick}>Edit Profile</Button>
         </div>
       </div>

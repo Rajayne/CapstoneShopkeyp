@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './ItemCard.css'
 import ShopkeypApi from '../../Api/Api';
 import UserContext from '../../Hooks/UserContext';
@@ -8,7 +8,19 @@ import { useNavigate } from 'react-router-dom';
 const BuyButton = ({id, name, value, stock}) => {
   const navigate = useNavigate();
   const [user, setUser] = useContext(UserContext);
+  const [disable, setDisable] = useState(false);
   const authHeader = localStorage.getItem('token')
+
+  useEffect(() => {
+  async function isVisible() {
+    const userData = await ShopkeypApi.getUser(user.username, authHeader)
+    if (userData.active === false || stock === 0) {
+      setDisable(true)
+    }
+  }
+    isVisible();
+  }, [authHeader, stock, user.username])
+  
   const handlePurchase = async (e) => {
     const data = {
       toUser: user.username,
@@ -27,7 +39,7 @@ const BuyButton = ({id, name, value, stock}) => {
   };
 
   return (
-    <Button onClick={handlePurchase} variant="contained" disabled={stock === 0 && true}>Buy</Button>
+    <Button onClick={handlePurchase} variant="contained" disabled={disable}>Buy</Button>
   )
 }
 

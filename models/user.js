@@ -41,7 +41,6 @@ class User {
       [username]
     );
     const user = result.rows[0];
-
     if (user) {
       const isValid = await bcrypt.compare(password, user.password);
       if (isValid === true) {

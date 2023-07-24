@@ -6,6 +6,7 @@
   "typings": "",
   "scripts": {
     "start": "node server.js",
+    "build": "cd src npm start",
     "dev": "nodemon server.js",
     "test": "jest -i"
   },
@@ -30,6 +31,7 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-react-hooks": "^4.6.0"
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "node-env-run": "^4.0.2"
   }
 }
