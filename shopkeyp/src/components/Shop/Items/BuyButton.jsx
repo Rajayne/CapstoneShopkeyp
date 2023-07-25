@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const BuyButton = ({id, name, value, stock}) => {
   const navigate = useNavigate();
-  const [user, setUser] = useContext(UserContext);
+  const [user] = useContext(UserContext);
   const [disable, setDisable] = useState(false);
   const authHeader = localStorage.getItem('token')
 

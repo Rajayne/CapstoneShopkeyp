@@ -9,7 +9,7 @@ import { Button } from '@mui/material';
 import UserContext from '../Hooks/UserContext';
 
 const Admin = () => {
-  const [user, setUser] = useContext(UserContext)
+  const [user] = useContext(UserContext)
   const navigate = useNavigate();
   const authHeader = localStorage.getItem('token')
 

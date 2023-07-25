@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import ShopkeypApi from '../../Api/Api';
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import './ItemDetails.css'
 import BackButton from '../../BackButton';
 import BuyButton from './BuyButton';

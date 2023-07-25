@@ -8,7 +8,7 @@ import BackButton from '../BackButton';
 import UserContext from '../Hooks/UserContext';
 
 const ItemUpdateForm = () => {
-  const [user, setUser] = useContext(UserContext)
+  const [user] = useContext(UserContext)
   const {itemId} = useParams();
   const navigate = useNavigate();
   const authHeader = localStorage.getItem('token')

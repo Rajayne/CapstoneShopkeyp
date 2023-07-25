@@ -12,11 +12,13 @@ const Logout = () => {
       localStorage.removeItem("token")
       setUser(null)
     }
-    logout();
+    if (user) {
+      logout();
+    }
     setTimeout(() => {
       navigate('/')
     }, 250);
-  }, [setUser, navigate]);
+  }, [setUser, navigate, user]);
 
   return (
     <>

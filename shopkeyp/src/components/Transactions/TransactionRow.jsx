@@ -15,7 +15,7 @@ const TransactionRow = ({transactionId}) => {
       getTransaction();
   }, [authHeader, transactionId]);
 
-  const date = Moment(transaction.dateCreated).format('MM-DD-YYYY')
+  const date = Moment(transaction.transactionDate).format('MM-DD-YYYY')
 
   return (
     <>

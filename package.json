@@ -6,7 +6,6 @@
   "typings": "",
   "scripts": {
     "start": "node server.js",
-    "build": "cd src npm start",
     "dev": "nodemon server.js",
     "test": "jest -i"
   },

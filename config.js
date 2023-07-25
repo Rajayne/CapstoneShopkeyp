@@ -12,8 +12,7 @@ function getDatabaseUri() {
   }
   return process.env.NODE_ENV === 'test'
     ? `postgresql://${process.env.USER}:${process.env.PASS}@localhost:5432/shopkeyp_test`
-    : `${process.env.DATABASE}` ||
-        `postgresql://${process.env.USER}:${process.env.PASS}@localhost:5432/shopkeyp`;
+    : `postgresql://${process.env.USER}:${process.env.PASS}@localhost:5432/shopkeyp`;
 }
 
 // Speed up bcrypt during tests with lower salt

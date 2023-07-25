@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Button } from '@mui/material';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useFields from '../Hooks/useFields';
 import ShopkeypApi from '../Api/Api';
 import './ItemUpdate.css'
@@ -9,7 +9,7 @@ import UserContext from '../Hooks/UserContext';
 import Moment from 'moment'
 
 const ItemNewForm = () => {
-  const [user, setUser] = useContext(UserContext)
+  const [user] = useContext(UserContext)
   const navigate = useNavigate();
   const authHeader = localStorage.getItem('token')
 

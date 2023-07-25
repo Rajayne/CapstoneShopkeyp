@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from "react";
-import { NavLink } from 'react-router-dom';
+import React, { useContext } from "react";
 import { AppBar, Toolbar } from '@mui/material'
 import './NavBar.css'
 import UserContext from '../Hooks/UserContext';
@@ -9,7 +8,7 @@ import AnonNav from './AnonNav';
 import HomeNav from './HomeNav';
 
 const NavBar = () => {
-  const [user, setUser] = useContext(UserContext)
+  const [user] = useContext(UserContext)
 
   return (
     <AppBar position="sticky" style={{ background: '#2E3B55'}}>

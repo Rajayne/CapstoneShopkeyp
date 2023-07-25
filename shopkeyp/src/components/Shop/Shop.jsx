@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import ItemCard from './Items/ItemCard';
 
 const Shop = () => {
-  const [user, setUser] = useContext(UserContext);
+  const [user] = useContext(UserContext);
   const authHeader = localStorage.getItem('token')
   const [userBalance, setUserBalance] = useState(null)
   const [isLoading, setIsLoading] = useState(true);

@@ -8,7 +8,7 @@ import UserContext from '../Hooks/UserContext';
 const UserBalanceForm = () => {
   const navigate = useNavigate();
   const {username} = useParams();
-  const [user, setUser] = useContext(UserContext)
+  const [user] = useContext(UserContext)
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState(null);
   const authHeader = localStorage.getItem('token')

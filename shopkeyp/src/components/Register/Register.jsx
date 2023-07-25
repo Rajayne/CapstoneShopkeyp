@@ -8,7 +8,7 @@ import UserContext from '../Hooks/UserContext';
 
 const Register = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useContext(UserContext)
+  const [user] = useContext(UserContext)
 
   const [formData, handleChange, resetFormData] = useFields({
     username: "",

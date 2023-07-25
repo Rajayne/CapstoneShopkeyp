@@ -9,7 +9,7 @@ import BackButton from '../BackButton';
 
 const UserUpdateForm = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useContext(UserContext)
+  const [user] = useContext(UserContext)
   const authHeader = localStorage.getItem('token')
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true)

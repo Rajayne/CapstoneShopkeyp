@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import ShopkeypApi from '../Api/Api';
-import { Button, Card, CardActions } from '@mui/material';
 import Moment from 'moment';
 import './TransactionDetails.css'
 import BackButton from '../BackButton';
@@ -9,7 +8,6 @@ import BackButton from '../BackButton';
 const TransactionDetails = () => {
   const {transactionId} = useParams();
   const authHeader = localStorage.getItem('token')
-  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(true)
   const [transaction, setTransaction] = useState([]);

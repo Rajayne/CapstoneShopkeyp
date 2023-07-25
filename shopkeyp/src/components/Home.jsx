@@ -3,7 +3,7 @@ import UserContext from './Hooks/UserContext';
 import './Home.css'
 
 const Home = () => {
-  const [user, setUser] = useContext(UserContext)
+  const [user] = useContext(UserContext)
   
   return (
     <>

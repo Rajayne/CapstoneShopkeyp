@@ -6,7 +6,7 @@ import AdminContext from '../Hooks/AdminContext';
 import ShopkeypApi from '../Api/Api';
 
 const Items = () => {
-  const [user, setUser] = useContext(UserContext)
+  const [user] = useContext(UserContext)
   const [isLoading, setIsLoading] = useState(true);
 
   const authHeader = localStorage.getItem('token')
