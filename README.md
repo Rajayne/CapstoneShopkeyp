@@ -1,10 +1,6 @@
 # Shopkeyp
 https://shopkeyp-frontend.onrender.com
 
-Shopkeyp is an inventory management system that tracks user purchases.
-
-ShopKeyp presents as a browser website that allows users to create an account and access a static shop. Admins are able to add and edit shop items, view users, toggle admin/user account types, add/subtract from user balances, and view all transaction history. Users can purchase shop items, view their purchased inventory, and view their transaction history.
-
 ## Welcome Page
 ![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/8580c3cd-d95d-4ee4-a47c-596d2fd00ffe)
 ## Register / Login
