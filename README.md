@@ -5,8 +5,8 @@ https://shopkeyp-frontend.onrender.com
 ![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/99585613-5982-4599-8968-946a3e855beb)
 ![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/0ac1b9a9-3c6e-4044-bcd9-1cc9c2b48f89)
 ![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/097f1155-9f3f-4263-a65a-39b50d9ab57d)
-![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/c0779b56-66e2-4186-8b97-fff2b7f27db7)
 ![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/563f001f-8daf-45dd-8eb5-44a0622b790f)
+![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/c0779b56-66e2-4186-8b97-fff2b7f27db7)
 
 Shopkeyp is an inventory management system that tracks user purchases.
 
