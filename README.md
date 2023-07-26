@@ -1,6 +1,15 @@
 # Shopkeyp
 https://shopkeyp-frontend.onrender.com
 
+<div align="center">
+
+|  t/f  |         isLoggedIn         |                                       isAdmin                                             |
+| :---: | :------------------------: | :---------------------------------------------------------------------------------------: |
+| true  |           Logout           | View Users, Edit User Balance/Status/Account Type, View/Edit/Add Items, View Transactions |
+| false | View Home, Register, Login | View Shop, Purchase Shop Items, View User Inventory, View User Transactions               |
+
+</div>
+
 ## Home Page
 ![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/8580c3cd-d95d-4ee4-a47c-596d2fd00ffe)
 ## Register / Login
@@ -12,15 +21,6 @@ https://shopkeyp-frontend.onrender.com
 ![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/563f001f-8daf-45dd-8eb5-44a0622b790f)
 ## Admin Dashboard
 ![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/c0779b56-66e2-4186-8b97-fff2b7f27db7)
-
-<div align="center">
-
-|  t/f  |           isUser           |                                       isAdmin                                        |
-| :---: | :------------------------: | :----------------------------------------------------------------------------------: |
-| true  |           Logout           | View/Edit Users, Edit User Balance/Inventory, View/Edit/Add Items, View Transactions |
-| false | View Home, Register, Login | View Shop, Favorite/Purchase Shop Items, View User Inventory, View User Transactions |
-
-</div>
 
 ### Goal
 
