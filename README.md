@@ -1,7 +1,7 @@
 # Shopkeyp
 https://shopkeyp-frontend.onrender.com
 
-## Welcome Page
+## Home Page
 ![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/8580c3cd-d95d-4ee4-a47c-596d2fd00ffe)
 ## Register / Login
 ![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/99585613-5982-4599-8968-946a3e855beb)
