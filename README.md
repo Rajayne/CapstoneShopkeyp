@@ -1,14 +1,11 @@
 # Shopkeyp
 https://shopkeyp-frontend.onrender.com
 
-<div align="center">
-
 |  t/f  |         isLoggedIn         |                                       isAdmin                                             |
 | :---: | :------------------------: | :---------------------------------------------------------------------------------------: |
 | true  |           Logout           | View Users, Edit User Balance/Status/Account Type, View/Edit/Add Items, View Transactions |
 | false | View Home, Register, Login | View Shop, Purchase Shop Items, View User Inventory, View User Transactions               |
 
-</div>
 
 ## Home Page
 ![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/8580c3cd-d95d-4ee4-a47c-596d2fd00ffe)

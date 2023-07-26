@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_API_URL = process.env.BASE || 'http://localhost:5000';
+const BASE_API_URL = process.env.REACT_APP_BASE || 'http://localhost:5000';
 
 class ShopkeypApi {
   static async register(authToken) {

@@ -12,7 +12,7 @@ if (transactions.length) {
           <td className="Transactions-date">Date</td>
           <td className="Transactions-type">Type</td>
           <td className="Transactions-total">Total</td>
-          <td className="Transactions-details">More Details</td>
+          <td className="Transactions-details"></td>
         </tr >
         {transactions.map((transactionId) => (
           <tr className="TransactionRow" key={transactionId}>
