@@ -1,8 +1,16 @@
 # Shopkeyp
+https://shopkeyp-frontend.onrender.com
+
+![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/8580c3cd-d95d-4ee4-a47c-596d2fd00ffe)
+![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/99585613-5982-4599-8968-946a3e855beb)
+![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/0ac1b9a9-3c6e-4044-bcd9-1cc9c2b48f89)
+![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/097f1155-9f3f-4263-a65a-39b50d9ab57d)
+![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/c0779b56-66e2-4186-8b97-fff2b7f27db7)
+![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/563f001f-8daf-45dd-8eb5-44a0622b790f)
 
 Shopkeyp is an inventory management system that tracks user purchases.
 
-ShopKeyp presents as a browser website that allows users to create an account and access a static shop. Admins are able to add and edit shop items, view items and item history, view users, add/remove items from users, add/subtract from user balances, and view all transaction history. Users can purchase/favorite shop items, view their favorite items, view their purchased inventory, and view their transaction history.
+ShopKeyp presents as a browser website that allows users to create an account and access a static shop. Admins are able to add and edit shop items, view users, toggle admin/user account types, add/subtract from user balances, and view all transaction history. Users can purchase shop items, view their purchased inventory, and view their transaction history.
 
 <div align="center">
 
@@ -23,7 +31,7 @@ This application is designed for roleplay gaming commerce with an expected demog
 
 ## TechStack
 
-This application is built with Node.js, React.js, React-Bootstrap/MaterialUI, PostgreSQL, Express.js, HTML, CSS, Bcrypt/Magic Link, Supertest, JSONSchema, JSONwebtoken, Formik, and Axios.
+This application is built with Node.js, React.js, MaterialUI, PostgreSQL, Express.js, HTML, CSS, Bcryptjs, Supertest, JSONSchema, JSONwebtoken, Formik, and Axios.
 
 > **Key Features:** Object-Oriented Programming, Database Management, HTML Inheritance, Password Encryption, API Validation, User Authentication, and Integration Testing.
 
