@@ -8,16 +8,17 @@ https://shopkeyp-frontend.onrender.com
 
 
 ## Home Page
-![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/8580c3cd-d95d-4ee4-a47c-596d2fd00ffe)
+![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/b57ff61c-47da-4078-a943-1a45feae7ee9)
 ## Register / Login
-![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/99585613-5982-4599-8968-946a3e855beb)
-![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/0ac1b9a9-3c6e-4044-bcd9-1cc9c2b48f89)
+![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/3e5135dd-6428-4488-a2b4-3f5c5158cb7d)
+![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/674b9602-a2fd-473d-84ac-a4750c120ed4)
 ## Profile Page
-![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/097f1155-9f3f-4263-a65a-39b50d9ab57d)
+![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/2addfe3f-f188-4e29-932a-7869fd4296f6)
 ## Shop Page
-![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/563f001f-8daf-45dd-8eb5-44a0622b790f)
+![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/e18ac9a7-7947-46e0-a227-b08b13391ef5)
 ## Admin Dashboard
-![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/c0779b56-66e2-4186-8b97-fff2b7f27db7)
+![image](https://github.com/Rajayne/CapstoneShopkeyp/assets/116666601/b8c0ef25-91b2-460c-9dcb-e4674beffe59)
+
 
 ### Goal
 
